@@ -1,6 +1,5 @@
 import express, { response } from "express";
 const buyerRouter = express.Router();
-import Buyer from "../models/Buyers.js";
 import buyerController from "../controllers/buyerController.js";
 
 buyerRouter.get("/", buyerController.getAllBuyers);

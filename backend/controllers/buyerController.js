@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Buyer from "../models/Buyers.js";
+import Buyer from "../models/Buyer.js";
 
 const getAllBuyers = async (request, response) => {
   try {
