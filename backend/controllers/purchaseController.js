@@ -46,6 +46,17 @@ const createPurchase = async (request, response) => {
     await newPurchase.save();
     return response.json("Purchase successfully created!");
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(`Validation errors in createPurchase: ${validationErrors}`);
+      return response.json(
+        `Validation errors in createPurchase: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in getting purchases: ${error}`);
   }
 };
@@ -78,6 +89,19 @@ const updatePurchaseById = async (request, response) => {
     );
     return response.json(updatedPurchaseById);
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(
+        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+      );
+      return response.json(
+        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in updating purchase: ${error}`);
   }
 };
@@ -88,6 +112,19 @@ const deletePurchaseById = async (request, response) => {
     const purchases = await Purchase.deleteOne({ _id: purchaseId });
     return response.json(purchases);
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(
+        `Validation errors in deletePurchaseById: ${validationErrors}`,
+      );
+      return response.json(
+        `Validation errors in deletePurchaseById: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in deleting purchases: ${error}`);
   }
 };

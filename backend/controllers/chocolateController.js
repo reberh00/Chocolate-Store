@@ -40,6 +40,17 @@ const createChocolate = async (request, response) => {
     await newChocolate.save();
     return response.json("Chocolate successfully created!");
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(`Validation errors in createChocolate: ${validationErrors}`);
+      return response.json(
+        `Validation errors in createChocolate: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in getting chocolates: ${error}`);
   }
 };
@@ -68,6 +79,19 @@ const updateChocolateById = async (request, response) => {
     );
     return response.json(updatedChocolateById);
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(
+        `Validation errors in updateChocolateById: ${validationErrors}`,
+      );
+      return response.json(
+        `Validation errors in updateChocolateById: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in updating chocolate: ${error}`);
   }
 };
@@ -86,6 +110,19 @@ const deleteChocolateById = async (request, response) => {
     const chocolates = await Chocolate.deleteOne({ _id: chocolateId });
     return response.json(chocolates);
   } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
+      );
+      return response.json(
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
+      );
+    }
+
     return response.json(`Error in deleting chocolates: ${error}`);
   }
 };
