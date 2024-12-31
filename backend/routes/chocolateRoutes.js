@@ -85,17 +85,6 @@ chocolateRouter.get("/:id", chocolateController.getChocolatesById);
  *                  type: array
  *                  items:
  *                    type: string
- *              example:
- *                name: Milk Chocolate
- *                firmName: Test Company
- *                description: Test description
- *                dateOfProduction: 2024-12-31
- *                price: 5
- *                netWeight: 50
- *                cacaoPercentage: 50
- *                isVegan: false
- *                isOrganic: false
- *                ingredients: ["Milk", "Chocolate"]
  *      responses:
  *        200:
  *          description: Return created Chocolate
@@ -103,10 +92,16 @@ chocolateRouter.get("/:id", chocolateController.getChocolatesById);
 chocolateRouter.post("/", chocolateController.createChocolate);
 /**
  * @swagger
- *  /chocolates:
+ *  /chocolates/{id}:
  *    put:
  *      summary: Update a Chocolate
  *      tags: [Chocolate]
+ *      parameters:
+ *        - name: id
+ *          description: The Chocolate id
+ *          in: path
+ *          required: true
+ *          type: string
  *      requestBody:
  *        required: true
  *        content:
@@ -136,17 +131,6 @@ chocolateRouter.post("/", chocolateController.createChocolate);
  *                  type: array
  *                  items:
  *                    type: string
- *              example:
- *                name: Milk Chocolate
- *                firmName: Test Company
- *                description: Test description
- *                dateOfProduction: 2024-12-31
- *                price: 5
- *                netWeight: 50
- *                cacaoPercentage: 50
- *                isVegan: false
- *                isOrganic: false
- *                ingredients: ["Milk", "Chocolate"]
  *      responses:
  *        200:
  *          description: Return updated Chocolate

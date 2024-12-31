@@ -73,13 +73,6 @@ buyerRouter.get("/:id", buyerController.getBuyersById);
  *                  type: array
  *                  items:
  *                    type: string
- *              example:
- *                firmName: Test company
- *                firmAddress: ABC street, Mexico
- *                description: Test description
- *                dateEstablished: 2024-12-31
- *                netWorth: 0
- *                countriesOfInterest: ["Mexico"]
  *      responses:
  *        200:
  *          description: Return created Buyer
@@ -119,13 +112,6 @@ buyerRouter.post("/", buyerController.createBuyer);
  *                  type: array
  *                  items:
  *                    type: string
- *              example:
- *                firmName: Test company
- *                firmAddress: ABC street, Mexico
- *                description: Test description
- *                dateEstablished: 2024-12-31
- *                netWorth: 0
- *                countriesOfInterest: ["Mexico"]
  *      responses:
  *        200:
  *          description: Return updated Buyer
