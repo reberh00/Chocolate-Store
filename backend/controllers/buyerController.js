@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Buyer from "../models/Buyer.js";
+import Purchase from "../models/Purchase.js";
 
 const getAllBuyers = async (request, response) => {
   try {
@@ -67,6 +68,14 @@ const updateBuyerById = async (request, response) => {
 const deleteBuyerById = async (request, response) => {
   const buyerId = request.params.id;
   try {
+    const connectedPurchases = await Purchase.find({
+      buyerId,
+    });
+    if (connectedPurchases.length != 0)
+      throw new Error(
+        "Buyer object id exists in table Purchases so it cannot be deleted",
+      );
+
     const buyers = await Buyer.deleteOne({ _id: buyerId });
     return response.json(buyers);
   } catch (error) {

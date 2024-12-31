@@ -75,6 +75,14 @@ const updateChocolateById = async (request, response) => {
 const deleteChocolateById = async (request, response) => {
   const chocolateId = request.params.id;
   try {
+    const connectedPurchases = await Purchase.find({
+      buyerId,
+    });
+    if (connectedPurchases.length != 0)
+      throw new Error(
+        "Chocolate object id exists in table Purchases so it cannot be deleted",
+      );
+
     const chocolates = await Chocolate.deleteOne({ _id: chocolateId });
     return response.json(chocolates);
   } catch (error) {
