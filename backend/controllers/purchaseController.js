@@ -41,6 +41,7 @@ const createPurchase = async (request, response) => {
       buyerId: buyerId,
       chocolateId: chocolateId,
       date: request.body.date,
+      amount: request.body.amount,
     });
 
     await newPurchase.save();
@@ -84,6 +85,7 @@ const updatePurchaseById = async (request, response) => {
         buyerId: request.body.buyerId,
         chocolateId: request.body.chocolateId,
         date: request.body.date,
+        amount: request.body.amount,
       },
       { new: true },
     );

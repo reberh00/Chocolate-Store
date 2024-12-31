@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Chocolate from "../models/Chocolate.js";
+import Purchase from "../models/Purchase.js";
 
 const getAllChocolates = async (request, response) => {
   try {
@@ -100,7 +101,7 @@ const deleteChocolateById = async (request, response) => {
   const chocolateId = request.params.id;
   try {
     const connectedPurchases = await Purchase.find({
-      buyerId,
+      chocolateId,
     });
     if (connectedPurchases.length != 0)
       throw new Error(
