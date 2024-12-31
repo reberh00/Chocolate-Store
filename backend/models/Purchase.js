@@ -16,6 +16,10 @@ const PurchaseSchema = new Schema({
     type: Date,
     required: true,
   },
+  amount: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Purchase = mongoose.model("Purchase", PurchaseSchema);
