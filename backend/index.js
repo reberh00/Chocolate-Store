@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import buyerRouter from "./routes/buyerRoutes.js";
 import chocolateRouter from "./routes/chocolateRoutes.js";
 import purchaseRouter from "./routes/purchaseRoutes.js";
+import logRequest from "./middlewares/logging.js";
 
 import cors from "cors";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -13,14 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/", logRequest);
+
 app.use("/buyers", buyerRouter);
 app.use("/chocolates", chocolateRouter);
 app.use("/purchases", purchaseRouter);
-
-app.get("/", (request, response) => {
-  console.log(request);
-  return response.status(234).send("Welcome to MERN stack tutorial");
-});
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -30,11 +28,6 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation for Chocolate Store website",
     },
-    // servers: [
-    //   {
-    //     url: "http://localhost:3000",
-    //   },
-    // ],
   },
   apis: ["./routes/*.js"],
 };
