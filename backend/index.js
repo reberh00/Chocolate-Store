@@ -9,6 +9,7 @@ import logRequest from "./middlewares/logging.js";
 import cors from "cors";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use("/", logRequest);
 app.use("/buyers", buyerRouter);
 app.use("/chocolates", chocolateRouter);
 app.use("/purchases", purchaseRouter);
+app.use("/users", userRouter);
 
 const swaggerOptions = {
   swaggerDefinition: {

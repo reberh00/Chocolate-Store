@@ -54,7 +54,7 @@ const createPurchase = async (request, response) => {
       }
       console.log(`Validation errors in createPurchase: ${validationErrors}`);
       return response.json(
-        `Validation errors in createPurchase: ${validationErrors}`,
+        `Validation errors in createPurchase: ${validationErrors}`
       );
     }
 
@@ -87,7 +87,7 @@ const updatePurchaseById = async (request, response) => {
         date: request.body.date,
         amount: request.body.amount,
       },
-      { new: true },
+      { new: true }
     );
     return response.json(updatedPurchaseById);
   } catch (error) {
@@ -97,10 +97,10 @@ const updatePurchaseById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+        `Validation errors in updatedPurchaseById: ${validationErrors}`
       );
       return response.json(
-        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+        `Validation errors in updatedPurchaseById: ${validationErrors}`
       );
     }
 
@@ -120,10 +120,10 @@ const deletePurchaseById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in deletePurchaseById: ${validationErrors}`,
+        `Validation errors in deletePurchaseById: ${validationErrors}`
       );
       return response.json(
-        `Validation errors in deletePurchaseById: ${validationErrors}`,
+        `Validation errors in deletePurchaseById: ${validationErrors}`
       );
     }
 
