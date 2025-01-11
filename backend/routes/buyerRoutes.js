@@ -1,6 +1,8 @@
 import express, { response } from "express";
 const buyerRouter = express.Router();
 import buyerController from "../controllers/buyerController.js";
+import validation from "../middlewares/validation.js";
+import Joi from "joi";
 
 /**
  * @swagger
@@ -37,7 +39,11 @@ buyerRouter.get("/", buyerController.getAllBuyers);
  *        200:
  *          description: Return single Buyer
  */
-buyerRouter.get("/:id", buyerController.getBuyersById);
+buyerRouter.get(
+  "/:buyerId",
+  validation.params({ buyerId: Joi.string().hex().length(24).required() }),
+  buyerController.getBuyersById,
+);
 
 /**
  * @swagger
@@ -77,7 +83,18 @@ buyerRouter.get("/:id", buyerController.getBuyersById);
  *        200:
  *          description: Return created Buyer
  */
-buyerRouter.post("/", buyerController.createBuyer);
+buyerRouter.post(
+  "/",
+  validation.body({
+    firmName: Joi.string().required(),
+    firmAddress: Joi.string().required(),
+    description: Joi.string().required(),
+    dateEstablished: Joi.date().required(),
+    netWorth: Joi.number().integer().positive().required(),
+    countriesOfInterest: Joi.array().items(Joi.string()),
+  }),
+  buyerController.createBuyer,
+);
 
 /**
  * @swagger
@@ -116,7 +133,21 @@ buyerRouter.post("/", buyerController.createBuyer);
  *        200:
  *          description: Return updated Buyer
  */
-buyerRouter.put("/:id", buyerController.updateBuyerById);
+buyerRouter.put(
+  "/:buyerId",
+  validation.params({
+    buyerId: Joi.string().hex().length(24).required(),
+  }),
+  validation.body({
+    firmName: Joi.string().required(),
+    firmAddress: Joi.string().required(),
+    description: Joi.string().required(),
+    dateEstablished: Joi.date().required(),
+    netWorth: Joi.number().integer().positive().required(),
+    countriesOfInterest: Joi.array().items(Joi.string()),
+  }),
+  buyerController.updateBuyerById,
+);
 
 /**
  * @swagger
@@ -134,6 +165,12 @@ buyerRouter.put("/:id", buyerController.updateBuyerById);
  *        200:
  *          description: The number of deleted Buyers
  */
-buyerRouter.delete("/:id", buyerController.deleteBuyerById);
+buyerRouter.delete(
+  "/:buyerId",
+  validation.params({
+    buyerId: Joi.string().hex().length(24).required(),
+  }),
+  buyerController.deleteBuyerById,
+);
 
 export default buyerRouter;

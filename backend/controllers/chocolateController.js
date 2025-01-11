@@ -12,11 +12,8 @@ const getAllChocolates = async (request, response) => {
 };
 
 const getChocolatesById = async (request, response) => {
-  const chocolateId = request.params.id;
+  const chocolateId = request.params.chocolateId;
   try {
-    if (!mongoose.isValidObjectId(chocolateId))
-      throw new Error("Invalid object id");
-
     const chocolate = await Chocolate.find({ _id: chocolateId });
     return response.json(chocolate);
   } catch (error) {
@@ -25,21 +22,14 @@ const getChocolatesById = async (request, response) => {
 };
 
 const createChocolate = async (request, response) => {
+  const newChocolateData = request.body;
+
   try {
     const newChocolate = new Chocolate({
-      name: request.body.name,
-      firmName: request.body.firmName,
-      description: request.body.description,
-      dateOfProduction: request.body.dateOfProduction,
-      price: request.body.price,
-      netWeight: request.body.netWeight,
-      cacaoPercentage: request.body.cacaoPercentage,
-      isVegan: request.body.isVegan,
-      isOrganic: request.body.isOrganic,
-      ingredients: request.body.ingredients,
+      ...newChocolateData,
     });
     await newChocolate.save();
-    return response.json("Chocolate successfully created!");
+    return response.json(newChocolate);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
@@ -57,24 +47,13 @@ const createChocolate = async (request, response) => {
 };
 
 const updateChocolateById = async (request, response) => {
-  const chocolateId = request.params.id;
+  const chocolateId = request.params.chocolateId;
+  const chocolateData = request.body;
   try {
-    if (!mongoose.isValidObjectId(chocolateId))
-      throw new Error("Invalid object id");
-
     const updatedChocolateById = await Chocolate.findOneAndUpdate(
       { _id: chocolateId },
       {
-        name: request.body.name,
-        firmName: request.body.firmName,
-        description: request.body.description,
-        dateOfProduction: request.body.dateOfProduction,
-        price: request.body.price,
-        netWeight: request.body.netWeight,
-        cacaoPercentage: request.body.cacaoPercentage,
-        isVegan: request.body.isVegan,
-        isOrganic: request.body.isOrganic,
-        ingredients: request.body.ingredients,
+        ...chocolateData,
       },
       { new: true },
     );
@@ -98,7 +77,7 @@ const updateChocolateById = async (request, response) => {
 };
 
 const deleteChocolateById = async (request, response) => {
-  const chocolateId = request.params.id;
+  const chocolateId = request.params.chocolateId;
   try {
     const connectedPurchases = await Purchase.find({
       chocolateId,
@@ -108,8 +87,8 @@ const deleteChocolateById = async (request, response) => {
         "Chocolate object id exists in table Purchases so it cannot be deleted",
       );
 
-    const chocolates = await Chocolate.deleteOne({ _id: chocolateId });
-    return response.json(chocolates);
+    const deleteCount = await Chocolate.deleteOne({ _id: chocolateId });
+    return response.json(deleteCount);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
