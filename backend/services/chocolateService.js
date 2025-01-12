@@ -1,4 +1,14 @@
-import Chocolate from "../models/Chocolate";
+import Chocolate from "../models/Chocolate.js";
+
+async function getAllChocolates() {
+  const chocolates = await Chocolate.find({});
+  return chocolates;
+}
+
+async function getChocolatesById(chocolateId) {
+  const chocolate = await Chocolate.find({ _id: chocolateId });
+  return chocolate;
+}
 
 async function createChocolate(
   name,
@@ -28,4 +38,47 @@ async function createChocolate(
   return newChocolate;
 }
 
-export default { createChocolate };
+async function updateChocolateById(
+  name,
+  firmName,
+  description,
+  dateOfProduction,
+  price,
+  netWeight,
+  cacaoPercentage,
+  isVegan,
+  isOrganic,
+  ingredients,
+  chocolateId
+) {
+  const updatedChocolateById = await Chocolate.findOneAndUpdate(
+    { _id: chocolateId },
+    {
+      name,
+      firmName,
+      description,
+      dateOfProduction,
+      price,
+      netWeight,
+      cacaoPercentage,
+      isVegan,
+      isOrganic,
+      ingredients,
+    },
+    { new: true }
+  );
+  return updatedChocolateById;
+}
+
+async function deleteChocolateById(chocolateId) {
+  const deleteCount = await Chocolate.deleteOne({ _id: chocolateId });
+  return deleteCount;
+}
+
+export default {
+  getAllChocolates,
+  getChocolatesById,
+  createChocolate,
+  updateChocolateById,
+  deleteChocolateById,
+};

@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import Buyer from "../models/Buyer.js";
-import Purchase from "../models/Purchase.js";
+import buyerService from "../services/buyerService.js";
+import purchaseService from "../services/purchaseService.js";
 
 const getAllBuyers = async (request, response) => {
   try {
-    const buyers = await Buyer.find({});
+    const buyers = await buyerService.getAllBuyers();
     return response.json(buyers);
   } catch (error) {
     return response.json(`Error in getting buyers: ${error}`);
@@ -14,7 +14,7 @@ const getAllBuyers = async (request, response) => {
 const getBuyersById = async (request, response) => {
   const buyerId = request.params.buyerId;
   try {
-    const buyer = await Buyer.find({ _id: buyerId });
+    const buyer = await buyerService.getBuyersById(buyerId);
     return response.json(buyer);
   } catch (error) {
     return response.json(`Error in getting buyer with id: ${error}`);
@@ -24,8 +24,7 @@ const getBuyersById = async (request, response) => {
 const createBuyer = async (request, response) => {
   const buyerData = request.body;
   try {
-    const newBuyer = new Buyer({ ...buyerData });
-    await newBuyer.save();
+    const newBuyer = await buyerService.createBuyer(...buyerData);
     return response.json(newBuyer);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
@@ -35,7 +34,7 @@ const createBuyer = async (request, response) => {
       }
       console.log(`Validation errors in createBuyer: ${validationErrors}`);
       return response.json(
-        `Validation errors in createBuyer: ${validationErrors}`,
+        `Validation errors in createBuyer: ${validationErrors}`
       );
     }
     return response.json(`Error in createBuyer`);
@@ -46,12 +45,9 @@ const updateBuyerById = async (request, response) => {
   const buyerId = request.params.buyerId;
   const buyerData = request.body;
   try {
-    const updatedBuyerById = await Buyer.findOneAndUpdate(
-      { _id: buyerId },
-      {
-        ...buyerData,
-      },
-      { new: true },
+    const updatedBuyerById = await buyerService.updateBuyerById(
+      ...buyerData,
+      buyerId
     );
     return response.json(updatedBuyerById);
   } catch (error) {
@@ -62,7 +58,7 @@ const updateBuyerById = async (request, response) => {
       }
       console.log(`Validation errors in updateBuyerById: ${validationErrors}`);
       return response.json(
-        `Validation errors in updateBuyerById: ${validationErrors}`,
+        `Validation errors in updateBuyerById: ${validationErrors}`
       );
     }
 
@@ -73,16 +69,15 @@ const updateBuyerById = async (request, response) => {
 const deleteBuyerById = async (request, response) => {
   const buyerId = request.params.buyerId;
   try {
-    const connectedPurchases = await Purchase.find({
-      buyerId,
-    });
+    const connectedPurchases =
+      await purchaseService.findPurchaseByBuyerId(buyerId);
     if (connectedPurchases.length != 0)
       throw new Error(
-        "Buyer object id exists in table Purchases so it cannot be deleted",
+        "Buyer object id exists in table Purchases so it cannot be deleted"
       );
 
-    const buyers = await Buyer.deleteOne({ _id: buyerId });
-    return response.json(buyers);
+    const deleteCount = await buyerService.deleteBuyerById(buyerId);
+    return response.json(deleteCount);
   } catch (error) {
     return response.json(`Error in deleting buyers: ${error}`);
   }

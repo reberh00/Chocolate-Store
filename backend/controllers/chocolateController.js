@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
-import Chocolate from "../models/Chocolate.js";
-import Purchase from "../models/Purchase.js";
 import chocolateService from "../services/chocolateService.js";
+import purchaseService from "../services/purchaseService.js";
 
 const getAllChocolates = async (request, response) => {
   try {
-    const chocolates = await Chocolate.find({});
+    const chocolates = await chocolateService.getAllChocolates();
     return response.json(chocolates);
   } catch (error) {
     return response.json(`Error in getting chocolates: ${error}`);
@@ -15,7 +14,7 @@ const getAllChocolates = async (request, response) => {
 const getChocolatesById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   try {
-    const chocolate = await Chocolate.find({ _id: chocolateId });
+    const chocolate = await chocolateService.getChocolatesById(chocolateId);
     return response.json(chocolate);
   } catch (error) {
     return response.json(`Error in getting chocolate with id: ${error}`);
@@ -26,7 +25,9 @@ const createChocolate = async (request, response) => {
   const newChocolateData = request.body;
 
   try {
-    const newChocolate = chocolateService.createChocolate(...newChocolateData);
+    const newChocolate = await chocolateService.createChocolate(
+      ...newChocolateData
+    );
     return response.json(newChocolate);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
@@ -48,12 +49,9 @@ const updateChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   const chocolateData = request.body;
   try {
-    const updatedChocolateById = await Chocolate.findOneAndUpdate(
-      { _id: chocolateId },
-      {
-        ...chocolateData,
-      },
-      { new: true }
+    const updatedChocolateById = await chocolateService.updateChocolateById(
+      ...chocolateData,
+      chocolateId
     );
     return response.json(updatedChocolateById);
   } catch (error) {
@@ -77,15 +75,14 @@ const updateChocolateById = async (request, response) => {
 const deleteChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   try {
-    const connectedPurchases = await Purchase.find({
-      chocolateId,
-    });
+    const connectedPurchases =
+      await purchaseService.findPurchaseByChocolateId(chocolateId);
     if (connectedPurchases.length != 0)
       throw new Error(
         "Chocolate object id exists in table Purchases so it cannot be deleted"
       );
 
-    const deleteCount = await Chocolate.deleteOne({ _id: chocolateId });
+    const deleteCount = await chocolateService.deleteChocolateById(chocolateId);
     return response.json(deleteCount);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
