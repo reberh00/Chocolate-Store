@@ -112,7 +112,7 @@ purchaseRouter.get(
   validation.params({
     purchaseId: Joi.string().hex().length(24).required(),
   }),
-  purchaseController.getPurchasesById
+  purchaseController.getPurchasesById,
 );
 
 /**
@@ -194,7 +194,7 @@ purchaseRouter.post(
     date: Joi.date().required(),
     amount: Joi.number().positive(),
   }),
-  purchaseController.createPurchase
+  purchaseController.createPurchase,
 );
 
 /**
@@ -290,7 +290,7 @@ purchaseRouter.put(
     date: Joi.date().required(),
     amount: Joi.number().positive(),
   }),
-  purchaseController.updatePurchaseById
+  purchaseController.updatePurchaseById,
 );
 
 /**
@@ -337,7 +337,7 @@ purchaseRouter.delete(
   "/:purchaseId",
   checkJwt,
   validation.params({ purchaseId: Joi.string().hex().length(24).required() }),
-  purchaseController.deletePurchaseById
+  purchaseController.deletePurchaseById,
 );
 
 export default purchaseRouter;
