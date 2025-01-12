@@ -14,13 +14,10 @@ const getAllUsers = async (request, response) => {
 };
 
 const signUpUser = async (request, response) => {
+  const userData = request.body;
   try {
     const newUser = new User({
-      userName: request.body.userName,
-      firstName: request.body.firstName,
-      lastName: request.body.lastName,
-      email: request.body.email,
-      password: request.body.password,
+      ...userData,
     });
     const existingUserName = await User.findOne({ userName: newUser.userName });
     if (existingUserName != undefined)
@@ -34,7 +31,7 @@ const signUpUser = async (request, response) => {
         userName: newUser.userName,
       },
       secret,
-      { expiresIn: "1h" },
+      { expiresIn: "1h" }
     );
 
     await newUser.save();
@@ -47,7 +44,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`,
+        `Validation errors in signUpUser: ${validationErrors}`
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -55,17 +52,14 @@ const signUpUser = async (request, response) => {
 };
 
 const logInUser = async (request, response) => {
+  const userName = request.body.userName;
+  const password = request.body.password;
   try {
-    const logInUser = new User({
-      userName: request.body.userName,
-      password: request.body.password,
-    });
-
-    const existingUser = await User.findOne({ userName: logInUser.userName });
+    const existingUser = await User.findOne({ userName: userName });
     if (existingUser == undefined)
       throw new Error("User with this username doesn't exists");
 
-    if (!bcrypt.compareSync(logInUser.password, existingUser.password))
+    if (!bcrypt.compareSync(password, existingUser.password))
       throw new Error("Password is wrong");
 
     const jwtToken = jwt.sign(
@@ -73,7 +67,7 @@ const logInUser = async (request, response) => {
         userName: logInUser.userName,
       },
       secret,
-      { expiresIn: "1h" },
+      { expiresIn: "1h" }
     );
 
     return response.json(jwtToken);
@@ -85,7 +79,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`,
+        `Validation errors in logInUser: ${validationErrors}`
       );
     }
     return response.json(`Error in logInUser: ` + error.message);
