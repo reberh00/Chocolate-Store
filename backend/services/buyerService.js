@@ -1,4 +1,4 @@
-import Buyer from "../models/Buyer";
+import Buyer from "../models/Buyer.js";
 
 async function getAllBuyers() {
   const buyers = await Buyer.find({});

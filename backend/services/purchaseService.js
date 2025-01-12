@@ -1,4 +1,4 @@
-import Purchase from "../models/Purchase";
+import Purchase from "../models/Purchase.js";
 
 async function getAllPurchases() {
   const purchases = await Purchase.find({});
