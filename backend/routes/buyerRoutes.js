@@ -2,6 +2,8 @@ import express, { response } from "express";
 import checkJwt from "../middlewares/validateJwtToken.js";
 const buyerRouter = express.Router();
 import buyerController from "../controllers/buyerController.js";
+import validation from "../middlewares/validation.js";
+import Joi from "joi";
 
 /**
  * @swagger
@@ -38,7 +40,11 @@ buyerRouter.get("/", buyerController.getAllBuyers);
  *        200:
  *          description: Return single Buyer
  */
-buyerRouter.get("/:id", buyerController.getBuyersById);
+buyerRouter.get(
+  "/:buyerId",
+  validation.params({ buyerId: Joi.string().hex().length(24).required() }),
+  buyerController.getBuyersById
+);
 
 /**
  * @swagger
@@ -78,7 +84,19 @@ buyerRouter.get("/:id", buyerController.getBuyersById);
  *        200:
  *          description: Return created Buyer
  */
-buyerRouter.post("/", checkJwt, buyerController.createBuyer);
+buyerRouter.post(
+  "/",
+  checkJwt,
+  validation.body({
+    firmName: Joi.string().required(),
+    firmAddress: Joi.string().required(),
+    description: Joi.string().required(),
+    dateEstablished: Joi.date().required(),
+    netWorth: Joi.number().integer().positive().required(),
+    countriesOfInterest: Joi.array().items(Joi.string()),
+  }),
+  buyerController.createBuyer
+);
 
 /**
  * @swagger
@@ -117,7 +135,22 @@ buyerRouter.post("/", checkJwt, buyerController.createBuyer);
  *        200:
  *          description: Return updated Buyer
  */
-buyerRouter.put("/:id", checkJwt, buyerController.updateBuyerById);
+buyerRouter.put(
+  "/:buyerId",
+  checkJwt,
+  validation.params({
+    buyerId: Joi.string().hex().length(24).required(),
+  }),
+  validation.body({
+    firmName: Joi.string().required(),
+    firmAddress: Joi.string().required(),
+    description: Joi.string().required(),
+    dateEstablished: Joi.date().required(),
+    netWorth: Joi.number().integer().positive().required(),
+    countriesOfInterest: Joi.array().items(Joi.string()),
+  }),
+  buyerController.updateBuyerById
+);
 
 /**
  * @swagger
@@ -135,6 +168,13 @@ buyerRouter.put("/:id", checkJwt, buyerController.updateBuyerById);
  *        200:
  *          description: The number of deleted Buyers
  */
-buyerRouter.delete("/:id", checkJwt, buyerController.deleteBuyerById);
+buyerRouter.delete(
+  "/:buyerId",
+  checkJwt,
+  validation.params({
+    buyerId: Joi.string().hex().length(24).required(),
+  }),
+  buyerController.deleteBuyerById
+);
 
 export default buyerRouter;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Purchase from "../models/Purchase.js";
 import Buyer from "../models/Buyer.js";
 import Chocolate from "../models/Chocolate.js";
+import Purchase from "../models/Purchase.js";
 
 const getAllPurchases = async (request, response) => {
   try {
@@ -13,11 +13,8 @@ const getAllPurchases = async (request, response) => {
 };
 
 const getPurchasesById = async (request, response) => {
-  const purchaseId = request.params.id;
+  const purchaseId = request.params.purchaseId;
   try {
-    if (!mongoose.isValidObjectId(purchaseId))
-      throw new Error("Invalid object id");
-
     const purchase = await Purchase.find({ _id: purchaseId });
     return response.json(purchase);
   } catch (error) {
@@ -26,10 +23,11 @@ const getPurchasesById = async (request, response) => {
 };
 
 const createPurchase = async (request, response) => {
-  try {
-    const buyerId = request.body.buyerId;
-    const chocolateId = request.body.chocolateId;
+  const buyerId = request.body.buyerId;
+  const chocolateId = request.body.chocolateId;
+  const purchaseData = request.body;
 
+  try {
     const existingBuyerId = await Buyer.find({ _id: buyerId });
     if (existingBuyerId.length == 0) throw new Error("Invalid buyer object id");
 
@@ -38,14 +36,11 @@ const createPurchase = async (request, response) => {
       throw new Error("Invalid chocolate object id");
 
     const newPurchase = new Purchase({
-      buyerId: buyerId,
-      chocolateId: chocolateId,
-      date: request.body.date,
-      amount: request.body.amount,
+      ...purchaseData,
     });
 
     await newPurchase.save();
-    return response.json("Purchase successfully created!");
+    return response.json(newPurchase);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
@@ -63,29 +58,23 @@ const createPurchase = async (request, response) => {
 };
 
 const updatePurchaseById = async (request, response) => {
-  const purchaseId = request.params.id;
-  const buyerId = request.body.buyerId;
-  const chocolateId = request.body.chocolateId;
+  const purchaseId = request.params.purchaseId;
+  const purchaseData = request.body;
 
   try {
-    if (!mongoose.isValidObjectId(purchaseId))
-      throw new Error("Invalid purchase object id");
+    const existingBuyerId = await Buyer.find({ _id: purchaseData.buyerId });
+    if (existingBuyerId.length == 0) throw new Error("Invalid buyer object id");
 
-    const existingBuyerId = await Buyer.find({ _id: buyerId });
-    if (buyerId && existingBuyerId.length == 0)
-      throw new Error("Invalid buyer object id");
-
-    const existingChocolateId = await Chocolate.find({ _id: chocolateId });
-    if (chocolateId && existingChocolateId.length == 0)
+    const existingChocolateId = await Chocolate.find({
+      _id: purchaseData.chocolateId,
+    });
+    if (existingChocolateId.length == 0)
       throw new Error("Invalid chocolate object id");
 
     const updatedPurchaseById = await Purchase.findOneAndUpdate(
       { _id: purchaseId },
       {
-        buyerId: request.body.buyerId,
-        chocolateId: request.body.chocolateId,
-        date: request.body.date,
-        amount: request.body.amount,
+        ...purchaseData,
       },
       { new: true },
     );
@@ -109,10 +98,10 @@ const updatePurchaseById = async (request, response) => {
 };
 
 const deletePurchaseById = async (request, response) => {
-  const purchaseId = request.params.id;
+  const purchaseId = request.params.purchaseId;
   try {
-    const purchases = await Purchase.deleteOne({ _id: purchaseId });
-    return response.json(purchases);
+    const deleteCount = await Purchase.deleteOne({ _id: purchaseId });
+    return response.json(deleteCount);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";

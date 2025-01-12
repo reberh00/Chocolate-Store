@@ -2,6 +2,8 @@ import express, { response } from "express";
 import checkJwt from "../middlewares/validateJwtToken.js";
 const chocolateRouter = express.Router();
 import chocolateController from "../controllers/chocolateController.js";
+import validation from "../middlewares/validation.js";
+import Joi from "joi";
 
 /**
  * @swagger
@@ -38,7 +40,13 @@ chocolateRouter.get("/", chocolateController.getAllChocolates);
  *        200:
  *          description: Return single Chocolate
  */
-chocolateRouter.get("/:id", chocolateController.getChocolatesById);
+chocolateRouter.get(
+  "/:chocolateId",
+  validation.params({
+    chocolateId: Joi.string().hex().length(24).required(),
+  }),
+  chocolateController.getChocolatesById
+);
 
 /**
  * @swagger
@@ -90,7 +98,23 @@ chocolateRouter.get("/:id", chocolateController.getChocolatesById);
  *        200:
  *          description: Return created Chocolate
  */
-chocolateRouter.post("/", checkJwt, chocolateController.createChocolate);
+chocolateRouter.post(
+  "/",
+  checkJwt,
+  validation.body({
+    name: Joi.string().required(),
+    firmName: Joi.string().required(),
+    description: Joi.string().required(),
+    dateOfProduction: Joi.date().required,
+    price: Joi.number().positive().required(),
+    netWeight: Joi.number().positive().required(),
+    cacaoPercentage: Joi.number().positive().required(),
+    isVegan: Joi.boolean().required(),
+    isOrganic: Joi.boolean().required(),
+    ingredients: Joi.array().items(Joi.string()),
+  }),
+  chocolateController.createChocolate
+);
 /**
  * @swagger
  *  /chocolates/{id}:
@@ -136,7 +160,26 @@ chocolateRouter.post("/", checkJwt, chocolateController.createChocolate);
  *        200:
  *          description: Return updated Chocolate
  */
-chocolateRouter.put("/:id", checkJwt, chocolateController.updateChocolateById);
+chocolateRouter.put(
+  "/:chocolateId",
+  checkJwt,
+  validation.params({
+    chocolateId: Joi.string().hex().length(24).required(),
+  }),
+  validation.body({
+    name: Joi.string().required(),
+    firmName: Joi.string().required(),
+    description: Joi.string().required(),
+    dateOfProduction: Joi.date().required,
+    price: Joi.number().required(),
+    netWeight: Joi.number().required(),
+    cacaoPercentage: Joi.number().required(),
+    isVegan: Joi.boolean().required(),
+    isOrganic: Joi.boolean().required(),
+    ingredients: Joi.array().items(Joi.string()),
+  }),
+  chocolateController.updateChocolateById
+);
 
 /**
  * @swagger
@@ -155,9 +198,12 @@ chocolateRouter.put("/:id", checkJwt, chocolateController.updateChocolateById);
  *          description: The number of deleted Chocolates
  */
 chocolateRouter.delete(
-  "/:id",
+  "/:chocolateId",
   checkJwt,
-  chocolateController.deleteChocolateById,
+  validation.params({
+    chocolateId: Joi.string().hex().length(24).required(),
+  }),
+  chocolateController.deleteChocolateById
 );
 
 export default chocolateRouter;

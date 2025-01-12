@@ -2,6 +2,8 @@ import express, { response } from "express";
 import checkJwt from "../middlewares/validateJwtToken.js";
 const purchaseRouter = express.Router();
 import purchaseController from "../controllers/purchaseController.js";
+import validation from "../middlewares/validation.js";
+import Joi from "joi";
 
 /**
  * @swagger
@@ -38,7 +40,13 @@ purchaseRouter.get("/", purchaseController.getAllPurchases);
  *        200:
  *          description: Return single Purchase
  */
-purchaseRouter.get("/:id", purchaseController.getPurchasesById);
+purchaseRouter.get(
+  "/:purchaseId",
+  validation.params({
+    purchaseId: Joi.string().hex().length(24).required(),
+  }),
+  purchaseController.getPurchasesById
+);
 
 /**
  * @swagger
@@ -70,7 +78,17 @@ purchaseRouter.get("/:id", purchaseController.getPurchasesById);
  *        200:
  *          description: Return created Purchase
  */
-purchaseRouter.post("/", checkJwt, purchaseController.createPurchase);
+purchaseRouter.post(
+  "/",
+  checkJwt,
+  validation.body({
+    buyerId: Joi.string().hex().length(24).required(),
+    chocolateId: Joi.string().hex().length(24).required(),
+    date: Joi.date().required(),
+    amount: Joi.number().positive(),
+  }),
+  purchaseController.createPurchase
+);
 
 /**
  * @swagger
@@ -103,7 +121,20 @@ purchaseRouter.post("/", checkJwt, purchaseController.createPurchase);
  *        200:
  *          description: Return updated Purchase
  */
-purchaseRouter.put("/:id", checkJwt, purchaseController.updatePurchaseById);
+purchaseRouter.put(
+  "/:purchaseId",
+  checkJwt,
+  validation.params({
+    purchaseId: Joi.string().hex().length(24).required(),
+  }),
+  validation.body({
+    buyerId: Joi.string().hex().length(24).required(),
+    chocolateId: Joi.string().hex().length(24).required(),
+    date: Joi.date().required(),
+    amount: Joi.number().positive(),
+  }),
+  purchaseController.updatePurchaseById
+);
 
 /**
  * @swagger
@@ -121,6 +152,11 @@ purchaseRouter.put("/:id", checkJwt, purchaseController.updatePurchaseById);
  *        200:
  *          description: The number of deleted Purchases
  */
-purchaseRouter.delete("/:id", checkJwt, purchaseController.deletePurchaseById);
+purchaseRouter.delete(
+  "/:purchaseId",
+  checkJwt,
+  validation.params({ purchaseId: Joi.string().hex().length(24).required() }),
+  purchaseController.deletePurchaseById
+);
 
 export default purchaseRouter;
