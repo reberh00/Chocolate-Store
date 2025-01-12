@@ -1,40 +1,40 @@
 import mongoose from "mongoose";
-import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import { secret } from "../config.js";
 import jwt from "jsonwebtoken";
+import userService from "../services/userService.js";
 
 const getAllUsers = async (request, response) => {
   try {
-    const users = await User.find({});
+    const users = await userService.getAllUsers();
     return response.json(users);
   } catch (error) {
-    return response.json(`Error in getting Users: ${error}`);
+    return response.json(`Error in getting users: ${error}`);
   }
 };
 
 const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
-    const newUser = new User({
-      ...userData,
-    });
-    const existingUserName = await User.findOne({ userName: newUser.userName });
+    const existingUserName = await userService.getUserByUserName(
+      userData.userName
+    );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
 
     const hashedPassword = await bcrypt.hash(newUser.password, 5);
     newUser.password = hashedPassword;
 
-    const jwtToken = jwt.sign(
-      {
-        userName: newUser.userName,
-      },
-      secret,
-      { expiresIn: "1h" }
+    const user = await userService.createUser(
+      userData.userName,
+      userData.firstName,
+      userData.lastName,
+      userData.email,
+      hashedPassword
     );
 
-    await newUser.save();
+    const jwtToken = userService.createJwtToken(userName, secret);
+
     return response.json(jwtToken);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
@@ -55,20 +55,16 @@ const logInUser = async (request, response) => {
   const userName = request.body.userName;
   const password = request.body.password;
   try {
-    const existingUser = await User.findOne({ userName: userName });
-    if (existingUser == undefined)
+    const existingUserName = await userService.getUserByUserName(
+      userData.userName
+    );
+    if (existingUserName == undefined)
       throw new Error("User with this username doesn't exists");
 
-    if (!bcrypt.compareSync(password, existingUser.password))
+    if (!bcrypt.compareSync(password, existingUserName.password))
       throw new Error("Password is wrong");
 
-    const jwtToken = jwt.sign(
-      {
-        userName: logInUser.userName,
-      },
-      secret,
-      { expiresIn: "1h" }
-    );
+    const jwtToken = userService.createJwtToken(userName, secret);
 
     return response.json(jwtToken);
   } catch (error) {
