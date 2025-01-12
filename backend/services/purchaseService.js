@@ -6,13 +6,13 @@ async function getAllPurchases() {
 }
 
 async function getPurchasesById(purchaseId) {
-  const purchase = await Purchase.find({ _id: purchaseId });
+  const purchase = await Purchase.findOne({ _id: purchaseId });
   return purchase;
 }
 
 async function createPurchase(buyerId, chocolateId, date, amount) {
-  const newPurchase = new Purchase(buyerId, chocolateId, date, amount);
-  await Purchase.save();
+  const newPurchase = new Purchase({ buyerId, chocolateId, date, amount });
+  await newPurchase.save();
   return newPurchase;
 }
 

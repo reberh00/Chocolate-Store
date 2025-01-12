@@ -40,6 +40,7 @@ async function createChocolate(
 }
 
 async function updateChocolateById(
+  chocolateId,
   name,
   firmName,
   description,
@@ -49,8 +50,7 @@ async function updateChocolateById(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients,
-  chocolateId
+  ingredients
 ) {
   const updatedChocolateById = await Chocolate.findOneAndUpdate(
     { _id: chocolateId },
@@ -72,8 +72,8 @@ async function updateChocolateById(
 }
 
 async function deleteChocolateById(chocolateId) {
-  const deleteCount = await Chocolate.deleteOne({ _id: chocolateId });
-  return deleteCount;
+  const deletedCount = await Chocolate.deleteOne({ _id: chocolateId });
+  return deletedCount;
 }
 
 export default {

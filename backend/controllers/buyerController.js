@@ -14,7 +14,7 @@ const getAllBuyers = async (request, response) => {
 const getBuyersById = async (request, response) => {
   const buyerId = request.params.buyerId;
   try {
-    const buyer = await buyerService.getBuyersById(buyerId);
+    const buyer = await buyerService.getBuyerById(buyerId);
     return response.json(buyer);
   } catch (error) {
     return response.json(`Error in getting buyer with id: ${error}`);
@@ -24,7 +24,14 @@ const getBuyersById = async (request, response) => {
 const createBuyer = async (request, response) => {
   const buyerData = request.body;
   try {
-    const newBuyer = await buyerService.createBuyer(...buyerData);
+    const newBuyer = await buyerService.createBuyer(
+      buyerData.firmName,
+      buyerData.firmAddress,
+      buyerData.description,
+      buyerData.dateEstablished,
+      buyerData.netWorth,
+      buyerData.countriesOfInterest
+    );
     return response.json(newBuyer);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
@@ -46,7 +53,12 @@ const updateBuyerById = async (request, response) => {
   const buyerData = request.body;
   try {
     const updatedBuyerById = await buyerService.updateBuyerById(
-      ...buyerData,
+      buyerData.firmName,
+      buyerData.firmAddress,
+      buyerData.description,
+      buyerData.dateEstablished,
+      buyerData.netWorth,
+      buyerData.countriesOfInterest,
       buyerId
     );
     return response.json(updatedBuyerById);
@@ -76,8 +88,8 @@ const deleteBuyerById = async (request, response) => {
         "Buyer object id exists in table Purchases so it cannot be deleted"
       );
 
-    const deleteCount = await buyerService.deleteBuyerById(buyerId);
-    return response.json(deleteCount);
+    const deletedCount = await buyerService.deleteBuyerById(buyerId);
+    return response.json(deletedCount);
   } catch (error) {
     return response.json(`Error in deleting buyers: ${error}`);
   }

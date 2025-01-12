@@ -170,7 +170,7 @@ chocolateRouter.put(
     name: Joi.string().required(),
     firmName: Joi.string().required(),
     description: Joi.string().required(),
-    dateOfProduction: Joi.date().required,
+    dateOfProduction: Joi.date().required(),
     price: Joi.number().required(),
     netWeight: Joi.number().required(),
     cacaoPercentage: Joi.number().required(),

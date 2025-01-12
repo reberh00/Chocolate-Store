@@ -22,11 +22,20 @@ const getChocolatesById = async (request, response) => {
 };
 
 const createChocolate = async (request, response) => {
-  const newChocolateData = request.body;
+  const chocolateData = request.body;
 
   try {
     const newChocolate = await chocolateService.createChocolate(
-      ...newChocolateData
+      chocolateData.name,
+      chocolateData.firmName,
+      chocolateData.description,
+      chocolateData.dateOfProduction,
+      chocolateData.price,
+      chocolateData.netWeight,
+      chocolateData.cacaoPercentage,
+      chocolateData.isVegan,
+      chocolateData.isOrganic,
+      chocolateData.ingredients
     );
     return response.json(newChocolate);
   } catch (error) {
@@ -49,9 +58,19 @@ const updateChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   const chocolateData = request.body;
   try {
+    console.log(chocolateData);
     const updatedChocolateById = await chocolateService.updateChocolateById(
-      ...chocolateData,
-      chocolateId
+      chocolateId,
+      chocolateData.name,
+      chocolateData.firmName,
+      chocolateData.description,
+      chocolateData.dateOfProduction,
+      chocolateData.price,
+      chocolateData.netWeight,
+      chocolateData.cacaoPercentage,
+      chocolateData.isVegan,
+      chocolateData.isOrganic,
+      chocolateData.ingredients
     );
     return response.json(updatedChocolateById);
   } catch (error) {
@@ -82,8 +101,9 @@ const deleteChocolateById = async (request, response) => {
         "Chocolate object id exists in table Purchases so it cannot be deleted"
       );
 
-    const deleteCount = await chocolateService.deleteChocolateById(chocolateId);
-    return response.json(deleteCount);
+    const deletedCount =
+      await chocolateService.deleteChocolateById(chocolateId);
+    return response.json(deletedCount);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
