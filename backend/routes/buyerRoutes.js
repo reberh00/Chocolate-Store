@@ -14,31 +14,118 @@ import Joi from "joi";
 
 /**
  * @swagger
- *  /buyers:
- *    get:
- *      tags: [Buyer]
- *      summary: Retrieve a list of all Buyers
- *      responses:
- *        200:
- *          description: Return list of all Buyers
+ * /buyers/:
+ *   get:
+ *     summary: Retrieve a list of all buyers
+ *     tags: [Buyer]
+ *     responses:
+ *       200:
+ *         description: A list of buyers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: ID of the buyer
+ *                     example: 60d0fe4f5311236168a109cb
+ *                   firmName:
+ *                     type: string
+ *                     description: Name of the buyer's firm
+ *                     example: Global Trade Co.
+ *                   firmAddress:
+ *                     type: string
+ *                     description: Address of the buyer's firm
+ *                     example: 123 Market Street, New York, NY
+ *                   description:
+ *                     type: string
+ *                     description: Description of the buyer's firm
+ *                     example: A leading buyer in the global chocolate trade.
+ *                   dateEstablished:
+ *                     type: string
+ *                     format: date
+ *                     description: The date when the buyer's firm was established
+ *                     example: 2010-05-15
+ *                   netWorth:
+ *                     type: integer
+ *                     description: Net worth of the firm in USD
+ *                     example: 1000000
+ *                   countriesOfInterest:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     description: List of countries the firm is interested in
+ *                     example: [ "USA", "Canada", "Germany" ]
+ *       500:
+ *         description: Internal server error
  */
 buyerRouter.get("/", buyerController.getAllBuyers);
 
 /**
  * @swagger
- *  /buyers/{id}:
- *    get:
- *      summary: Retrieve a Buyer
- *      tags: [Buyer]
- *      parameters:
- *        - name: id
- *          description: The Buyer id
- *          in: path
- *          required: true
- *          type: string
- *      responses:
- *        200:
- *          description: Return single Buyer
+ * /buyers/{buyerId}:
+ *   get:
+ *     summary: Retrieve a specific buyer by its ID
+ *     tags: [Buyer]
+ *     parameters:
+ *       - in: path
+ *         name: buyerId
+ *         required: true
+ *         description: The ID of the buyer to retrieve
+ *         schema:
+ *           type: string
+ *           format: hex
+ *           minLength: 24
+ *           maxLength: 24
+ *           example: 60d0fe4f5311236168a109cb
+ *     responses:
+ *       200:
+ *         description: Details of the requested buyer
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   description: ID of the buyer
+ *                   example: 60d0fe4f5311236168a109cb
+ *                 firmName:
+ *                   type: string
+ *                   description: Name of the buyer's firm
+ *                   example: Global Trade Co.
+ *                 firmAddress:
+ *                   type: string
+ *                   description: Address of the buyer's firm
+ *                   example: 123 Market Street, New York, NY
+ *                 description:
+ *                   type: string
+ *                   description: Description of the buyer's firm
+ *                   example: A leading buyer in the global chocolate trade.
+ *                 dateEstablished:
+ *                   type: string
+ *                   format: date
+ *                   description: The date when the buyer's firm was established
+ *                   example: 2010-05-15
+ *                 netWorth:
+ *                   type: integer
+ *                   description: Net worth of the firm in USD
+ *                   example: 1000000
+ *                 countriesOfInterest:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   description: List of countries the firm is interested in
+ *                   example: [ "USA", "Canada", "Germany" ]
+ *       400:
+ *         description: Invalid buyer ID provided
+ *       404:
+ *         description: Buyer not found
+ *       500:
+ *         description: Internal server error
  */
 buyerRouter.get(
   "/:buyerId",
@@ -48,41 +135,91 @@ buyerRouter.get(
 
 /**
  * @swagger
- *  /buyers:
- *    post:
- *      summary: Create a new Buyer
- *      tags: [Buyer]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              required:
- *                - firmName
- *                - firmAddress
- *                - description
- *                - dateEstablished
- *                - netWorth
- *                - countriesOfInterest
- *              properties:
- *                firmName:
- *                  type: string
- *                firmAddress:
- *                  type: string
- *                description:
- *                  type: string
- *                dateEstablished:
- *                  type: string
- *                netWorth:
- *                  type: number
- *                countriesOfInterest:
- *                  type: array
- *                  items:
- *                    type: string
- *      responses:
- *        200:
- *          description: Return created Buyer
+ * /buyers/:
+ *   post:
+ *     summary: Create a new buyer
+ *     tags: [Buyer]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firmName:
+ *                 type: string
+ *                 description: Name of the buyer's firm
+ *                 example: Global Trade Co.
+ *               firmAddress:
+ *                 type: string
+ *                 description: Address of the buyer's firm
+ *                 example: 123 Market Street, New York, NY
+ *               description:
+ *                 type: string
+ *                 description: Description of the buyer's firm
+ *                 example: A leading buyer in the global chocolate trade.
+ *               dateEstablished:
+ *                 type: string
+ *                 format: date
+ *                 description: The date when the buyer's firm was established
+ *                 example: 2010-05-15
+ *               netWorth:
+ *                 type: integer
+ *                 description: Net worth of the firm in USD
+ *                 example: 1000000
+ *               countriesOfInterest:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: List of countries the firm is interested in
+ *                 example: [ "USA", "Canada", "Germany" ]
+ *     responses:
+ *       200:
+ *         description: Buyer created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   description: ID of the created buyer
+ *                   example: 60d0fe4f5311236168a109cb
+ *                 firmName:
+ *                   type: string
+ *                   description: Name of the buyer's firm
+ *                   example: Global Trade Co.
+ *                 firmAddress:
+ *                   type: string
+ *                   description: Address of the buyer's firm
+ *                   example: 123 Market Street, New York, NY
+ *                 description:
+ *                   type: string
+ *                   description: Description of the buyer's firm
+ *                   example: A leading buyer in the global chocolate trade.
+ *                 dateEstablished:
+ *                   type: string
+ *                   format: date
+ *                   description: The date when the buyer's firm was established
+ *                   example: 2010-05-15
+ *                 netWorth:
+ *                   type: integer
+ *                   description: Net worth of the firm in USD
+ *                   example: 1000000
+ *                 countriesOfInterest:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   description: List of countries the firm is interested in
+ *                   example: [ "USA", "Canada", "Germany" ]
+ *       400:
+ *         description: Validation error in request body
+ *       401:
+ *         description: Unauthorized, JWT is missing or invalid
+ *       500:
+ *         description: Internal server error
  */
 buyerRouter.post(
   "/",
@@ -100,40 +237,104 @@ buyerRouter.post(
 
 /**
  * @swagger
- *  /buyers/{id}:
- *    put:
- *      summary: Update a Buyer by id
- *      tags: [Buyer]
- *      parameters:
- *        - name: id
- *          description: The Buyer id
- *          in: path
- *          required: true
- *          type: string
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                firmName:
- *                  type: string
- *                firmAddress:
- *                  type: string
- *                description:
- *                  type: string
- *                dateEstablished:
- *                  type: string
- *                netWorth:
- *                  type: number
- *                countriesOfInterest:
- *                  type: array
- *                  items:
- *                    type: string
- *      responses:
- *        200:
- *          description: Return updated Buyer
+ * /buyers/{buyerId}:
+ *   put:
+ *     summary: Update a specific buyer by its ID
+ *     tags: [Buyer]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: buyerId
+ *         required: true
+ *         description: The ID of the buyer to update
+ *         schema:
+ *           type: string
+ *           format: hex
+ *           minLength: 24
+ *           maxLength: 24
+ *           example: 60d0fe4f5311236168a109cb
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firmName:
+ *                 type: string
+ *                 description: Name of the buyer's firm
+ *                 example: Global Trade Co.
+ *               firmAddress:
+ *                 type: string
+ *                 description: Address of the buyer's firm
+ *                 example: 123 Market Street, New York, NY
+ *               description:
+ *                 type: string
+ *                 description: Description of the buyer's firm
+ *                 example: A leading buyer in the global chocolate trade.
+ *               dateEstablished:
+ *                 type: string
+ *                 format: date
+ *                 description: The date when the buyer's firm was established
+ *                 example: 2010-05-15
+ *               netWorth:
+ *                 type: integer
+ *                 description: Net worth of the firm in USD
+ *                 example: 1000000
+ *               countriesOfInterest:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: List of countries the firm is interested in
+ *                 example: [ "USA", "Canada", "Germany" ]
+ *     responses:
+ *       200:
+ *         description: Buyer updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: ID of the buyer
+ *                   example: 60d0fe4f5311236168a109cb
+ *                 firmName:
+ *                   type: string
+ *                   description: Name of the buyer's firm
+ *                   example: Global Trade Co.
+ *                 firmAddress:
+ *                   type: string
+ *                   description: Address of the buyer's firm
+ *                   example: 123 Market Street, New York, NY
+ *                 description:
+ *                   type: string
+ *                   description: Description of the buyer's firm
+ *                   example: A leading buyer in the global chocolate trade.
+ *                 dateEstablished:
+ *                   type: string
+ *                   format: date
+ *                   description: The date when the buyer's firm was established
+ *                   example: 2010-05-15
+ *                 netWorth:
+ *                   type: integer
+ *                   description: Net worth of the firm in USD
+ *                   example: 1000000
+ *                 countriesOfInterest:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   description: List of countries the firm is interested in
+ *                   example: [ "USA", "Canada", "Germany" ]
+ *       400:
+ *         description: Validation error in request body
+ *       401:
+ *         description: Unauthorized, JWT is missing or invalid
+ *       404:
+ *         description: Buyer not found
+ *       500:
+ *         description: Internal server error
  */
 buyerRouter.put(
   "/:buyerId",
@@ -154,19 +355,43 @@ buyerRouter.put(
 
 /**
  * @swagger
- *  /buyers/{id}:
- *    delete:
- *      summary: Delete a Buyer by id
- *      tags: [Buyer]
- *      parameters:
- *        - name: id
- *          description: The Buyer id
- *          in: path
- *          required: true
- *          type: string
- *      responses:
- *        200:
- *          description: The number of deleted Buyers
+ * /buyers/{buyerId}:
+ *   delete:
+ *     summary: Delete a specific buyer by its ID
+ *     tags: [Buyer]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: buyerId
+ *         required: true
+ *         description: The ID of the buyer to delete
+ *         schema:
+ *           type: string
+ *           format: hex
+ *           minLength: 24
+ *           maxLength: 24
+ *           example: 60d0fe4f5311236168a109cb
+ *     responses:
+ *       200:
+ *         description: Buyer deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 deletedCount:
+ *                   type: integer
+ *                   description: The number of buyers deleted
+ *                   example: 1
+ *       400:
+ *         description: Invalid buyer ID provided
+ *       401:
+ *         description: Unauthorized, JWT is missing or invalid
+ *       404:
+ *         description: Buyer not found
+ *       500:
+ *         description: Internal server error
  */
 buyerRouter.delete(
   "/:buyerId",
