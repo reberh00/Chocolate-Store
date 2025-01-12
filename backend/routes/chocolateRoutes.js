@@ -105,7 +105,7 @@ chocolateRouter.post(
     name: Joi.string().required(),
     firmName: Joi.string().required(),
     description: Joi.string().required(),
-    dateOfProduction: Joi.date().required,
+    dateOfProduction: Joi.date().required(),
     price: Joi.number().positive().required(),
     netWeight: Joi.number().positive().required(),
     cacaoPercentage: Joi.number().positive().required(),

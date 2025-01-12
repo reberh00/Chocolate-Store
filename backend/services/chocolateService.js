@@ -6,7 +6,7 @@ async function getAllChocolates() {
 }
 
 async function getChocolatesById(chocolateId) {
-  const chocolate = await Chocolate.find({ _id: chocolateId });
+  const chocolate = await Chocolate.findOne({ _id: chocolateId });
   return chocolate;
 }
 
@@ -22,7 +22,7 @@ async function createChocolate(
   isOrganic,
   ingredients
 ) {
-  const newChocolate = new Chocolate(
+  const newChocolate = new Chocolate({
     name,
     firmName,
     description,
@@ -32,9 +32,10 @@ async function createChocolate(
     cacaoPercentage,
     isVegan,
     isOrganic,
-    ingredients
-  );
-  await Chocolate.save();
+    ingredients,
+  });
+
+  await newChocolate.save();
   return newChocolate;
 }
 
