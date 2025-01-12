@@ -1,4 +1,5 @@
 import express, { response } from "express";
+import checkJwt from "../middlewares/validateJwtToken.js";
 const purchaseRouter = express.Router();
 import purchaseController from "../controllers/purchaseController.js";
 
@@ -69,7 +70,7 @@ purchaseRouter.get("/:id", purchaseController.getPurchasesById);
  *        200:
  *          description: Return created Purchase
  */
-purchaseRouter.post("/", purchaseController.createPurchase);
+purchaseRouter.post("/", checkJwt, purchaseController.createPurchase);
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ purchaseRouter.post("/", purchaseController.createPurchase);
  *        200:
  *          description: Return updated Purchase
  */
-purchaseRouter.put("/:id", purchaseController.updatePurchaseById);
+purchaseRouter.put("/:id", checkJwt, purchaseController.updatePurchaseById);
 
 /**
  * @swagger
@@ -120,6 +121,6 @@ purchaseRouter.put("/:id", purchaseController.updatePurchaseById);
  *        200:
  *          description: The number of deleted Purchases
  */
-purchaseRouter.delete("/:id", purchaseController.deletePurchaseById);
+purchaseRouter.delete("/:id", checkJwt, purchaseController.deletePurchaseById);
 
 export default purchaseRouter;

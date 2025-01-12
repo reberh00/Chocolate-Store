@@ -1,4 +1,5 @@
 import express, { response } from "express";
+import checkJwt from "../middlewares/validateJwtToken.js";
 const chocolateRouter = express.Router();
 import chocolateController from "../controllers/chocolateController.js";
 
@@ -89,7 +90,7 @@ chocolateRouter.get("/:id", chocolateController.getChocolatesById);
  *        200:
  *          description: Return created Chocolate
  */
-chocolateRouter.post("/", chocolateController.createChocolate);
+chocolateRouter.post("/", checkJwt, chocolateController.createChocolate);
 /**
  * @swagger
  *  /chocolates/{id}:
@@ -135,7 +136,7 @@ chocolateRouter.post("/", chocolateController.createChocolate);
  *        200:
  *          description: Return updated Chocolate
  */
-chocolateRouter.put("/:id", chocolateController.updateChocolateById);
+chocolateRouter.put("/:id", checkJwt, chocolateController.updateChocolateById);
 
 /**
  * @swagger
@@ -153,6 +154,10 @@ chocolateRouter.put("/:id", chocolateController.updateChocolateById);
  *        200:
  *          description: The number of deleted Chocolates
  */
-chocolateRouter.delete("/:id", chocolateController.deleteChocolateById);
+chocolateRouter.delete(
+  "/:id",
+  checkJwt,
+  chocolateController.deleteChocolateById,
+);
 
 export default chocolateRouter;

@@ -1,4 +1,5 @@
 import express, { response } from "express";
+import checkJwt from "../middlewares/validateJwtToken.js";
 const buyerRouter = express.Router();
 import buyerController from "../controllers/buyerController.js";
 
@@ -77,7 +78,7 @@ buyerRouter.get("/:id", buyerController.getBuyersById);
  *        200:
  *          description: Return created Buyer
  */
-buyerRouter.post("/", buyerController.createBuyer);
+buyerRouter.post("/", checkJwt, buyerController.createBuyer);
 
 /**
  * @swagger
@@ -116,7 +117,7 @@ buyerRouter.post("/", buyerController.createBuyer);
  *        200:
  *          description: Return updated Buyer
  */
-buyerRouter.put("/:id", buyerController.updateBuyerById);
+buyerRouter.put("/:id", checkJwt, buyerController.updateBuyerById);
 
 /**
  * @swagger
@@ -134,6 +135,6 @@ buyerRouter.put("/:id", buyerController.updateBuyerById);
  *        200:
  *          description: The number of deleted Buyers
  */
-buyerRouter.delete("/:id", buyerController.deleteBuyerById);
+buyerRouter.delete("/:id", checkJwt, buyerController.deleteBuyerById);
 
 export default buyerRouter;

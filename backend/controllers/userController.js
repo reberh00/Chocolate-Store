@@ -34,7 +34,7 @@ const signUpUser = async (request, response) => {
         userName: newUser.userName,
       },
       secret,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     await newUser.save();
@@ -47,7 +47,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`
+        `Validation errors in signUpUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -73,7 +73,7 @@ const logInUser = async (request, response) => {
         userName: logInUser.userName,
       },
       secret,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
 
     return response.json(jwtToken);
@@ -85,7 +85,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`
+        `Validation errors in logInUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in logInUser: ` + error.message);

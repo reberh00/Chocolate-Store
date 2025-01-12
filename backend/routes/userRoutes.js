@@ -5,28 +5,28 @@ import userController from "../controllers/userController.js";
 /**
  * @swagger
  *  tags:
- *    - name: Buyer
- *      description: The Buyer management API
+ *    - name: User
+ *      description: The User management API
  */
 
 /**
  * @swagger
  *  /buyers:
  *    get:
- *      tags: [Buyer]
- *      summary: Retrieve a list of all Buyers
+ *      tags: [User]
+ *      summary: Retrieve a list of all Users
  *      responses:
  *        200:
- *          description: Return list of all Buyers
+ *          description: Return list of all Users
  */
 userRouter.get("/", userController.getAllUsers);
 
 /**
  * @swagger
- *  /buyers:
+ *  /users:
  *    post:
- *      summary: Create a new Buyer
- *      tags: [Buyer]
+ *      summary: Sign up a new User
+ *      tags: [User]
  *      requestBody:
  *        required: true
  *        content:
@@ -34,30 +34,25 @@ userRouter.get("/", userController.getAllUsers);
  *            schema:
  *              type: object
  *              required:
- *                - firmName
- *                - firmAddress
- *                - description
- *                - dateEstablished
- *                - netWorth
- *                - countriesOfInterest
+ *                - userName
+ *                - firstName
+ *                - lastName
+ *                - email
+ *                - password
  *              properties:
- *                firmName:
+ *                userName:
  *                  type: string
- *                firmAddress:
+ *                firstName:
  *                  type: string
- *                description:
+ *                lastName:
  *                  type: string
- *                dateEstablished:
+ *                email:
  *                  type: string
- *                netWorth:
- *                  type: number
- *                countriesOfInterest:
- *                  type: array
- *                  items:
- *                    type: string
+ *                password:
+ *                  type: string
  *      responses:
  *        200:
- *          description: Return created Buyer
+ *          description: Return created User
  */
 userRouter.post("/", userController.signUpUser);
 
