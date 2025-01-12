@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { secret } from "../config.js";
-import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 import userService from "../services/userService.js";
 
 const getAllUsers = async (request, response) => {
@@ -17,7 +17,7 @@ const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName
+      userData.userName,
     );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
@@ -30,10 +30,10 @@ const signUpUser = async (request, response) => {
       userData.firstName,
       userData.lastName,
       userData.email,
-      hashedPassword
+      hashedPassword,
     );
 
-    const jwtToken = userService.createJwtToken(userName, secret);
+    const jwtToken = userService.createJwtToken(userName, process.env.secret);
 
     return response.json(jwtToken);
   } catch (error) {
@@ -44,7 +44,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`
+        `Validation errors in signUpUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -56,7 +56,7 @@ const logInUser = async (request, response) => {
   const password = request.body.password;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName
+      userData.userName,
     );
     if (existingUserName == undefined)
       throw new Error("User with this username doesn't exists");
@@ -64,7 +64,7 @@ const logInUser = async (request, response) => {
     if (!bcrypt.compareSync(password, existingUserName.password))
       throw new Error("Password is wrong");
 
-    const jwtToken = userService.createJwtToken(userName, secret);
+    const jwtToken = userService.createJwtToken(userName, process.env.secret);
 
     return response.json(jwtToken);
   } catch (error) {
@@ -75,7 +75,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`
+        `Validation errors in logInUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in logInUser: ` + error.message);

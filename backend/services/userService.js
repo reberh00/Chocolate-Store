@@ -23,7 +23,7 @@ async function createJwtToken(userName, secret) {
       userName,
     },
     secret,
-    { expiresIn: "1h" }
+    { expiresIn: "1h" },
   );
 
   return jwtToken;

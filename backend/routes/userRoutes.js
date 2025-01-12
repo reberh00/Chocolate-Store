@@ -22,7 +22,7 @@ userRouter.post(
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
-  userController.signUpUser
+  userController.signUpUser,
 );
 
 userRouter.post(
@@ -31,7 +31,7 @@ userRouter.post(
     userName: Joi.string().required(),
     password: Joi.string().required(),
   }),
-  userController.logInUser
+  userController.logInUser,
 );
 
 export default userRouter;

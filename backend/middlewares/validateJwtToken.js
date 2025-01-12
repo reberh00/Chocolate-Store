@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
-import { secret } from "../config.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 async function checkJwt(request, response, next) {
   try {
     const token = request.header("Authorization")?.split(" ")?.[1];
     console.log(token);
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, process.env.secret);
 
     response.locals.user = decoded;
     return next();

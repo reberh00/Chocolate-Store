@@ -21,7 +21,7 @@ async function updatePurchaseById(
   chocolateId,
   date,
   amount,
-  purchaseId
+  purchaseId,
 ) {
   const updatedPurchaseById = await Purchase.findOneAndUpdate(
     { _id: purchaseId },
@@ -31,7 +31,7 @@ async function updatePurchaseById(
       date,
       amount,
     },
-    { new: true }
+    { new: true },
   );
   return updatedPurchaseById;
 }

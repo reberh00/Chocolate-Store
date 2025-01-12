@@ -1,5 +1,6 @@
 import express, { request, response } from "express";
-import { PORT, mongoDBURL } from "./config.js";
+import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 import buyerRouter from "./routes/buyerRoutes.js";
 import chocolateRouter from "./routes/chocolateRoutes.js";
@@ -38,11 +39,11 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 mongoose
-  .connect(mongoDBURL)
+  .connect(process.env.mongoDBURL)
   .then(() => {
     console.log("App connected to database");
-    app.listen(PORT, () => {
-      console.log(`App is listening to port: ${PORT}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`App is listening to port: ${process.env.PORT}`);
     });
   })
   .catch((error) => {
