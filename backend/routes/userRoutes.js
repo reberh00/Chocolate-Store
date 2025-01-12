@@ -1,6 +1,8 @@
 import express, { response } from "express";
 const userRouter = express.Router();
 import userController from "../controllers/userController.js";
+import validation from "../middlewares/validation.js";
+import Joi from "joi";
 
 /**
  * @swagger
@@ -9,53 +11,27 @@ import userController from "../controllers/userController.js";
  *      description: The User management API
  */
 
-/**
- * @swagger
- *  /buyers:
- *    get:
- *      tags: [User]
- *      summary: Retrieve a list of all Users
- *      responses:
- *        200:
- *          description: Return list of all Users
- */
 userRouter.get("/", userController.getAllUsers);
 
-/**
- * @swagger
- *  /users:
- *    post:
- *      summary: Sign up a new User
- *      tags: [User]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              required:
- *                - userName
- *                - firstName
- *                - lastName
- *                - email
- *                - password
- *              properties:
- *                userName:
- *                  type: string
- *                firstName:
- *                  type: string
- *                lastName:
- *                  type: string
- *                email:
- *                  type: string
- *                password:
- *                  type: string
- *      responses:
- *        200:
- *          description: Return created User
- */
-userRouter.post("/", userController.signUpUser);
+userRouter.post(
+  "/signup",
+  validation.body({
+    userName: Joi.string().min(5).required(),
+    firstName: Joi.string().min(5).required(),
+    lastName: Joi.string().min(5).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required(),
+  }),
+  userController.signUpUser
+);
 
-userRouter.post("/login", userController.logInUser);
+userRouter.post(
+  "/login",
+  validation.body({
+    userName: Joi.string().required(),
+    password: Joi.string().required(),
+  }),
+  userController.logInUser
+);
 
 export default userRouter;
