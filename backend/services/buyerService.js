@@ -16,7 +16,7 @@ async function createBuyer(
   description,
   dateEstablished,
   netWorth,
-  countriesOfInterest
+  countriesOfInterest,
 ) {
   const newBuyer = new Buyer({
     firmName,
@@ -37,7 +37,7 @@ async function updateBuyerById(
   dateEstablished,
   netWorth,
   countriesOfInterest,
-  buyerId
+  buyerId,
 ) {
   const updatedBuyerById = await Buyer.findOneAndUpdate(
     { _id: buyerId },
@@ -49,7 +49,7 @@ async function updateBuyerById(
       netWorth,
       countriesOfInterest,
     },
-    { new: true }
+    { new: true },
   );
   return updatedBuyerById;
 }

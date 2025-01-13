@@ -45,7 +45,7 @@ chocolateRouter.get(
   validation.params({
     chocolateId: Joi.string().hex().length(24).required(),
   }),
-  chocolateController.getChocolatesById
+  chocolateController.getChocolatesById,
 );
 
 /**
@@ -113,7 +113,7 @@ chocolateRouter.post(
     isOrganic: Joi.boolean().required(),
     ingredients: Joi.array().items(Joi.string()),
   }),
-  chocolateController.createChocolate
+  chocolateController.createChocolate,
 );
 /**
  * @swagger
@@ -178,7 +178,7 @@ chocolateRouter.put(
     isOrganic: Joi.boolean().required(),
     ingredients: Joi.array().items(Joi.string()),
   }),
-  chocolateController.updateChocolateById
+  chocolateController.updateChocolateById,
 );
 
 /**
@@ -203,7 +203,7 @@ chocolateRouter.delete(
   validation.params({
     chocolateId: Joi.string().hex().length(24).required(),
   }),
-  chocolateController.deleteChocolateById
+  chocolateController.deleteChocolateById,
 );
 
 export default chocolateRouter;

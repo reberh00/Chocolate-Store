@@ -20,7 +20,7 @@ async function createChocolate(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients
+  ingredients,
 ) {
   const newChocolate = new Chocolate({
     name,
@@ -50,7 +50,7 @@ async function updateChocolateById(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients
+  ingredients,
 ) {
   const updatedChocolateById = await Chocolate.findOneAndUpdate(
     { _id: chocolateId },
@@ -66,7 +66,7 @@ async function updateChocolateById(
       isOrganic,
       ingredients,
     },
-    { new: true }
+    { new: true },
   );
   return updatedChocolateById;
 }

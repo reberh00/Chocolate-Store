@@ -43,7 +43,7 @@ buyerRouter.get("/", buyerController.getAllBuyers);
 buyerRouter.get(
   "/:buyerId",
   validation.params({ buyerId: Joi.string().hex().length(24).required() }),
-  buyerController.getBuyersById
+  buyerController.getBuyersById,
 );
 
 /**
@@ -95,7 +95,7 @@ buyerRouter.post(
     netWorth: Joi.number().integer().positive().required(),
     countriesOfInterest: Joi.array().items(Joi.string()),
   }),
-  buyerController.createBuyer
+  buyerController.createBuyer,
 );
 
 /**
@@ -149,7 +149,7 @@ buyerRouter.put(
     netWorth: Joi.number().integer().positive().required(),
     countriesOfInterest: Joi.array().items(Joi.string()),
   }),
-  buyerController.updateBuyerById
+  buyerController.updateBuyerById,
 );
 
 /**
@@ -174,7 +174,7 @@ buyerRouter.delete(
   validation.params({
     buyerId: Joi.string().hex().length(24).required(),
   }),
-  buyerController.deleteBuyerById
+  buyerController.deleteBuyerById,
 );
 
 export default buyerRouter;

@@ -35,7 +35,7 @@ const createChocolate = async (request, response) => {
       chocolateData.cacaoPercentage,
       chocolateData.isVegan,
       chocolateData.isOrganic,
-      chocolateData.ingredients
+      chocolateData.ingredients,
     );
     return response.json(newChocolate);
   } catch (error) {
@@ -46,7 +46,7 @@ const createChocolate = async (request, response) => {
       }
       console.log(`Validation errors in createChocolate: ${validationErrors}`);
       return response.json(
-        `Validation errors in createChocolate: ${validationErrors}`
+        `Validation errors in createChocolate: ${validationErrors}`,
       );
     }
 
@@ -70,7 +70,7 @@ const updateChocolateById = async (request, response) => {
       chocolateData.cacaoPercentage,
       chocolateData.isVegan,
       chocolateData.isOrganic,
-      chocolateData.ingredients
+      chocolateData.ingredients,
     );
     return response.json(updatedChocolateById);
   } catch (error) {
@@ -80,10 +80,10 @@ const updateChocolateById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in updateChocolateById: ${validationErrors}`
+        `Validation errors in updateChocolateById: ${validationErrors}`,
       );
       return response.json(
-        `Validation errors in updateChocolateById: ${validationErrors}`
+        `Validation errors in updateChocolateById: ${validationErrors}`,
       );
     }
 
@@ -98,7 +98,7 @@ const deleteChocolateById = async (request, response) => {
       await purchaseService.findPurchaseByChocolateId(chocolateId);
     if (connectedPurchases.length != 0)
       throw new Error(
-        "Chocolate object id exists in table Purchases so it cannot be deleted"
+        "Chocolate object id exists in table Purchases so it cannot be deleted",
       );
 
     const deletedCount =
@@ -111,10 +111,10 @@ const deleteChocolateById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in deleteChocolateById: ${validationErrors}`
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
       );
       return response.json(
-        `Validation errors in deleteChocolateById: ${validationErrors}`
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
       );
     }
 

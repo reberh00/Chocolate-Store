@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 async function getAllUsers() {
   const users = await User.find({});
@@ -7,12 +8,12 @@ async function getAllUsers() {
 }
 
 async function getUserByUserName(userName) {
-  const user = await User.find({ userName });
+  const user = await User.findOne({ userName });
   return user;
 }
 
 async function createUser(userName, firstName, lastName, email, password) {
-  const newUser = new User(userName, firstName, lastName, email, password);
+  const newUser = new User({ userName, firstName, lastName, email, password });
   await newUser.save();
   return newUser;
 }
@@ -23,10 +24,14 @@ async function createJwtToken(userName, secret) {
       userName,
     },
     secret,
-    { expiresIn: "1h" }
+    { expiresIn: "1h" },
   );
 
   return jwtToken;
+}
+
+async function getPasswordHash(password, saltRounds) {
+  return await bcrypt.hash(password, saltRounds);
 }
 
 export default {
@@ -34,4 +39,5 @@ export default {
   getUserByUserName,
   createUser,
   createJwtToken,
+  getPasswordHash,
 };

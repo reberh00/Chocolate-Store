@@ -38,7 +38,7 @@ describe("Buyer routes", () => {
         "A world-renowned chocolate manufacturing firm specializing in premium organic and vegan chocolates.",
         "1995-06-15T00:00:00Z",
         15000000,
-        ["United States", "Canada", "Germany", "Japan", "Australia"]
+        ["United States", "Canada", "Germany", "Japan", "Australia"],
       );
     });
 
@@ -52,11 +52,11 @@ describe("Buyer routes", () => {
       expect(resp.body.firmAddress).to.be.equal(createdBuyer.firmAddress);
       expect(resp.body.description).to.be.equal(createdBuyer.description);
       expect(resp.body.dateEstablished).to.be.equal(
-        createdBuyer.dateEstablished.toISOString()
+        createdBuyer.dateEstablished.toISOString(),
       );
       expect(resp.body.netWorth).to.be.equal(createdBuyer.netWorth);
       expect(resp.body.countriesOfInterest).to.have.all.members(
-        createdBuyer.countriesOfInterest
+        createdBuyer.countriesOfInterest,
       );
     });
   });
@@ -71,7 +71,7 @@ describe("Buyer routes", () => {
         "A world-renowned chocolate manufacturing firm specializing in premium organic and vegan chocolates.",
         "1995-06-15T00:00:00Z",
         15000000,
-        ["United States", "Canada", "Germany", "Japan", "Australia"]
+        ["United States", "Canada", "Germany", "Japan", "Australia"],
       );
     });
 
@@ -95,11 +95,11 @@ describe("Buyer routes", () => {
       expect(resp.body.firmAddress).to.be.equal(createdBuyer.firmAddress);
       expect(resp.body.description).to.be.equal(createdBuyer.description);
       expect(resp.body.dateEstablished).to.be.equal(
-        createdBuyer.dateEstablished.toISOString()
+        createdBuyer.dateEstablished.toISOString(),
       );
       expect(resp.body.netWorth).to.be.equal(createdBuyer.netWorth);
       expect(resp.body.countriesOfInterest).to.have.all.members(
-        createdBuyer.countriesOfInterest
+        createdBuyer.countriesOfInterest,
       );
     });
   });
@@ -136,7 +136,7 @@ describe("Buyer routes", () => {
       expect(resp.body.dateEstablished).to.be.equal(buyerData.dateEstablished);
       expect(resp.body.netWorth).to.be.equal(buyerData.netWorth);
       expect(resp.body.countriesOfInterest).to.have.all.members(
-        buyerData.countriesOfInterest
+        buyerData.countriesOfInterest,
       );
     });
   });
@@ -151,7 +151,7 @@ describe("Buyer routes", () => {
         "A world-renowned chocolate manufacturing firm specializing in premium organic and vegan chocolates.",
         "1995-06-15T00:00:00Z",
         15000000,
-        ["United States", "Canada", "Germany", "Japan", "Australia"]
+        ["United States", "Canada", "Germany", "Japan", "Australia"],
       );
     });
 

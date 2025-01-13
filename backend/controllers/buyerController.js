@@ -30,7 +30,7 @@ const createBuyer = async (request, response) => {
       buyerData.description,
       buyerData.dateEstablished,
       buyerData.netWorth,
-      buyerData.countriesOfInterest
+      buyerData.countriesOfInterest,
     );
     return response.json(newBuyer);
   } catch (error) {
@@ -41,7 +41,7 @@ const createBuyer = async (request, response) => {
       }
       console.log(`Validation errors in createBuyer: ${validationErrors}`);
       return response.json(
-        `Validation errors in createBuyer: ${validationErrors}`
+        `Validation errors in createBuyer: ${validationErrors}`,
       );
     }
     return response.json(`Error in createBuyer`);
@@ -59,7 +59,7 @@ const updateBuyerById = async (request, response) => {
       buyerData.dateEstablished,
       buyerData.netWorth,
       buyerData.countriesOfInterest,
-      buyerId
+      buyerId,
     );
     return response.json(updatedBuyerById);
   } catch (error) {
@@ -70,7 +70,7 @@ const updateBuyerById = async (request, response) => {
       }
       console.log(`Validation errors in updateBuyerById: ${validationErrors}`);
       return response.json(
-        `Validation errors in updateBuyerById: ${validationErrors}`
+        `Validation errors in updateBuyerById: ${validationErrors}`,
       );
     }
 
@@ -85,7 +85,7 @@ const deleteBuyerById = async (request, response) => {
       await purchaseService.findPurchaseByBuyerId(buyerId);
     if (connectedPurchases.length != 0)
       throw new Error(
-        "Buyer object id exists in table Purchases so it cannot be deleted"
+        "Buyer object id exists in table Purchases so it cannot be deleted",
       );
 
     const deletedCount = await buyerService.deleteBuyerById(buyerId);

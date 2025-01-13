@@ -17,25 +17,27 @@ const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName
+      userData.userName,
     );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
 
-    const hashedPassword = await bcrypt.hash(newUser.password, 5);
-    newUser.password = hashedPassword;
+    const hashedPassword = await userService.getPasswordHash(
+      userData.password,
+      5,
+    );
 
-    const user = await userService.createUser(
+    await userService.createUser(
       userData.userName,
       userData.firstName,
       userData.lastName,
       userData.email,
-      hashedPassword
+      hashedPassword,
     );
 
-    const jwtToken = userService.createJwtToken(userName, secret);
+    const jwtToken = userService.createJwtToken(userData.userName, secret);
 
-    return response.json(jwtToken);
+    return response.json({ token: jwtToken });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
@@ -44,7 +46,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`
+        `Validation errors in signUpUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -55,18 +57,17 @@ const logInUser = async (request, response) => {
   const userName = request.body.userName;
   const password = request.body.password;
   try {
-    const existingUserName = await userService.getUserByUserName(
-      userData.userName
-    );
+    const existingUserName = await userService.getUserByUserName(userName);
     if (existingUserName == undefined)
       throw new Error("User with this username doesn't exists");
 
+    console.log("DUJO " + password);
     if (!bcrypt.compareSync(password, existingUserName.password))
       throw new Error("Password is wrong");
 
     const jwtToken = userService.createJwtToken(userName, secret);
 
-    return response.json(jwtToken);
+    return response.json({ token: jwtToken });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
@@ -75,7 +76,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`
+        `Validation errors in logInUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in logInUser: ` + error.message);
