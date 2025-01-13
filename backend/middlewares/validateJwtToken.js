@@ -5,7 +5,6 @@ dotenv.config();
 async function checkJwt(request, response, next) {
   try {
     const token = request.header("Authorization")?.split(" ")?.[1];
-    console.log(token);
     const decoded = jwt.verify(token, process.env.secret);
 
     response.locals.user = decoded;

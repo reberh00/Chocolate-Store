@@ -6,7 +6,7 @@ async function getAllChocolates() {
 }
 
 async function getChocolatesById(chocolateId) {
-  const chocolate = await Chocolate.find({ _id: chocolateId });
+  const chocolate = await Chocolate.findOne({ _id: chocolateId });
   return chocolate;
 }
 
@@ -20,9 +20,9 @@ async function createChocolate(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients,
+  ingredients
 ) {
-  const newChocolate = new Chocolate(
+  const newChocolate = new Chocolate({
     name,
     firmName,
     description,
@@ -33,12 +33,14 @@ async function createChocolate(
     isVegan,
     isOrganic,
     ingredients,
-  );
-  await Chocolate.save();
+  });
+
+  await newChocolate.save();
   return newChocolate;
 }
 
 async function updateChocolateById(
+  chocolateId,
   name,
   firmName,
   description,
@@ -48,8 +50,7 @@ async function updateChocolateById(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients,
-  chocolateId,
+  ingredients
 ) {
   const updatedChocolateById = await Chocolate.findOneAndUpdate(
     { _id: chocolateId },
@@ -65,14 +66,14 @@ async function updateChocolateById(
       isOrganic,
       ingredients,
     },
-    { new: true },
+    { new: true }
   );
   return updatedChocolateById;
 }
 
 async function deleteChocolateById(chocolateId) {
-  const deleteCount = await Chocolate.deleteOne({ _id: chocolateId });
-  return deleteCount;
+  const deletedCount = await Chocolate.deleteOne({ _id: chocolateId });
+  return deletedCount;
 }
 
 export default {

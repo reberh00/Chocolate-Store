@@ -36,7 +36,12 @@ const createPurchase = async (request, response) => {
     if (existingChocolateId.length == 0)
       throw new Error("Invalid chocolate object id");
 
-    const newPurchase = await purchaseService.createPurchase(...purchaseData);
+    const newPurchase = await purchaseService.createPurchase(
+      buyerId,
+      chocolateId,
+      purchaseData.date,
+      purchaseData.amount
+    );
 
     return response.json(newPurchase);
   } catch (error) {
@@ -47,7 +52,7 @@ const createPurchase = async (request, response) => {
       }
       console.log(`Validation errors in createPurchase: ${validationErrors}`);
       return response.json(
-        `Validation errors in createPurchase: ${validationErrors}`,
+        `Validation errors in createPurchase: ${validationErrors}`
       );
     }
 
@@ -61,19 +66,22 @@ const updatePurchaseById = async (request, response) => {
 
   try {
     const existingBuyerId = await buyerService.getBuyerById(
-      purchaseData.buyerId,
+      purchaseData.buyerId
     );
     if (existingBuyerId.length == 0) throw new Error("Invalid buyer object id");
 
     const existingChocolateId = await chocolateService.getChocolatesById(
-      purchaseData.chocolateId,
+      purchaseData.chocolateId
     );
     if (existingChocolateId.length == 0)
       throw new Error("Invalid chocolate object id");
 
     const updatedPurchaseById = await purchaseService.updatePurchaseById(
-      ...purchaseData,
-      purchaseId,
+      purchaseData.buyerId,
+      purchaseData.chocolateId,
+      purchaseData.date,
+      purchaseData.amount,
+      purchaseId
     );
     return response.json(updatedPurchaseById);
   } catch (error) {
@@ -83,10 +91,10 @@ const updatePurchaseById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+        `Validation errors in updatedPurchaseById: ${validationErrors}`
       );
       return response.json(
-        `Validation errors in updatedPurchaseById: ${validationErrors}`,
+        `Validation errors in updatedPurchaseById: ${validationErrors}`
       );
     }
 
@@ -106,10 +114,10 @@ const deletePurchaseById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in deletePurchaseById: ${validationErrors}`,
+        `Validation errors in deletePurchaseById: ${validationErrors}`
       );
       return response.json(
-        `Validation errors in deletePurchaseById: ${validationErrors}`,
+        `Validation errors in deletePurchaseById: ${validationErrors}`
       );
     }
 

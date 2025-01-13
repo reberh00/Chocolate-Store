@@ -6,7 +6,7 @@ async function getAllBuyers() {
 }
 
 async function getBuyerById(buyerId) {
-  const buyer = await Buyer.find({ _id: buyerId });
+  const buyer = await Buyer.findOne({ _id: buyerId });
   return buyer;
 }
 
@@ -16,17 +16,17 @@ async function createBuyer(
   description,
   dateEstablished,
   netWorth,
-  countriesOfInterest,
+  countriesOfInterest
 ) {
-  const newBuyer = new Buyer(
+  const newBuyer = new Buyer({
     firmName,
     firmAddress,
     description,
     dateEstablished,
     netWorth,
     countriesOfInterest,
-  );
-  await Buyer.save();
+  });
+  await newBuyer.save();
   return newBuyer;
 }
 
@@ -37,7 +37,7 @@ async function updateBuyerById(
   dateEstablished,
   netWorth,
   countriesOfInterest,
-  buyerId,
+  buyerId
 ) {
   const updatedBuyerById = await Buyer.findOneAndUpdate(
     { _id: buyerId },
@@ -49,14 +49,14 @@ async function updateBuyerById(
       netWorth,
       countriesOfInterest,
     },
-    { new: true },
+    { new: true }
   );
   return updatedBuyerById;
 }
 
 async function deleteBuyerById(buyerId) {
-  const deleteCount = await Buyer.deleteOne({ _id: buyerId });
-  return deleteCount;
+  const deletedCount = await Buyer.deleteOne({ _id: buyerId });
+  return deletedCount;
 }
 
 export default {
