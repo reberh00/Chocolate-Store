@@ -1,10 +1,7 @@
-import { ChocolateList } from "./components/Chocolate/ChocolateList"
+import { ChocolateList } from "./components/Chocolate/ChocolateList";
 
 function App() {
-
-  return (
-    <ChocolateList/>
-  )
+  return <ChocolateList />;
 }
 
-export default App
+export default App;
