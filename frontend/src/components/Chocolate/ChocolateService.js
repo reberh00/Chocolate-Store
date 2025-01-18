@@ -5,4 +5,11 @@ async function getAllChocolates() {
   return res.data;
 }
 
-export default { getAllChocolates };
+async function getChocolateById(chocolateId) {
+  const res = await axios.get(
+    `http://localhost:5555/chocolates/${chocolateId}`,
+  );
+  return res.data;
+}
+
+export default { getAllChocolates, getChocolateById };

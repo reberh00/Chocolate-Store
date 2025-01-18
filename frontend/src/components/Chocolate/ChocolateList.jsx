@@ -42,7 +42,7 @@ export function ChocolateList() {
 
       <div className="w-full max-h-[90vh] overflow-y-scroll">
         <div className="flex flex-wrap mx-auto w-[90vw] justify-center">
-          {chocolates.map((item) => (
+          {chocolates.map((item, index) => (
             <ChocolateCard
               key={item._id}
               onSelectChocolate={() => handleSelectChocolate(item)}
@@ -50,6 +50,11 @@ export function ChocolateList() {
               id={item.id}
               name={item.name}
               price={item.price}
+              imageUrl={
+                index % 2 == 0
+                  ? "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chocolate_%28blue_background%29.jpg/640px-Chocolate_%28blue_background%29.jpg"
+                  : "https://upload.wikimedia.org/wikipedia/commons/c/cd/Green_and_Black%27s_dark_chocolate_bar_2.jpg"
+              }
               manufacturerName={item.name + "'s company"}
             />
           ))}
