@@ -2,7 +2,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f11",
     name: "Dark Delight",
-    firmName: "ChocoLux",
     description: "Rich dark chocolate with hints of espresso.",
     dateOfProduction: "2024-12-01T00:00:00.000Z",
     price: 5.99,
@@ -18,7 +17,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f12",
     name: "Milk Magic",
-    firmName: "SweetTreats",
     description: "Creamy milk chocolate made with fresh milk.",
     dateOfProduction: "2024-11-15T00:00:00.000Z",
     price: 4.49,
@@ -33,7 +31,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f13",
     name: "Hazelnut Heaven",
-    firmName: "NuttyGoodies",
     description: "Milk chocolate with whole hazelnuts.",
     dateOfProduction: "2024-10-10T00:00:00.000Z",
     price: 6.99,
@@ -49,7 +46,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f14",
     name: "Vegan Vanilla",
-    firmName: "Nature's Bounty",
     description: "Smooth vegan chocolate with vanilla bean.",
     dateOfProduction: "2024-12-20T00:00:00.000Z",
     price: 7.49,
@@ -65,7 +61,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f15",
     name: "Mint Marvel",
-    firmName: "FreshBites",
     description: "Refreshing mint-infused dark chocolate.",
     dateOfProduction: "2024-11-01T00:00:00.000Z",
     price: 5.49,
@@ -81,7 +76,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f16",
     name: "Caramel Bliss",
-    firmName: "SweetHaven",
     description: "Milk chocolate filled with creamy caramel.",
     dateOfProduction: "2024-09-25T00:00:00.000Z",
     price: 6.49,
@@ -97,7 +91,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f17",
     name: "Berry Burst",
-    firmName: "ChocoBerry",
     description: "Dark chocolate with dried berries.",
     dateOfProduction: "2024-10-15T00:00:00.000Z",
     price: 6.99,
@@ -113,7 +106,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f18",
     name: "Spicy Sensation",
-    firmName: "ExoticChoco",
     description: "Dark chocolate with a kick of chili.",
     dateOfProduction: "2024-11-05T00:00:00.000Z",
     price: 5.99,
@@ -129,7 +121,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f19",
     name: "Coffee Crunch",
-    firmName: "CocoaBrew",
     description: "Chocolate infused with crunchy coffee bits.",
     dateOfProduction: "2024-10-30T00:00:00.000Z",
     price: 7.29,
@@ -145,7 +136,6 @@ export const chocolatesData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f1a",
     name: "Coconut Dream",
-    firmName: "TropicalTreats",
     description: "Creamy milk chocolate with shredded coconut.",
     dateOfProduction: "2024-09-18T00:00:00.000Z",
     price: 6.79,

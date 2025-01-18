@@ -103,7 +103,6 @@ chocolateRouter.post(
   checkJwt,
   validation.body({
     name: Joi.string().required(),
-    firmName: Joi.string().required(),
     description: Joi.string().required(),
     dateOfProduction: Joi.date().required(),
     price: Joi.number().positive().required(),
@@ -170,7 +169,6 @@ chocolateRouter.put(
   }),
   validation.body({
     name: Joi.string().required(),
-    firmName: Joi.string().required(),
     description: Joi.string().required(),
     dateOfProduction: Joi.date().required(),
     price: Joi.number().required(),

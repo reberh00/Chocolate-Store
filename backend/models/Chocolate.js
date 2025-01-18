@@ -6,10 +6,6 @@ const ChocolateSchema = new Schema({
     type: String,
     required: true,
   },
-  firmName: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,

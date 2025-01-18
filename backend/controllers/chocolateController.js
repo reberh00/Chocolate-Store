@@ -33,7 +33,6 @@ const createChocolate = async (request, response) => {
 
     const newChocolate = await chocolateService.createChocolate(
       chocolateData.name,
-      chocolateData.firmName,
       chocolateData.description,
       chocolateData.dateOfProduction,
       chocolateData.price,
@@ -75,7 +74,6 @@ const updateChocolateById = async (request, response) => {
     const updatedChocolateById = await chocolateService.updateChocolateById(
       chocolateId,
       chocolateData.name,
-      chocolateData.firmName,
       chocolateData.description,
       chocolateData.dateOfProduction,
       chocolateData.price,

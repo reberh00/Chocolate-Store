@@ -12,7 +12,6 @@ async function getChocolatesById(chocolateId) {
 
 async function createChocolate(
   name,
-  firmName,
   description,
   dateOfProduction,
   price,
@@ -26,7 +25,6 @@ async function createChocolate(
 ) {
   const newChocolate = new Chocolate({
     name,
-    firmName,
     description,
     dateOfProduction,
     price,
@@ -46,7 +44,6 @@ async function createChocolate(
 async function updateChocolateById(
   chocolateId,
   name,
-  firmName,
   description,
   dateOfProduction,
   price,
@@ -62,7 +59,6 @@ async function updateChocolateById(
     { _id: chocolateId },
     {
       name,
-      firmName,
       description,
       dateOfProduction,
       price,
