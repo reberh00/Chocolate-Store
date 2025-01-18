@@ -6,6 +6,7 @@ export const usersData = [
     lastName: "Lelas",
     email: "test@example.com",
     password: "123",
+    role: "admin",
   },
   {
     _id: "64a8e1f243b5a4d52c1d9f31",
@@ -14,5 +15,6 @@ export const usersData = [
     lastName: "Eberhart",
     email: "test@example.com",
     password: "123",
+    role: "user",
   },
 ];

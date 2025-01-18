@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import chocolateService from "../services/chocolateService.js";
-import purchaseService from "../services/purchaseService.js";
+import manufacturerService from "../services/manufacturerService.js";
 
 const getAllChocolates = async (request, response) => {
   try {
@@ -25,6 +25,12 @@ const createChocolate = async (request, response) => {
   const chocolateData = request.body;
 
   try {
+    const manufacturer = await manufacturerService.getManufacturerById(
+      chocolateData.manufacturerId,
+    );
+    if (manufacturer == undefined)
+      throw new Error("Invalid manufacturer object id");
+
     const newChocolate = await chocolateService.createChocolate(
       chocolateData.name,
       chocolateData.firmName,
@@ -35,7 +41,9 @@ const createChocolate = async (request, response) => {
       chocolateData.cacaoPercentage,
       chocolateData.isVegan,
       chocolateData.isOrganic,
-      chocolateData.ingredients
+      chocolateData.ingredients,
+      chocolateData.imageUrl,
+      chocolateData.manufacturerId,
     );
     return response.json(newChocolate);
   } catch (error) {
@@ -46,7 +54,7 @@ const createChocolate = async (request, response) => {
       }
       console.log(`Validation errors in createChocolate: ${validationErrors}`);
       return response.json(
-        `Validation errors in createChocolate: ${validationErrors}`
+        `Validation errors in createChocolate: ${validationErrors}`,
       );
     }
 
@@ -59,6 +67,11 @@ const updateChocolateById = async (request, response) => {
   const chocolateData = request.body;
   try {
     console.log(chocolateData);
+    const manufacturer = await manufacturerService.getManufacturerById(
+      chocolateData.manufacturerId,
+    );
+    if (manufacturer == undefined)
+      throw new Error("Invalid manufacturer object id");
     const updatedChocolateById = await chocolateService.updateChocolateById(
       chocolateId,
       chocolateData.name,
@@ -70,7 +83,9 @@ const updateChocolateById = async (request, response) => {
       chocolateData.cacaoPercentage,
       chocolateData.isVegan,
       chocolateData.isOrganic,
-      chocolateData.ingredients
+      chocolateData.ingredients,
+      chocolateData.imageUrl,
+      chocolateData.manufacturerId,
     );
     return response.json(updatedChocolateById);
   } catch (error) {
@@ -80,10 +95,10 @@ const updateChocolateById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in updateChocolateById: ${validationErrors}`
+        `Validation errors in updateChocolateById: ${validationErrors}`,
       );
       return response.json(
-        `Validation errors in updateChocolateById: ${validationErrors}`
+        `Validation errors in updateChocolateById: ${validationErrors}`,
       );
     }
 
@@ -94,13 +109,6 @@ const updateChocolateById = async (request, response) => {
 const deleteChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   try {
-    const connectedPurchases =
-      await purchaseService.findPurchaseByChocolateId(chocolateId);
-    if (connectedPurchases.length != 0)
-      throw new Error(
-        "Chocolate object id exists in table Purchases so it cannot be deleted"
-      );
-
     const deletedCount =
       await chocolateService.deleteChocolateById(chocolateId);
     return response.json(deletedCount);
@@ -111,10 +119,10 @@ const deleteChocolateById = async (request, response) => {
         validationErrors += error.errors[field].message;
       }
       console.log(
-        `Validation errors in deleteChocolateById: ${validationErrors}`
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
       );
       return response.json(
-        `Validation errors in deleteChocolateById: ${validationErrors}`
+        `Validation errors in deleteChocolateById: ${validationErrors}`,
       );
     }
 

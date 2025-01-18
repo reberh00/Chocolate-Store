@@ -11,6 +11,9 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Vanilla"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f01",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f12",
@@ -24,6 +27,8 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: false,
     ingredients: ["Cocoa Butter", "Milk Powder", "Sugar", "Cocoa Mass"],
+    imageUrl: "https://www.noracooks.com/wp-content/uploads/2020/12/square.jpg", //fix this shit,, better picture, servantes
+    manufacturerId: "64a7e1a243b5a4d52c1d9f02",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f13",
@@ -37,6 +42,9 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Sugar", "Hazelnuts", "Milk Powder"],
+    imageUrl:
+      "https://rrbakers.com/wp-content/uploads/2023/10/fruit-and-nuts-chocolate-bar-recipe.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f03",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f14",
@@ -50,6 +58,9 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: true,
     ingredients: ["Cocoa Butter", "Cocoa Mass", "Sugar", "Vanilla Bean"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg", //servantes odavde do kraja minjaj slike
+    manufacturerId: "64a7e1a243b5a4d52c1d9f04",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f15",
@@ -63,6 +74,9 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Mint Oil"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f05",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f16",
@@ -76,6 +90,9 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Milk Powder", "Sugar", "Caramel"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f06",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f17",
@@ -89,6 +106,9 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Dried Berries"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f07",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f18",
@@ -102,6 +122,9 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Chili Powder"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f09",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f19",
@@ -115,6 +138,9 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Sugar", "Milk Powder", "Coffee Bits"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f01",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f1a",
@@ -128,5 +154,8 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Milk Powder", "Sugar", "Coconut"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f02",
   },
 ];

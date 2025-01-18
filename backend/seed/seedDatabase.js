@@ -1,12 +1,10 @@
 import Chocolate from "../models/Chocolate.js";
 import mongoose from "mongoose";
 import { chocolatesData } from "./chocolates.js";
-import { buyersData } from "./buyers.js";
-import { purchasesData } from "./purchases.js";
+import { manufacturersData } from "./manufacturers.js";
 import { usersData } from "./users.js";
-import Buyer from "../models/Buyer.js";
-import Purchase from "../models/Purchase.js";
 import userService from "../services/userService.js";
+import Manufacturer from "../models/Manufacturer.js";
 import User from "../models/User.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -21,18 +19,11 @@ mongoose
       await chocolate.save();
     }
 
-    await Buyer.collection.drop();
+    await Manufacturer.collection.drop();
 
-    for (const buyerData of buyersData) {
-      const buyer = new Buyer(buyerData);
-      await buyer.save();
-    }
-
-    await Purchase.collection.drop();
-
-    for (const purchaseData of purchasesData) {
-      const purchase = new Purchase(purchaseData);
-      await purchase.save();
+    for (const manufacturerData of manufacturersData) {
+      const manufacturer = new Manufacturer(manufacturerData);
+      await manufacturer.save();
     }
 
     await User.collection.drop();
@@ -40,12 +31,14 @@ mongoose
     for (const userData of usersData) {
       userData.password = await userService.getPasswordHash(
         userData.password,
-        5
+        5,
       );
 
       const user = new User(userData);
       await user.save();
     }
+
+    console.log("Script successfully seeded!:)");
 
     mongoose.disconnect();
   })

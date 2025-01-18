@@ -17,14 +17,14 @@ const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName
+      userData.userName,
     );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
 
     const hashedPassword = await userService.getPasswordHash(
       userData.password,
-      5
+      5,
     );
 
     await userService.createUser(
@@ -32,12 +32,13 @@ const signUpUser = async (request, response) => {
       userData.firstName,
       userData.lastName,
       userData.email,
-      hashedPassword
+      userData.role,
+      hashedPassword,
     );
 
     const jwtToken = await userService.createJwtToken(
       userData.userName,
-      process.env.secret
+      process.env.secret,
     );
 
     return response.json({ token: jwtToken });
@@ -49,7 +50,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`
+        `Validation errors in signUpUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -70,7 +71,7 @@ const logInUser = async (request, response) => {
 
     const jwtToken = await userService.createJwtToken(
       userName,
-      process.env.secret
+      process.env.secret,
     );
 
     return response.json({ token: jwtToken });
@@ -82,7 +83,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`
+        `Validation errors in logInUser: ${validationErrors}`,
       );
     }
     return response.json(`Error in logInUser: ` + error.message);

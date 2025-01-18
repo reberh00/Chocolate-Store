@@ -47,7 +47,7 @@ describe("Chocolate routes", () => {
         85,
         true,
         true,
-        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"]
+        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"],
       );
     });
 
@@ -61,17 +61,17 @@ describe("Chocolate routes", () => {
       expect(resp.body.firmName).to.be.equal(createdChocolate.firmName);
       expect(resp.body.description).to.be.equal(createdChocolate.description);
       expect(resp.body.dateOfProduction).to.be.equal(
-        createdChocolate.dateOfProduction.toISOString()
+        createdChocolate.dateOfProduction.toISOString(),
       );
       expect(resp.body.price).to.be.equal(createdChocolate.price);
       expect(resp.body.netWeight).to.be.equal(createdChocolate.netWeight);
       expect(resp.body.cacaoPercentage).to.be.equal(
-        createdChocolate.cacaoPercentage
+        createdChocolate.cacaoPercentage,
       );
       expect(resp.body.isVegan).to.be.equal(createdChocolate.isVegan);
       expect(resp.body.isOrganic).to.be.equal(createdChocolate.isOrganic);
       expect(resp.body.ingredients).to.have.all.members(
-        createdChocolate.ingredients
+        createdChocolate.ingredients,
       );
     });
   });
@@ -90,7 +90,7 @@ describe("Chocolate routes", () => {
         85,
         true,
         true,
-        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"]
+        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"],
       );
     });
 
@@ -118,17 +118,17 @@ describe("Chocolate routes", () => {
       expect(resp.body.firmName).to.be.equal(createdChocolate.firmName);
       expect(resp.body.description).to.be.equal(createdChocolate.description);
       expect(resp.body.dateOfProduction).to.be.equal(
-        createdChocolate.dateOfProduction.toISOString()
+        createdChocolate.dateOfProduction.toISOString(),
       );
       expect(resp.body.price).to.be.equal(createdChocolate.price);
       expect(resp.body.netWeight).to.be.equal(createdChocolate.netWeight);
       expect(resp.body.cacaoPercentage).to.be.equal(
-        createdChocolate.cacaoPercentage
+        createdChocolate.cacaoPercentage,
       );
       expect(resp.body.isVegan).to.be.equal(createdChocolate.isVegan);
       expect(resp.body.isOrganic).to.be.equal(createdChocolate.isOrganic);
       expect(resp.body.ingredients).to.have.all.members(
-        createdChocolate.ingredients
+        createdChocolate.ingredients,
       );
     });
   });
@@ -167,17 +167,17 @@ describe("Chocolate routes", () => {
       expect(resp.body.firmName).to.be.equal(chocolateData.firmName);
       expect(resp.body.description).to.be.equal(chocolateData.description);
       expect(resp.body.dateOfProduction).to.be.equal(
-        chocolateData.dateOfProduction
+        chocolateData.dateOfProduction,
       );
       expect(resp.body.price).to.be.equal(chocolateData.price);
       expect(resp.body.netWeight).to.be.equal(chocolateData.netWeight);
       expect(resp.body.cacaoPercentage).to.be.equal(
-        chocolateData.cacaoPercentage
+        chocolateData.cacaoPercentage,
       );
       expect(resp.body.isVegan).to.be.equal(chocolateData.isVegan);
       expect(resp.body.isOrganic).to.be.equal(chocolateData.isOrganic);
       expect(resp.body.ingredients).to.have.all.members(
-        chocolateData.ingredients
+        chocolateData.ingredients,
       );
     });
   });
@@ -196,7 +196,7 @@ describe("Chocolate routes", () => {
         85,
         true,
         true,
-        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"]
+        ["Cacao mass", "Cacao butter", "Sugar", "Vanilla", "Lecithin"],
       );
     });
 

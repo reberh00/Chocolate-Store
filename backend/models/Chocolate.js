@@ -42,6 +42,15 @@ const ChocolateSchema = new Schema({
     type: [String],
     required: true,
   },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  manufacturerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Manufacturer",
+    required: true,
+  },
 });
 
 const Chocolate = mongoose.model("Chocolate", ChocolateSchema);

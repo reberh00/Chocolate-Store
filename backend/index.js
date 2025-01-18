@@ -2,9 +2,8 @@ import express, { request, response } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-import buyerRouter from "./routes/buyerRoutes.js";
+import manufacturerRouter from "./routes/manufacturerRoutes.js";
 import chocolateRouter from "./routes/chocolateRoutes.js";
-import purchaseRouter from "./routes/purchaseRoutes.js";
 import logRequest from "./middlewares/logging.js";
 
 import cors from "cors";
@@ -18,9 +17,8 @@ app.use(express.json());
 
 app.use("/", logRequest);
 
-app.use("/buyers", buyerRouter);
+app.use("/manufacturers", manufacturerRouter);
 app.use("/chocolates", chocolateRouter);
-app.use("/purchases", purchaseRouter);
 app.use("/users", userRouter);
 
 const swaggerOptions = {
