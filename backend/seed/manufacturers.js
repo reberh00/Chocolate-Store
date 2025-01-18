@@ -1,4 +1,4 @@
-export const buyersData = [
+export const manufacturersData = [
   {
     _id: "64a7e1a243b5a4d52c1d9f01",
     firmName: "Global Trade Corp",
@@ -7,6 +7,8 @@ export const buyersData = [
     dateEstablished: "1990-06-15T00:00:00.000Z",
     netWorth: 500000000,
     countriesOfInterest: ["USA", "Canada", "Germany", "Japan"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg", //servantes sve san iste stavia
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f02",
@@ -16,6 +18,8 @@ export const buyersData = [
     dateEstablished: "2005-04-10T00:00:00.000Z",
     netWorth: 250000000,
     countriesOfInterest: ["UK", "France", "Australia"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f03",
@@ -25,6 +29,8 @@ export const buyersData = [
     dateEstablished: "2010-09-20T00:00:00.000Z",
     netWorth: 1000000000,
     countriesOfInterest: ["USA", "South Korea", "India"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f04",
@@ -34,6 +40,8 @@ export const buyersData = [
     dateEstablished: "1985-03-01T00:00:00.000Z",
     netWorth: 400000000,
     countriesOfInterest: ["France", "Italy", "Spain", "Brazil"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f05",
@@ -43,6 +51,8 @@ export const buyersData = [
     dateEstablished: "1995-11-25T00:00:00.000Z",
     netWorth: 750000000,
     countriesOfInterest: ["Germany", "USA", "Japan", "China"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f06",
@@ -52,6 +62,8 @@ export const buyersData = [
     dateEstablished: "2000-07-12T00:00:00.000Z",
     netWorth: 320000000,
     countriesOfInterest: ["Italy", "France", "USA"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f07",
@@ -61,6 +73,8 @@ export const buyersData = [
     dateEstablished: "2015-01-05T00:00:00.000Z",
     netWorth: 600000000,
     countriesOfInterest: ["UAE", "Saudi Arabia", "Qatar"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f08",
@@ -70,6 +84,8 @@ export const buyersData = [
     dateEstablished: "2008-05-18T00:00:00.000Z",
     netWorth: 200000000,
     countriesOfInterest: ["Singapore", "India", "USA", "UK"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f09",
@@ -79,6 +95,8 @@ export const buyersData = [
     dateEstablished: "2012-08-30T00:00:00.000Z",
     netWorth: 850000000,
     countriesOfInterest: ["Denmark", "Germany", "Netherlands", "USA"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f0a",
@@ -88,5 +106,7 @@ export const buyersData = [
     dateEstablished: "1998-02-14T00:00:00.000Z",
     netWorth: 300000000,
     countriesOfInterest: ["Australia", "China", "India", "New Zealand"],
+    imageUrl:
+      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
   },
 ];

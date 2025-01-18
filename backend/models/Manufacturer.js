@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const BuyerSchema = new Schema({
+const ManufacturerSchema = new Schema({
   firmName: {
     type: String,
     required: true,
@@ -26,8 +26,12 @@ const BuyerSchema = new Schema({
     type: [String],
     required: true,
   },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
 });
 
-const Buyer = mongoose.model("Buyer", BuyerSchema);
+const Manufacturer = mongoose.model("Manufacturer", ManufacturerSchema);
 
-export default Buyer;
+export default Manufacturer;

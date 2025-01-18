@@ -112,6 +112,8 @@ chocolateRouter.post(
     isVegan: Joi.boolean().required(),
     isOrganic: Joi.boolean().required(),
     ingredients: Joi.array().items(Joi.string()),
+    imageUrl: Joi.string().required(),
+    manufacturerId: Joi.string().hex().length(24).required(),
   }),
   chocolateController.createChocolate,
 );
@@ -177,6 +179,8 @@ chocolateRouter.put(
     isVegan: Joi.boolean().required(),
     isOrganic: Joi.boolean().required(),
     ingredients: Joi.array().items(Joi.string()),
+    imageUrl: Joi.string().required(),
+    manufacturerId: Joi.string().hex().length(24).required(),
   }),
   chocolateController.updateChocolateById,
 );

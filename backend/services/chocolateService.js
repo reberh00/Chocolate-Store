@@ -20,7 +20,9 @@ async function createChocolate(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients
+  ingredients,
+  imageUrl,
+  manufacturerId,
 ) {
   const newChocolate = new Chocolate({
     name,
@@ -33,6 +35,8 @@ async function createChocolate(
     isVegan,
     isOrganic,
     ingredients,
+    imageUrl,
+    manufacturerId,
   });
 
   await newChocolate.save();
@@ -50,7 +54,9 @@ async function updateChocolateById(
   cacaoPercentage,
   isVegan,
   isOrganic,
-  ingredients
+  ingredients,
+  imageUrl,
+  manufacturerId,
 ) {
   const updatedChocolateById = await Chocolate.findOneAndUpdate(
     { _id: chocolateId },
@@ -65,8 +71,10 @@ async function updateChocolateById(
       isVegan,
       isOrganic,
       ingredients,
+      imageUrl,
+      manufacturerId,
     },
-    { new: true }
+    { new: true },
   );
   return updatedChocolateById;
 }
@@ -76,10 +84,16 @@ async function deleteChocolateById(chocolateId) {
   return deletedCount;
 }
 
+async function findChocolateByManufacturerId(manufacturerId) {
+  const chocolates = await Chocolate.find({ manufacturerId: manufacturerId });
+  return chocolates;
+}
+
 export default {
   getAllChocolates,
   getChocolatesById,
   createChocolate,
   updateChocolateById,
   deleteChocolateById,
+  findChocolateByManufacturerId,
 };

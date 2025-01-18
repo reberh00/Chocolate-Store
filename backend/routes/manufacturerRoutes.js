@@ -1,28 +1,28 @@
 import express, { response } from "express";
 import checkJwt from "../middlewares/validateJwtToken.js";
-const buyerRouter = express.Router();
-import buyerController from "../controllers/buyerController.js";
+const manufacturerRouter = express.Router();
+import manufacturerController from "../controllers/manufacturerController.js";
 import validation from "../middlewares/validation.js";
 import Joi from "joi";
 
 /**
  * @swagger
  *  tags:
- *    - name: Buyer
- *      description: The Buyer management API
+ *    - name: Manufacturer
+ *      description: The Manufacturer management API
  */
 
 /**
  * @swagger
- *  /buyers:
+ *  /manufacturers:
  *    get:
- *      tags: [Buyer]
- *      summary: Retrieve a list of all Buyers
+ *      tags: [Manufacturer]
+ *      summary: Retrieve a list of all Manufacturers
  *      responses:
  *        200:
- *          description: Return list of all Buyers
+ *          description: Return list of all Manufacturers
  */
-buyerRouter.get("/", buyerController.getAllBuyers);
+manufacturerRouter.get("/", manufacturerController.getAllManufacturers);
 
 /**
  * @swagger
@@ -40,10 +40,12 @@ buyerRouter.get("/", buyerController.getAllBuyers);
  *        200:
  *          description: Return single Buyer
  */
-buyerRouter.get(
-  "/:buyerId",
-  validation.params({ buyerId: Joi.string().hex().length(24).required() }),
-  buyerController.getBuyersById,
+manufacturerRouter.get(
+  "/:manufacturerId",
+  validation.params({
+    manufacturerId: Joi.string().hex().length(24).required(),
+  }),
+  manufacturerController.getManufacturerById,
 );
 
 /**
@@ -84,7 +86,7 @@ buyerRouter.get(
  *        200:
  *          description: Return created Buyer
  */
-buyerRouter.post(
+manufacturerRouter.post(
   "/",
   checkJwt,
   validation.body({
@@ -94,8 +96,9 @@ buyerRouter.post(
     dateEstablished: Joi.date().required(),
     netWorth: Joi.number().integer().positive().required(),
     countriesOfInterest: Joi.array().items(Joi.string()),
+    imageUrl: Joi.string().required(),
   }),
-  buyerController.createBuyer,
+  manufacturerController.createManufacturer,
 );
 
 /**
@@ -135,11 +138,11 @@ buyerRouter.post(
  *        200:
  *          description: Return updated Buyer
  */
-buyerRouter.put(
-  "/:buyerId",
+manufacturerRouter.put(
+  "/:manufacturerId",
   checkJwt,
   validation.params({
-    buyerId: Joi.string().hex().length(24).required(),
+    manufacturerId: Joi.string().hex().length(24).required(),
   }),
   validation.body({
     firmName: Joi.string().required(),
@@ -148,8 +151,9 @@ buyerRouter.put(
     dateEstablished: Joi.date().required(),
     netWorth: Joi.number().integer().positive().required(),
     countriesOfInterest: Joi.array().items(Joi.string()),
+    imageUrl: Joi.string().required(),
   }),
-  buyerController.updateBuyerById,
+  manufacturerController.updateManufacturerById,
 );
 
 /**
@@ -168,13 +172,13 @@ buyerRouter.put(
  *        200:
  *          description: The number of deleted Buyers
  */
-buyerRouter.delete(
-  "/:buyerId",
+manufacturerRouter.delete(
+  "/:manufacturerId",
   checkJwt,
   validation.params({
-    buyerId: Joi.string().hex().length(24).required(),
+    manufacturerId: Joi.string().hex().length(24).required(),
   }),
-  buyerController.deleteBuyerById,
+  manufacturerController.deleteManufacturerById,
 );
 
-export default buyerRouter;
+export default manufacturerRouter;

@@ -12,8 +12,22 @@ async function getUserByUserName(userName) {
   return user;
 }
 
-async function createUser(userName, firstName, lastName, email, password) {
-  const newUser = new User({ userName, firstName, lastName, email, password });
+async function createUser(
+  userName,
+  firstName,
+  lastName,
+  email,
+  password,
+  role,
+) {
+  const newUser = new User({
+    userName,
+    firstName,
+    lastName,
+    email,
+    password,
+    role,
+  });
   await newUser.save();
   return newUser;
 }
