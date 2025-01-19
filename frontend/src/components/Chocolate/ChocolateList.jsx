@@ -54,7 +54,7 @@ export function ChocolateList() {
         </button>
       </div>
 
-      <div className="w-full max-h-[90vh] overflow-y-scroll">
+      <div className="w-full max-h-[80vh] overflow-y-scroll">
         <div className="flex flex-wrap mx-auto w-[90vw] justify-center">
           {chocolates.map((item, index) => (
             <ChocolateCard

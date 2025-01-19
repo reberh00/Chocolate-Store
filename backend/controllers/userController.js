@@ -32,8 +32,8 @@ const signUpUser = async (request, response) => {
       userData.firstName,
       userData.lastName,
       userData.email,
-      userData.role,
       hashedPassword,
+      userData.role,
     );
 
     const jwtToken = await userService.createJwtToken(
