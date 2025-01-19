@@ -2,34 +2,68 @@ import { useForm } from "react-hook-form";
 import ChocolateService from "./ChocolateService";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useUserSession } from "../../hooks/useUserSession";
+import { useNavigate } from "react-router-dom";
 
 export function ChocolateForm() {
-  const id = "64a7e1a243b5a4d52c1d9f13";
+  const { chocolateId } = useParams();
+  const { getUserSession } = useUserSession();
   const [manufacturers, setManufacturers] = useState([]);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: async () => await fetchChocolate() });
   const onSubmit = async (data) => {
-    const updatedChocolate = await ChocolateService.updateChocolateById(id, {
-      name: data.name,
-      dateOfProduction: new Date(2002, 10, 14),
-      description: data.description,
-      price: data.price,
-      netWeight: data.netWeight,
-      cacaoPercentage: data.cacaoPercentage,
-      isVegan: data.isVegan,
-      isOrganic: data.isOrganic,
-      imageUrl: data.imageUrl,
-      manufacturerId: data.manufacturerId,
-      ingredients: data.ingredients.split(","),
-    });
-    console.log(updatedChocolate);
+    if (chocolateId) {
+      const updatedChocolate = await ChocolateService.updateChocolateById(
+        chocolateId,
+        {
+          name: data.name,
+          dateOfProduction: new Date(2002, 10, 14),
+          description: data.description,
+          price: data.price,
+          netWeight: data.netWeight,
+          cacaoPercentage: data.cacaoPercentage,
+          isVegan: data.isVegan,
+          isOrganic: data.isOrganic,
+          imageUrl: data.imageUrl,
+          manufacturerId: data.manufacturerId,
+          ingredients: data.ingredients.split(","),
+        },
+        getUserSession(),
+      );
+      console.log(updatedChocolate);
+      navigate(`/chocolates/${chocolateId}`);
+    } else {
+      const createdChocolate = await ChocolateService.createChocolate(
+        {
+          name: data.name,
+          dateOfProduction: new Date(2002, 10, 14),
+          description: data.description,
+          price: data.price,
+          netWeight: data.netWeight,
+          cacaoPercentage: data.cacaoPercentage,
+          isVegan: data.isVegan,
+          isOrganic: data.isOrganic,
+          imageUrl: data.imageUrl,
+          manufacturerId: data.manufacturerId,
+          ingredients: data.ingredients.split(","),
+        },
+        getUserSession(),
+      );
+      console.log(createdChocolate);
+      navigate(`/chocolates/${createdChocolate._id}`);
+    }
   };
 
   async function fetchChocolate() {
-    const chocolate = await ChocolateService.getChocolateById(id);
+    if (!chocolateId) {
+      return {};
+    }
+    const chocolate = await ChocolateService.getChocolateById(chocolateId);
     chocolate.ingredients = chocolate.ingredients.join(",");
     return chocolate;
   }
@@ -45,8 +79,18 @@ export function ChocolateForm() {
     fetchManufacturers();
   }, []);
 
+  async function handleReturn() {
+    navigate("/chocolates");
+  }
+
   return (
     <div className="max-w-96 mx-auto">
+      <button
+        className={`px-5 py-2 fixed top-3 left-3 text-white font-medium rounded-md uppercase bg-amber-500`}
+        onClick={handleReturn}
+      >
+        Return
+      </button>
       <p className="text-3xl uppercase text-center">Chocolate form</p>
 
       <form

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { ChocolateCard } from "./ChocolateCard";
 import ChocolateService from "./ChocolateService";
 import { useUserSession } from "../../hooks/useUserSession";
+import { useNavigate } from "react-router-dom";
 
 export function ChocolateList() {
   const [chocolates, setChocolates] = useState([]);
   const [selectedChocolate, setSelectedChocolate] = useState(null);
   const { getUserSession } = useUserSession();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchChocolates() {
@@ -25,6 +27,18 @@ export function ChocolateList() {
     const chocolatesData = await ChocolateService.getAllChocolates();
     setChocolates(chocolatesData);
     console.log(chocolatesData);
+  }
+
+  async function handleCreate() {
+    navigate("/chocolates/create");
+  }
+
+  async function handleUpdate() {
+    navigate(`/chocolates/${selectedChocolate._id}/update`);
+  }
+
+  async function handleDetails() {
+    navigate(`/chocolates/${selectedChocolate._id}`);
   }
 
   function handleSelectChocolate(chocolate) {
@@ -46,11 +60,21 @@ export function ChocolateList() {
         </button>
         <button
           className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedChocolate ? "bg-orange-500" : "bg-orange-300"}`}
+          onClick={handleUpdate}
         >
           Update
         </button>
-        <button className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase">
+        <button
+          className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase"
+          onClick={handleCreate}
+        >
           Create
+        </button>
+        <button
+          className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedChocolate ? "bg-yellow-500" : "bg-yellow-300"}`}
+          onClick={handleDetails}
+        >
+          Details
         </button>
       </div>
 

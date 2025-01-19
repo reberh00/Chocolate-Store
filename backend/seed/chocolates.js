@@ -55,7 +55,7 @@ export const chocolatesData = [
     isOrganic: true,
     ingredients: ["Cocoa Butter", "Cocoa Mass", "Sugar", "Vanilla Bean"],
     imageUrl:
-      "https://thepodchocolates.co.uk/cdn/shop/products/veganplantvanillabarwebsize.jpg?v=1691954658&width=800", //servantes odavde do kraja minjaj slike
+      "https://thepodchocolates.co.uk/cdn/shop/products/veganplantvanillabarwebsize.jpg?v=1691954658&width=800",
     manufacturerId: "64a7e1a243b5a4d52c1d9f04",
   },
   {
@@ -145,5 +145,6 @@ export const chocolatesData = [
     ingredients: ["Cocoa Mass", "Milk Powder", "Sugar", "Coconut"],
     imageUrl:
       "https://chocolatefly.com/wp-content/uploads/2019/08/0751-1000.jpg",
+    manufacturerId: "64a7e1a243b5a4d52c1d9f01",
   },
 ];
