@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ChocolateService from "./ChocolateService";
+import { useUserSession } from "../../hooks/useUserSession";
 
 export function ChocolateDetails() {
   // const {chocolateId} = useParams();

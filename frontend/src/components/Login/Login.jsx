@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useUserSession } from "../../hooks/useUserSession";
 
 export function Login() {
   const {
@@ -6,7 +8,15 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { setUserSession } = useUserSession();
+  const onSubmit = async (data) => {
+    const response = await axios.post("http://localhost:5555/users/login", {
+      userName: data.userName,
+      password: data.password,
+    });
+    console.log(response);
+    setUserSession(response.data.token);
+  };
 
   return (
     <div className="max-w-96 mx-auto">
@@ -19,6 +29,7 @@ export function Login() {
         <div className="flex flex-col">
           <label className="text-2xl">Username</label>
           <input
+            autoComplete={"on"}
             className="bg-slate-200 p-2"
             {...register("userName", { required: true })}
           />

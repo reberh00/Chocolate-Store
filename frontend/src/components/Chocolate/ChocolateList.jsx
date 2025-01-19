@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { ChocolateCard } from "./ChocolateCard";
 import ChocolateService from "./ChocolateService";
+import { useUserSession } from "../../hooks/useUserSession";
 
 export function ChocolateList() {
   const [chocolates, setChocolates] = useState([]);
   const [selectedChocolate, setSelectedChocolate] = useState(null);
+  const { getUserSession } = useUserSession();
 
   useEffect(() => {
     async function fetchChocolates() {
@@ -13,6 +15,17 @@ export function ChocolateList() {
     }
     fetchChocolates();
   }, []);
+
+  async function handleDelete() {
+    const deleteCount = await ChocolateService.deleteChocolateById(
+      selectedChocolate._id,
+      getUserSession(),
+    );
+    console.log(deleteCount);
+    const chocolatesData = await ChocolateService.getAllChocolates();
+    setChocolates(chocolatesData);
+    console.log(chocolatesData);
+  }
 
   function handleSelectChocolate(chocolate) {
     setSelectedChocolate((prevSelectedChocolate) =>
@@ -27,6 +40,7 @@ export function ChocolateList() {
       <div className="flex flex-row justify-center space-x-10 w-full">
         <button
           className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedChocolate ? "bg-red-500" : "bg-red-300"}`}
+          onClick={handleDelete}
         >
           Delete
         </button>
@@ -50,11 +64,7 @@ export function ChocolateList() {
               id={item.id}
               name={item.name}
               price={item.price}
-              imageUrl={
-                index % 2 == 0
-                  ? "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chocolate_%28blue_background%29.jpg/640px-Chocolate_%28blue_background%29.jpg"
-                  : "https://upload.wikimedia.org/wikipedia/commons/c/cd/Green_and_Black%27s_dark_chocolate_bar_2.jpg"
-              }
+              imageUrl={item.imageUrl}
               manufacturerName={item.name + "'s company"}
             />
           ))}

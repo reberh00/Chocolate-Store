@@ -12,4 +12,15 @@ async function getChocolateById(chocolateId) {
   return res.data;
 }
 
-export default { getAllChocolates, getChocolateById };
+async function deleteChocolateById(chocolateId, token) {
+  const res = await axios.delete(
+    `http://localhost:5555/chocolates/${chocolateId}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+  return res.data;
+}
+
+//omogucit route aplikacije servantes
+//react router koristit za login i chocolate list
+
+export default { getAllChocolates, getChocolateById, deleteChocolateById };
