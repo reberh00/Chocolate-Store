@@ -1,15 +1,49 @@
 import { useForm } from "react-hook-form";
+import ChocolateService from "./ChocolateService";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function ChocolateForm() {
+  const id = "64a7e1a243b5a4d52c1d9f13";
+  const [manufacturers, setManufacturers] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    data.ingredients = data.ingredients.split(",");
-    console.log(data);
+  } = useForm({ defaultValues: async () => await fetchChocolate() });
+  const onSubmit = async (data) => {
+    const updatedChocolate = await ChocolateService.updateChocolateById(id, {
+      name: data.name,
+      dateOfProduction: new Date(2002, 10, 14),
+      description: data.description,
+      price: data.price,
+      netWeight: data.netWeight,
+      cacaoPercentage: data.cacaoPercentage,
+      isVegan: data.isVegan,
+      isOrganic: data.isOrganic,
+      imageUrl: data.imageUrl,
+      manufacturerId: data.manufacturerId,
+      ingredients: data.ingredients.split(","),
+    });
+    console.log(updatedChocolate);
   };
+
+  async function fetchChocolate() {
+    const chocolate = await ChocolateService.getChocolateById(id);
+    chocolate.ingredients = chocolate.ingredients.join(",");
+    return chocolate;
+  }
+
+  useEffect(() => {
+    async function fetchManufacturers() {
+      const manufacturers = await axios.get(
+        "http://localhost:5555/manufacturers",
+      );
+      console.log(manufacturers.data);
+      setManufacturers(manufacturers.data);
+    }
+    fetchManufacturers();
+  }, []);
 
   return (
     <div className="max-w-96 mx-auto">
@@ -114,6 +148,22 @@ export function ChocolateForm() {
           />
           {errors.imageUrl && (
             <span className="text-red-600">Image url are required!</span>
+          )}
+        </div>
+
+        <div className="flex flex-col">
+          <label className="text-2xl">Manufacturer</label>
+
+          <select {...register("manufacturerId", { required: true })}>
+            {manufacturers.map((item) => (
+              <option key={item._id} value={item._id}>
+                {item.firmName}
+              </option>
+            ))}
+          </select>
+
+          {errors.manufacturerId && (
+            <span className="text-red-600">Manufacturer is required!</span>
           )}
         </div>
 
