@@ -5,9 +5,23 @@ async function getAllChocolates() {
   return res.data;
 }
 
+async function updateChocolateById(chocolateId, chocolateData) {
+  const res = await axios.put(
+    `http://localhost:5555/chocolates/${chocolateId}`,
+    chocolateData,
+    {
+      headers: {
+        Authorization:
+          "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlJvYmkiLCJpYXQiOjE3MzcyOTQyMTksImV4cCI6MTczNzI5NzgxOX0.eBsjwmRH3DQ4vKFoRdvt7gDVdpu6Lkiwy9-Cvn3-hhE",
+      },
+    }
+  );
+  return res.data;
+}
+
 async function getChocolateById(chocolateId) {
   const res = await axios.get(
-    `http://localhost:5555/chocolates/${chocolateId}`,
+    `http://localhost:5555/chocolates/${chocolateId}`
   );
   return res.data;
 }
@@ -15,7 +29,7 @@ async function getChocolateById(chocolateId) {
 async function deleteChocolateById(chocolateId, token) {
   const res = await axios.delete(
     `http://localhost:5555/chocolates/${chocolateId}`,
-    { headers: { Authorization: `Bearer ${token}` } },
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   return res.data;
 }
@@ -23,4 +37,9 @@ async function deleteChocolateById(chocolateId, token) {
 //omogucit route aplikacije servantes
 //react router koristit za login i chocolate list
 
-export default { getAllChocolates, getChocolateById, deleteChocolateById };
+export default {
+  getAllChocolates,
+  getChocolateById,
+  deleteChocolateById,
+  updateChocolateById,
+};
