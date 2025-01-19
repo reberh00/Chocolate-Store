@@ -25,7 +25,7 @@ export const chocolatesData = [
     isVegan: false,
     isOrganic: false,
     ingredients: ["Cocoa Butter", "Milk Powder", "Sugar", "Cocoa Mass"],
-    imageUrl: "https://www.noracooks.com/wp-content/uploads/2020/12/square.jpg", //fix this shit,, better picture, servantes
+    imageUrl: "https://www.noracooks.com/wp-content/uploads/2020/12/square.jpg",
     manufacturerId: "64a7e1a243b5a4d52c1d9f02",
   },
   {
@@ -55,7 +55,7 @@ export const chocolatesData = [
     isOrganic: true,
     ingredients: ["Cocoa Butter", "Cocoa Mass", "Sugar", "Vanilla Bean"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg", //servantes odavde do kraja minjaj slike
+      "https://thepodchocolates.co.uk/cdn/shop/products/veganplantvanillabarwebsize.jpg?v=1691954658&width=800", //servantes odavde do kraja minjaj slike
     manufacturerId: "64a7e1a243b5a4d52c1d9f04",
   },
   {
@@ -69,8 +69,7 @@ export const chocolatesData = [
     isVegan: true,
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Mint Oil"],
-    imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/71Qapk-dceL.jpg",
     manufacturerId: "64a7e1a243b5a4d52c1d9f05",
   },
   {
@@ -85,7 +84,7 @@ export const chocolatesData = [
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Milk Powder", "Sugar", "Caramel"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4dENT4Vf0S_0B3zWoY6ND_OJXX2IxGexjdA&s",
     manufacturerId: "64a7e1a243b5a4d52c1d9f06",
   },
   {
@@ -100,7 +99,7 @@ export const chocolatesData = [
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Dried Berries"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+      "https://static1.squarespace.com/static/6451a916f03fdf61c7c0e0ce/6452ad78ea4a483e1cf4a301/6601822d3dfb0c769be6c28f/1736791601733/IMG_2859.jpg?format=1500w",
     manufacturerId: "64a7e1a243b5a4d52c1d9f07",
   },
   {
@@ -115,7 +114,7 @@ export const chocolatesData = [
     isOrganic: false,
     ingredients: ["Cocoa Mass", "Cocoa Butter", "Sugar", "Chili Powder"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbcihoVSsUw5xkBtJEPEhZnNsSgCV-pleVKQ&s",
     manufacturerId: "64a7e1a243b5a4d52c1d9f09",
   },
   {
@@ -130,7 +129,7 @@ export const chocolatesData = [
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Sugar", "Milk Powder", "Coffee Bits"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
+      "https://shop.rockychoc.com/cdn/shop/files/Coffeecrunch-Choc.bar-1_grande.jpg?v=1735528877",
     manufacturerId: "64a7e1a243b5a4d52c1d9f01",
   },
   {
@@ -145,7 +144,6 @@ export const chocolatesData = [
     isOrganic: true,
     ingredients: ["Cocoa Mass", "Milk Powder", "Sugar", "Coconut"],
     imageUrl:
-      "https://www.sendbestgift.com/assets/images/product/202008061596729895.jpg",
-    manufacturerId: "64a7e1a243b5a4d52c1d9f02",
+      "https://chocolatefly.com/wp-content/uploads/2019/08/0751-1000.jpg",
   },
 ];
