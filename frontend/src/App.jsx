@@ -1,4 +1,5 @@
 import { ChocolateDetails } from "./components/Chocolate/ChocolateDetails";
+import { ManufacturerDetails } from "./components/Manufacturer/ManufacturerDetails";
 import { ChocolateForm } from "./components/Chocolate/ChocolateForm";
 import { ChocolateList } from "./components/Chocolate/ChocolateList";
 import { Login } from "./components/Login/Login";
@@ -7,17 +8,16 @@ import { ProtectedRoute } from "./components/Protected/ProtectedRoute";
 import { SignUp } from "./components/SignUp/SignUp";
 import UserSessionProvider from "./hooks/useUserSession";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ManufacturerForm } from "./components/Manufacturer/ManufacturerForm";
+import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 
 function App() {
   return (
-    <UserSessionProvider>
-      <Router>
+    <Router>
+      <UserSessionProvider>
+        <NavigationBar />
         <div>
           <Routes>
-            <Route
-              path="/chocolates/:chocolateId"
-              element={<ChocolateDetails />}
-            />
             <Route
               path="/chocolates"
               element={
@@ -60,10 +60,35 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/manufacturers/:manufacturerId/"
+              element={
+                <ProtectedRoute>
+                  <ManufacturerDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/manufacturers/create"
+              element={
+                <ProtectedRoute>
+                  <ManufacturerForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/manufacturers/:manufacturerId/update"
+              element={
+                <ProtectedRoute>
+                  <ManufacturerForm />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
-      </Router>
-    </UserSessionProvider>
+      </UserSessionProvider>
+    </Router>
   );
 }
 

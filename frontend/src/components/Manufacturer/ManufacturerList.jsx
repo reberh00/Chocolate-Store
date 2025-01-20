@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import ManufacturerService from "./ManufacturerService";
 import { useUserSession } from "../../hooks/useUserSession";
 import { ManufacturerCard } from "./ManufacturerCard";
+import { useNavigate } from "react-router-dom";
 
 export function ManufacturerList() {
   const [manufacturers, setManufacturers] = useState([]);
   const [selectedManufacturer, setSelectedManufacturer] = useState(null);
   const { getUserSession } = useUserSession();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchManufacturers() {
@@ -34,6 +36,18 @@ export function ManufacturerList() {
     );
   }
 
+  async function handleCreate() {
+    navigate("/manufacturers/create");
+  }
+
+  async function handleUpdate() {
+    navigate(`/manufacturers/${selectedManufacturer._id}/update`);
+  }
+
+  async function handleDetails() {
+    navigate(`/manufacturers/${selectedManufacturer._id}`);
+  }
+
   return (
     <div className="flex-col max-h-screen overflow-hidden space-y-5">
       <p className="text-3xl uppercase text-center">Manufacturer list</p>
@@ -47,11 +61,21 @@ export function ManufacturerList() {
         </button>
         <button
           className={`px-5 py-2 text-white font-medium rounded-md uppercase ${setSelectedManufacturer ? "bg-orange-500" : "bg-orange-300"}`}
+          onClick={handleUpdate}
         >
           Update
         </button>
-        <button className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase">
+        <button
+          className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase"
+          onClick={handleCreate}
+        >
           Create
+        </button>
+        <button
+          className={`px-5 py-2 text-white font-medium rounded-md uppercase ${setSelectedManufacturer ? "bg-yellow-500" : "bg-yellow-300"}`}
+          onClick={handleDetails}
+        >
+          Details
         </button>
       </div>
 

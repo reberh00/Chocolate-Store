@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ChocolateService from "./ChocolateService";
-import { useUserSession } from "../../hooks/useUserSession";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -25,19 +24,8 @@ export function ChocolateDetails() {
     return `${date.getDate()}. ${date.getMonth()}. ${date.getFullYear()}`;
   }
 
-  async function handleReturn() {
-    navigate("/chocolates");
-  }
-
   return (
     <div className="flex flex-col h-screen justify-center">
-      <button
-        className={`px-5 py-2 fixed top-3 left-3 text-white font-medium rounded-md uppercase bg-amber-500`}
-        onClick={handleReturn}
-      >
-        Return
-      </button>
-
       <p className="text-3xl uppercase text-center mb-5">{chocolate?.name}</p>
       <p className="text-xl text-center mb-10">{chocolate?.description}</p>
 

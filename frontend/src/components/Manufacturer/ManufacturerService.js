@@ -12,6 +12,28 @@ async function getManufacturerById(manufacturerId) {
   return res.data;
 }
 
+async function createManufacturer(manufacturerData, token) {
+  const res = await axios.post(
+    `http://localhost:5555/manufacturers`,
+    manufacturerData,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return res.data;
+}
+
+async function updateManufacturerById(manufacturerId, manufacturerData, token) {
+  const res = await axios.put(
+    `http://localhost:5555/manufacturers/${manufacturerId}`,
+    manufacturerData,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return res.data;
+}
+
 async function deleteManufacturerById(manufacturerId, token) {
   const res = await axios.delete(
     `http://localhost:5555/manufacturers/${manufacturerId}`,
@@ -23,5 +45,7 @@ async function deleteManufacturerById(manufacturerId, token) {
 export default {
   getAllManufacturers,
   getManufacturerById,
+  createManufacturer,
+  updateManufacturerById,
   deleteManufacturerById,
 };

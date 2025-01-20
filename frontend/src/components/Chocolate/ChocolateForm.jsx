@@ -79,18 +79,8 @@ export function ChocolateForm() {
     fetchManufacturers();
   }, []);
 
-  async function handleReturn() {
-    navigate("/chocolates");
-  }
-
   return (
     <div className="max-w-96 mx-auto">
-      <button
-        className={`px-5 py-2 fixed top-3 left-3 text-white font-medium rounded-md uppercase bg-amber-500`}
-        onClick={handleReturn}
-      >
-        Return
-      </button>
       <p className="text-3xl uppercase text-center">Chocolate form</p>
 
       <form

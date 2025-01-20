@@ -9,7 +9,7 @@ export function ManufacturerCard({
   return (
     <button
       onClick={onSelectManufacturer}
-      className={`w-64 max-w-64 min-w-64 p-5 mr-2 mb-2 space-y-5 rounded-lg bg-slate-100 hover:cursor-pointer hover:bg-slate-200 ${isSelected && "bg-slate-200"}`}
+      className={`w96 max-w-96 min-w-96 p-5 mr-2 mb-2 space-y-5 rounded-lg bg-slate-100 hover:cursor-pointer hover:bg-slate-200 ${isSelected && "bg-slate-200"}`}
     >
       <img className="w-full block" src={imageUrl} alt="chocolate image" />
       <div className="flex-col">
