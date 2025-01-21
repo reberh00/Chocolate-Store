@@ -4,35 +4,28 @@ import userController from "../controllers/userController.js";
 import validation from "../middlewares/validation.js";
 import Joi from "joi";
 
-/**
- * @swagger
- *  tags:
- *    - name: User
- *      description: The User management API
- */
-
 userRouter.get("/", userController.getAllUsers);
 
 userRouter.post(
-  "/signup",
+  "/register",
   validation.body({
-    userName: Joi.string().min(5).required(),
+    username: Joi.string().min(5).required(),
     firstName: Joi.string().min(5).required(),
     lastName: Joi.string().min(5).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
     role: Joi.string(),
   }),
-  userController.signUpUser,
+  userController.register,
 );
 
 userRouter.post(
   "/login",
   validation.body({
-    userName: Joi.string().required(),
+    username: Joi.string().required(),
     password: Joi.string().required(),
   }),
-  userController.logInUser,
+  userController.login,
 );
 
 export default userRouter;

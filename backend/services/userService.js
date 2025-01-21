@@ -7,13 +7,13 @@ async function getAllUsers() {
   return users;
 }
 
-async function getUserByUserName(userName) {
-  const user = await User.findOne({ userName });
+async function getUserByUsername(username) {
+  const user = await User.findOne({ username });
   return user;
 }
 
 async function createUser(
-  userName,
+  username,
   firstName,
   lastName,
   email,
@@ -21,7 +21,7 @@ async function createUser(
   role,
 ) {
   const newUser = new User({
-    userName,
+    username,
     firstName,
     lastName,
     email,
@@ -32,26 +32,32 @@ async function createUser(
   return newUser;
 }
 
-async function createJwtToken(userName, secret) {
+async function createJwtToken(username, role, secret) {
   const jwtToken = jwt.sign(
     {
-      userName,
+      username,
+      role,
     },
     secret,
-    { expiresIn: "3h" },
+    { expiresIn: "48h" },
   );
 
   return jwtToken;
 }
 
-async function getPasswordHash(password, saltRounds) {
-  return await bcrypt.hash(password, saltRounds);
+async function getPasswordHash(password) {
+  return await bcrypt.hash(password, 5);
+}
+
+async function comparePasswordAndHash(password, passwordHash) {
+  return await bcrypt.hash(password, 5);
 }
 
 export default {
   getAllUsers,
-  getUserByUserName,
+  getUserByUsername,
   createUser,
   createJwtToken,
   getPasswordHash,
+  comparePasswordAndHash,
 };

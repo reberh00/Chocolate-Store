@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-dotenv.config();
+import mongoose from "mongoose";
 import userService from "../services/userService.js";
+dotenv.config();
 
 const getAllUsers = async (request, response) => {
   try {
@@ -13,22 +13,17 @@ const getAllUsers = async (request, response) => {
   }
 };
 
-const signUpUser = async (request, response) => {
+const register = async (request, response) => {
   const userData = request.body;
   try {
-    const existingUserName = await userService.getUserByUserName(
-      userData.userName,
-    );
-    if (existingUserName != undefined)
+    const existingUser = await userService.getUserByUsername(userData.username);
+    if (existingUser != undefined)
       throw new Error("User with this username already exists");
 
-    const hashedPassword = await userService.getPasswordHash(
-      userData.password,
-      5,
-    );
+    const hashedPassword = await userService.getPasswordHash(userData.password);
 
-    await userService.createUser(
-      userData.userName,
+    const newUser = await userService.createUser(
+      userData.username,
       userData.firstName,
       userData.lastName,
       userData.email,
@@ -37,61 +32,70 @@ const signUpUser = async (request, response) => {
     );
 
     const jwtToken = await userService.createJwtToken(
-      userData.userName,
-      process.env.secret,
+      newUser.username,
+      newUser.role,
+      newUser.env.secret,
     );
 
-    return response.json({ token: jwtToken });
+    return response.json({
+      token: jwtToken,
+      username: newUser.username,
+      firstName: newUser.firstName,
+      role: newUser.role,
+    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
       for (const field in error.errors) {
         validationErrors += error.errors[field].message;
       }
-      console.log(`Validation errors in signUpUser: ${validationErrors}`);
+      console.log(`Validation errors in register: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`,
+        `Validation errors in register: ${validationErrors}`,
       );
     }
-    return response.json(`Error in signUpUser:` + error.message);
+    return response.json(`Error in register:` + error.message);
   }
 };
 
-const logInUser = async (request, response) => {
-  const userName = request.body.userName;
+const login = async (request, response) => {
+  const username = request.body.username;
   const password = request.body.password;
   try {
-    const existingUserName = await userService.getUserByUserName(userName);
-    if (existingUserName == undefined)
+    const existingUser = await userService.getUserByUsername(username);
+    if (existingUser == undefined)
       throw new Error("User with this username doesn't exists");
 
-    console.log("DUJO " + password);
-    if (!bcrypt.compareSync(password, existingUserName.password))
-      throw new Error("Password is wrong");
+    if (!userService.comparePasswordAndHash(password, existingUser.password))
+      throw new Error("Password is incorrect");
 
     const jwtToken = await userService.createJwtToken(
-      userName,
+      existingUser.username,
+      existingUser.role,
       process.env.secret,
     );
 
-    return response.json({ token: jwtToken });
+    return response.json({
+      token: jwtToken,
+      username: existingUser.username,
+      firstName: existingUser.firstName,
+      role: existingUser.role,
+    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let validationErrors = "";
       for (const field in error.errors) {
         validationErrors += error.errors[field].message;
       }
-      console.log(`Validation errors in logInUser: ${validationErrors}`);
-      return response.json(
-        `Validation errors in logInUser: ${validationErrors}`,
-      );
+      console.log(`Validation errors in login: ${validationErrors}`);
+      return response.json(`Validation errors in login: ${validationErrors}`);
     }
-    return response.json(`Error in logInUser: ` + error.message);
+    return response.json(`Error in login: ` + error.message);
   }
 };
 
 export default {
   getAllUsers,
-  signUpUser,
-  logInUser,
+  register,
+  login,
 };

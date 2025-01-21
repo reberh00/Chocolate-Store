@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const ManufacturerSchema = new Schema({
-  firmName: {
+const ArtistSchema = new Schema({
+  firstName: {
     type: String,
     required: true,
   },
-  firmAddress: {
+  lastName: {
     type: String,
     required: true,
   },
-  description: {
+  country: {
     type: String,
     required: true,
   },
-  dateEstablished: {
-    type: Date,
+  city: {
+    type: String,
+    required: true,
+  },
+  biography: {
+    type: String,
     required: true,
   },
   netWorth: {
     type: Number,
-    required: true,
-  },
-  countriesOfInterest: {
-    type: [String],
     required: true,
   },
   imageUrl: {
@@ -32,6 +32,6 @@ const ManufacturerSchema = new Schema({
   },
 });
 
-const Manufacturer = mongoose.model("Manufacturer", ManufacturerSchema);
+const Artist = mongoose.model("Artist", ArtistSchema);
 
-export default Manufacturer;
+export default Artist;

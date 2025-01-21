@@ -1,44 +1,52 @@
-import Chocolate from "../models/Chocolate.js";
-import mongoose from "mongoose";
-import { chocolatesData } from "./chocolates.js";
-import { manufacturersData } from "./manufacturers.js";
-import { usersData } from "./users.js";
-import userService from "../services/userService.js";
-import Manufacturer from "../models/Manufacturer.js";
-import User from "../models/User.js";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import { origamis } from "./origamis.js";
+import { artists } from "./artists.js";
+import { users } from "./users.js";
+import Origami from "../models/Origami.js";
+import Artist from "../models/Artist.js";
+import User from "../models/User.js";
+import userService from "../services/userService.js";
 dotenv.config();
 
 mongoose
-  .connect(process.env.mongoDBURL)
+  .connect(process.env.mongoDBURL, {
+    dbName: "napredne_mijo",
+  })
   .then(async () => {
-    await Chocolate.collection.drop();
+    await Artist.collection.drop();
+    console.log("Script dropped Artist");
 
-    for (const chocolateData of chocolatesData) {
-      const chocolate = new Chocolate(chocolateData);
-      await chocolate.save();
+    for (const artistData of artists) {
+      const artist = new Artist(artistData);
+      await artist.save();
+      console.log(`\t Artist ${artist.firstName} seeded`);
     }
+    console.log("Script seeded Artist");
 
-    await Manufacturer.collection.drop();
+    await Origami.collection.drop();
+    console.log("Script dropped Origami");
 
-    for (const manufacturerData of manufacturersData) {
-      const manufacturer = new Manufacturer(manufacturerData);
-      await manufacturer.save();
+    for (const origamiData of origamis) {
+      const origami = new Origami(origamiData);
+      await origami.save();
+      console.log(`\t Origami ${origami.name} seeded`);
     }
+    console.log("Script seeded Origami");
 
     await User.collection.drop();
+    console.log("Script dropped User");
 
-    for (const userData of usersData) {
-      userData.password = await userService.getPasswordHash(
-        userData.password,
-        5,
-      );
+    for (const userData of users) {
+      userData.password = await userService.getPasswordHash(userData.password);
 
       const user = new User(userData);
       await user.save();
+      console.log(`\t User ${user.username} seeded`);
     }
+    console.log("Script seeded User");
 
-    console.log("Script successfully seeded!:)");
+    console.log("Script finished");
 
     mongoose.disconnect();
   })
