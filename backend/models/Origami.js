@@ -28,7 +28,7 @@ const OrigamiSchema = new Schema({
   },
   artist: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "OrigamiArtist",
+    ref: "Artist",
     required: true,
   },
 });

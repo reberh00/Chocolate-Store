@@ -1,12 +1,12 @@
 import Origami from "../models/Origami.js";
 
 async function getAllOrigamis() {
-  const origamis = await Origami.find({});
+  const origamis = await Origami.find({}).populate("artist");
   return origamis;
 }
 
 async function getOrigamiById(origamiId) {
-  const origami = await Origami.findOne({ _id: origamiId });
+  const origami = await Origami.findOne({ _id: origamiId }).populate("artist");
   return origami;
 }
 
