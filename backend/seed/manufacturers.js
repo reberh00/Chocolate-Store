@@ -96,7 +96,7 @@ export const manufacturersData = [
     netWorth: 850000000,
     countriesOfInterest: ["Denmark", "Germany", "Netherlands", "USA"],
     imageUrl:
-      "https://static.wikia.nocookie.net/fictionalcompanies/images/8/8c/Wonka.png/revision/latest?cb=20240509235838",
+      "https://i.pinimg.com/736x/69/6a/3f/696a3fdf563c5d80ee1e1c538ac99ce9.jpg",
   },
   {
     _id: "64a7e1a243b5a4d52c1d9f0a",
