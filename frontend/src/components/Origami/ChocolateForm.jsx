@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import ChocolateService from "./ChocolateService";
+import ChocolateService from "./OrigamiService";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
