@@ -12,7 +12,15 @@ export function ChocolateList() {
 
   useEffect(() => {
     async function fetchChocolates() {
-      const chocolatesData = await ChocolateService.getAllChocolates();
+      let chocolatesData = await ChocolateService.getAllChocolates();
+      chocolatesData = chocolatesData.sort((a, b) =>
+        a.manufacturerId.firmName > b.manufacturerId.firmName
+          ? 1
+          : b.manufacturerId.firmName > a.manufacturerId.firmName
+            ? -1
+            : 0,
+      );
+
       setChocolates(chocolatesData);
     }
     fetchChocolates();
@@ -89,7 +97,7 @@ export function ChocolateList() {
               name={item.name}
               price={item.price}
               imageUrl={item.imageUrl}
-              manufacturerName={item.name + "'s company"}
+              manufacturerName={item.manufacturerId.firmName}
             />
           ))}
         </div>

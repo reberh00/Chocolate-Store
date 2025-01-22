@@ -1,7 +1,8 @@
 import Chocolate from "../models/Chocolate.js";
 
 async function getAllChocolates() {
-  const chocolates = await Chocolate.find({});
+  const chocolates = await Chocolate.find({}).populate("manufacturerId");
+
   return chocolates;
 }
 

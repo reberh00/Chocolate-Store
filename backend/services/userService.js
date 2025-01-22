@@ -32,10 +32,11 @@ async function createUser(
   return newUser;
 }
 
-async function createJwtToken(userName, secret) {
+async function createJwtToken(userName, role, secret) {
   const jwtToken = jwt.sign(
     {
       userName,
+      role,
     },
     secret,
     { expiresIn: "3h" },

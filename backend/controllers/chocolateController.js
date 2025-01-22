@@ -25,6 +25,9 @@ const createChocolate = async (request, response) => {
   const chocolateData = request.body;
 
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const manufacturer = await manufacturerService.getManufacturerById(
       chocolateData.manufacturerId,
     );
@@ -65,7 +68,9 @@ const updateChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   const chocolateData = request.body;
   try {
-    console.log(chocolateData);
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const manufacturer = await manufacturerService.getManufacturerById(
       chocolateData.manufacturerId,
     );
@@ -107,6 +112,9 @@ const updateChocolateById = async (request, response) => {
 const deleteChocolateById = async (request, response) => {
   const chocolateId = request.params.chocolateId;
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const deletedCount =
       await chocolateService.deleteChocolateById(chocolateId);
     return response.json(deletedCount);

@@ -38,6 +38,7 @@ const signUpUser = async (request, response) => {
 
     const jwtToken = await userService.createJwtToken(
       userData.userName,
+      "user",
       process.env.secret,
     );
 
@@ -65,12 +66,12 @@ const logInUser = async (request, response) => {
     if (existingUserName == undefined)
       throw new Error("User with this username doesn't exists");
 
-    console.log("DUJO " + password);
     if (!bcrypt.compareSync(password, existingUserName.password))
       throw new Error("Password is wrong");
 
     const jwtToken = await userService.createJwtToken(
       userName,
+      existingUserName.role,
       process.env.secret,
     );
 

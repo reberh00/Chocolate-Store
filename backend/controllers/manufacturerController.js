@@ -25,6 +25,9 @@ const getManufacturerById = async (request, response) => {
 const createManufacturer = async (request, response) => {
   const manufacturerData = request.body;
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const newManufacturer = await manufacturerService.createManufacturer(
       manufacturerData.firmName,
       manufacturerData.firmAddress,
@@ -56,6 +59,9 @@ const updateManufacturerById = async (request, response) => {
   const manufacturerId = request.params.manufacturerId;
   const manufacturerData = request.body;
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const updatedManufacturerById =
       await manufacturerService.updateManufacturerById(
         manufacturerData.firmName,
@@ -89,6 +95,9 @@ const updateManufacturerById = async (request, response) => {
 const deleteManufacturerById = async (request, response) => {
   const manufacturerId = request.params.manufacturerId;
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const connectedChocolates =
       await chocolateService.findChocolateByManufacturerId(manufacturerId);
     if (connectedChocolates.length != 0)
