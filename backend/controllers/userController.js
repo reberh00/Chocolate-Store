@@ -34,7 +34,7 @@ const register = async (request, response) => {
     const jwtToken = await userService.createJwtToken(
       newUser.username,
       newUser.role,
-      newUser.env.secret,
+      process.env.secret,
     );
 
     return response.json({

@@ -10,6 +10,9 @@ export function NavigationBar() {
   function handleArtists() {
     navigate(`/artists`);
   }
+  function handleRegister() {
+    navigate(`/register`);
+  }
 
   return (
     <div className="flex flex-row justify-between px-5 py-2 w-full rounded-b-xl bg-slate-300">
@@ -33,12 +36,21 @@ export function NavigationBar() {
         <p className={`px-6 py-3 text-blue-800 font-bold uppercase`}>
           {userSession?.username}
         </p>
-        <button
-          className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
-          onClick={() => logout()}
-        >
-          Logout
-        </button>
+        {userSession ? (
+          <button
+            className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+            onClick={() => logout()}
+          >
+            Logout
+          </button>
+        ) : (
+          <button
+            className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+            onClick={handleRegister}
+          >
+            Register
+          </button>
+        )}
       </div>
     </div>
   );

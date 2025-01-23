@@ -21,6 +21,7 @@ origamiRouter.post(
   checkJwt,
   validation.body({
     name: Joi.string().required(),
+    price: Joi.number().positive().integer().required(),
     numberOfFolds: Joi.number().positive().integer().required(),
     originYear: Joi.number().positive().integer().required(),
     originStory: Joi.string().required(),
@@ -39,6 +40,7 @@ origamiRouter.put(
   }),
   validation.body({
     name: Joi.string().required(),
+    price: Joi.number().positive().integer().required(),
     numberOfFolds: Joi.number().positive().integer().required(),
     originYear: Joi.number().positive().integer().required(),
     originStory: Joi.string().required(),

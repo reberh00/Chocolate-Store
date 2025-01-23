@@ -30,6 +30,7 @@ const createOrigami = async (request, response) => {
 
     const newOrigami = await origamiService.createOrigami(
       origamiData.name,
+      origamiData.price,
       origamiData.numberOfFolds,
       origamiData.originYear,
       origamiData.originStory,
@@ -64,6 +65,7 @@ const updateOrigamiById = async (request, response) => {
     const updatedOrigami = await origamiService.updateOrigamiById(
       origamiId,
       origamiData.name,
+      origamiData.price,
       origamiData.numberOfFolds,
       origamiData.originYear,
       origamiData.originStory,

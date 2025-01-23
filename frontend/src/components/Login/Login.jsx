@@ -10,13 +10,10 @@ export function Login() {
   } = useForm();
   const { login } = useUserSession();
   const onSubmit = async (data) => {
-    const response = await axios.post(
-      "https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/users/login",
-      {
-        username: data.username,
-        password: data.password,
-      },
-    );
+    const response = await axios.post("http://localhost:5111/users/login", {
+      username: data.username,
+      password: data.password,
+    });
     console.log(response);
     login({
       token: response.data.token,

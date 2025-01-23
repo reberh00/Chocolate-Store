@@ -16,48 +16,43 @@ export function OrigamiForm() {
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: async () => await fetchOrigami() });
+  const { userSession } = useUserSession();
   const onSubmit = async (data) => {
     console.log(data);
-    // if (origamiId) {
-    //   const updatedOrigami = await OrigamiService.updateOrigamiById(
-    //     origamiId,
-    //     {
-    //       name: data.name,
-    //       dateOfProduction: new Date(2002, 10, 14),
-    //       description: data.description,
-    //       price: data.price,
-    //       netWeight: data.netWeight,
-    //       cacaoPercentage: data.cacaoPercentage,
-    //       isVegan: data.isVegan,
-    //       isOrganic: data.isOrganic,
-    //       imageUrl: data.imageUrl,
-    //       manufacturerId: data.manufacturerId,
-    //       ingredients: data.ingredients.split(","),
-    //     },
-    //     getUserSession(),
-    //   );
-    //   console.log(updatedOrigami);
-    //   navigate(`/origamis/${origamiId}`);
-    // } else {
-    //   const createdOrigami = await OrigamiService.createOrigami(
-    //     {
-    //       name: data.name,
-    //       dateOfProduction: new Date(2002, 10, 14),
-    //       description: data.description,
-    //       price: data.price,
-    //       netWeight: data.netWeight,
-    //       cacaoPercentage: data.cacaoPercentage,
-    //       isVegan: data.isVegan,
-    //       isOrganic: data.isOrganic,
-    //       imageUrl: data.imageUrl,
-    //       manufacturerId: data.manufacturerId,
-    //       ingredients: data.ingredients.split(","),
-    //     },
-    //     getUserSession(),
-    //   );
-    //   console.log(createdOrigami);
-    //   navigate(`/origamis/${createdOrigami._id}`);
-    // }
+    if (origamiId) {
+      const updatedOrigami = await OrigamiService.updateOrigamiById(
+        origamiId,
+        {
+          name: data.name,
+          price: data.price,
+          numberOfFolds: data.numberOfFolds,
+          originYear: data.originYear,
+          originStory: data.originStory,
+          description: data.description,
+          imageUrl: data.imageUrl,
+          artist: data.artist,
+        },
+        userSession.token,
+      );
+      console.log(updatedOrigami);
+      navigate(`/origamis/${origamiId}`);
+    } else {
+      const createdOrigami = await OrigamiService.createOrigami(
+        {
+          name: data.name,
+          price: data.price,
+          numberOfFolds: data.numberOfFolds,
+          originYear: data.originYear,
+          originStory: data.originStory,
+          description: data.description,
+          imageUrl: data.imageUrl,
+          artist: data.artist,
+        },
+        userSession.token,
+      );
+      console.log(createdOrigami);
+      navigate(`/origamis/${createdOrigami._id}`);
+    }
   };
 
   async function fetchOrigami() {
@@ -105,6 +100,18 @@ export function OrigamiForm() {
           />
           {errors.numberOfFolds && (
             <span className="text-red-600">Number of folds is required!</span>
+          )}
+        </div>
+
+        <div className="flex flex-row items-center space-x-5">
+          <label className="text-2xl uppercase font-medium">Price:</label>
+          <input
+            type="number"
+            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            {...register("price", { required: true })}
+          />
+          {errors.price && (
+            <span className="text-red-600">Price is required!</span>
           )}
         </div>
 

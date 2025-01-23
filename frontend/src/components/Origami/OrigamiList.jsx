@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export function OrigamiList() {
   const [origamis, setOrigamis] = useState([]);
   const [selectedOrigami, setSelectedOrigami] = useState(null);
-  const { getUserSession } = useUserSession();
+  const { userSession } = useUserSession();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function OrigamiList() {
   async function handleDelete() {
     const deleteCount = await OrigamiService.deleteOrigamiById(
       selectedOrigami._id,
-      getUserSession(),
+      userSession.token,
     );
     console.log(deleteCount);
     const origamisData = await OrigamiService.getAllOrigamis();
@@ -59,7 +59,7 @@ export function OrigamiList() {
             onSelectOrigami={() => handleSelectOrigami(item)}
             isSelected={selectedOrigami?._id === item._id}
             name={item.name}
-            price={200}
+            price={item.price}
             imageUrl={item.imageUrl}
             artistName={item.artist.firstName + " " + item.artist.lastName}
             description={item.description}
@@ -69,12 +69,14 @@ export function OrigamiList() {
       </div>
 
       <div className="flex flex-row justify-center space-x-10 rounded-full py-5 mb-2 w-5/6 bg-rose-100">
-        <button
-          className="px-5 py-2 text-white bg-rose-900 font-bold rounded-full uppercase"
-          onClick={handleCreate}
-        >
-          Create
-        </button>
+        {userSession.role === "admin" && (
+          <button
+            className="px-5 py-2 text-white bg-rose-900 font-bold rounded-full uppercase"
+            onClick={handleCreate}
+          >
+            Create
+          </button>
+        )}
 
         <button
           className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-blue-500" : "bg-blue-300"}`}
@@ -83,19 +85,23 @@ export function OrigamiList() {
           Read
         </button>
 
-        <button
-          className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-purple-500" : "bg-purple-300"}`}
-          onClick={handleUpdate}
-        >
-          Update
-        </button>
+        {userSession.role === "admin" && (
+          <button
+            className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-purple-500" : "bg-purple-300"}`}
+            onClick={handleUpdate}
+          >
+            Update
+          </button>
+        )}
 
-        <button
-          className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-red-500" : "bg-red-300"}`}
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
+        {userSession.role === "admin" && (
+          <button
+            className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-red-500" : "bg-red-300"}`}
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );

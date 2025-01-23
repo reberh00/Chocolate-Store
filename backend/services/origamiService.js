@@ -12,6 +12,7 @@ async function getOrigamiById(origamiId) {
 
 async function createOrigami(
   name,
+  price,
   numberOfFolds,
   originYear,
   originStory,
@@ -21,6 +22,7 @@ async function createOrigami(
 ) {
   const newOrigami = new Origami({
     name,
+    price,
     numberOfFolds,
     originYear,
     originStory,
@@ -36,6 +38,7 @@ async function createOrigami(
 async function updateOrigamiById(
   origamiId,
   name,
+  price,
   numberOfFolds,
   originYear,
   originStory,
@@ -47,6 +50,7 @@ async function updateOrigamiById(
     { _id: origamiId },
     {
       name,
+      price,
       numberOfFolds,
       originYear,
       originStory,

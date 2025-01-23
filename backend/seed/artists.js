@@ -8,7 +8,8 @@ export const artists = [
     biography:
       "A renowned origami artist specializing in traditional Japanese designs.",
     netWorth: 2500000,
-    imageUrl: "https://example.com/images/hiroshi.jpg",
+    imageUrl:
+      "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg",
   },
   {
     _id: "64b81f23f6a0b502cd4567c5",
@@ -18,7 +19,8 @@ export const artists = [
     city: "Barcelona",
     biography: "An artist who merges modern art with origami techniques.",
     netWorth: 1800000,
-    imageUrl: "https://example.com/images/maria.jpg",
+    imageUrl:
+      "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg",
   },
   {
     _id: "64b81f23f6a0b502cd4567c6",
@@ -28,7 +30,8 @@ export const artists = [
     city: "Dublin",
     biography: "A creative innovator known for animal-inspired origami.",
     netWorth: 1200000,
-    imageUrl: "https://example.com/images/liam.jpg",
+    imageUrl:
+      "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg",
   },
   {
     _id: "64b81f23f6a0b502cd4567c7",
@@ -39,7 +42,8 @@ export const artists = [
     biography:
       "An emerging talent blending traditional patterns into her works.",
     netWorth: 950000,
-    imageUrl: "https://example.com/images/aisha.jpg",
+    imageUrl:
+      "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg",
   },
   {
     _id: "64b81f23f6a0b502cd4567c8",
@@ -50,6 +54,7 @@ export const artists = [
     biography:
       "A minimalist origami artist pushing the boundaries of paper folding.",
     netWorth: 3000000,
-    imageUrl: "https://example.com/images/ethan.jpg",
+    imageUrl:
+      "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg",
   },
 ];

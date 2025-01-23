@@ -6,6 +6,10 @@ const OrigamiSchema = new Schema({
     type: String,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
   numberOfFolds: {
     type: Number,
     required: true,
