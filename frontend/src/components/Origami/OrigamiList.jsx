@@ -48,50 +48,54 @@ export function OrigamiList() {
   }
 
   return (
-    <div className="flex-col max-h-screen overflow-hidden space-y-5">
-      {/* <div className="flex flex-row justify-center space-x-10 w-full">
+    <div className="grow flex flex-col w-full h-5/6 justify-between items-center bg-slate-300">
+      <p className="grow py-5 text-4xl text-center font-medium text-rose-900 w-fit">
+        Origamis
+      </p>
+      <div className="flex flex-wrap mx-auto overflow-y-scroll justify-center w-3/4">
+        {origamis.map((item) => (
+          <OrigamiCard
+            key={item._id}
+            onSelectOrigami={() => handleSelectOrigami(item)}
+            isSelected={selectedOrigami?._id === item._id}
+            name={item.name}
+            price={200}
+            imageUrl={item.imageUrl}
+            artistName={item.artist.firstName + " " + item.artist.lastName}
+            description={item.description}
+            originYear={item.originYear}
+          />
+        ))}
+      </div>
+
+      <div className="flex flex-row justify-center space-x-10 rounded-full py-5 mb-2 w-5/6 bg-rose-100">
         <button
-          className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedOrigami ? "bg-red-500" : "bg-red-300"}`}
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
-        <button
-          className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedOrigami ? "bg-orange-500" : "bg-orange-300"}`}
-          onClick={handleUpdate}
-        >
-          Update
-        </button>
-        <button
-          className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase"
+          className="px-5 py-2 text-white bg-rose-900 font-bold rounded-full uppercase"
           onClick={handleCreate}
         >
           Create
         </button>
+
         <button
-          className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedOrigami ? "bg-yellow-500" : "bg-yellow-300"}`}
+          className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-blue-500" : "bg-blue-300"}`}
           onClick={handleDetails}
         >
-          Details
+          Read
         </button>
-      </div> */}
 
-      <div className="w-full max-h-[80vh] overflow-y-scroll">
-        <div className="flex flex-wrap mx-auto w-[90vw] justify-center">
-          {origamis.map((item) => (
-            <OrigamiCard
-              key={item._id}
-              onSelectOrigami={() => handleSelectOrigami(item)}
-              isSelected={selectedOrigami?._id === item._id}
-              name={item.name}
-              price={20}
-              imageUrl={item.imageUrl}
-              artistName={item.artist.name}
-              description={item.description}
-              originYear={item.originYear}
-            />
-          ))}
-        </div>
+        <button
+          className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-purple-500" : "bg-purple-300"}`}
+          onClick={handleUpdate}
+        >
+          Update
+        </button>
+
+        <button
+          className={`px-5 py-2 text-white font-bold rounded-full uppercase ${selectedOrigami ? "bg-red-500" : "bg-red-300"}`}
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
