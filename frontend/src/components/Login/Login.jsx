@@ -8,52 +8,59 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { setUserSession } = useUserSession();
+  const { login } = useUserSession();
   const onSubmit = async (data) => {
-    const response = await axios.post("http://localhost:5555/users/login", {
-      userName: data.userName,
-      password: data.password,
-    });
+    const response = await axios.post(
+      "https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/users/login",
+      {
+        username: data.username,
+        password: data.password,
+      },
+    );
     console.log(response);
-    setUserSession(response.data.token);
+    login({
+      token: response.data.token,
+      username: response.data.username,
+      firstName: response.data.firstName,
+      role: response.data.role,
+    });
   };
 
   return (
-    <div className="max-w-96 mx-auto">
-      <p className="text-3xl uppercase text-center">Login</p>
-
+    <div className="h-full w-full bg-slate-100">
       <form
-        className="flex flex-col space-y-5"
+        className="flex flex-col justify-center space-y-5 w-2/5 overflow-hidden m-auto h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col">
-          <label className="text-2xl">Username</label>
+        <div className="flex flex-row items-center space-x-5">
+          <label className="text-2xl uppercase font-medium">Username:</label>
           <input
-            autoComplete={"on"}
-            className="bg-slate-200 p-2"
-            {...register("userName", { required: true })}
+            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            {...register("username", { required: true })}
           />
-          {errors.userName && (
+          {errors.username && (
             <span className="text-red-600">Username is required!</span>
           )}
         </div>
 
-        <div className="flex flex-col">
-          <label className="text-2xl">Password</label>
+        <div className="flex flex-row items-center space-x-5">
+          <label className="text-2xl uppercase font-medium">Password:</label>
           <input
             type="password"
-            className="bg-slate-200 p-2"
+            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
             {...register("password", { required: true })}
           />
           {errors.password && (
-            <span className="text-red-600">Password is required!</span>
+            <span className="text-red-600">Password of folds is required!</span>
           )}
         </div>
 
-        <input
-          className="bg-blue-500 p-2 font-medium text-white upercase"
+        <button
+          className="bg-rose-950 rounded-full uppercase p-2 font-medium text-white upercase w-full"
           type="submit"
-        />
+        >
+          Login
+        </button>
       </form>
     </div>
   );

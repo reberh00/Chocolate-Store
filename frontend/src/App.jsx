@@ -5,22 +5,48 @@ import UserSessionProvider from "./hooks/useUserSession";
 import { OrigamiDetails } from "./components/Origami/OrigamiDetails.jsx";
 import { OrigamiForm } from "./components/Origami/OrigamiForm.jsx";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar.jsx";
+import { Login } from "./components/Login/Login.jsx";
 
 function App() {
   return (
     <Router>
       <UserSessionProvider>
-        <div className="w-screen h-screen overflow-hidden flex flex-col">
+        <div className="w-screen h-screen max-h-screen overflow-hidden flex flex-col bg-rose-200">
           <NavigationBar />
           <Routes>
-            <Route path="/origamis" element={<OrigamiList />} />
-            <Route path="/origamis/:origamiId" element={<OrigamiDetails />} />
-
-            <Route path="/origamis/create" element={<OrigamiForm />} />
+            <Route path="/login" element={<Login />} />
 
             <Route
+              path="/origamis"
+              element={
+                <ProtectedRoute>
+                  <OrigamiList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/origamis/:origamiId"
+              element={
+                <ProtectedRoute>
+                  <OrigamiDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/origamis/create"
+              element={
+                <ProtectedRoute>
+                  <OrigamiForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/origamis/:origamiId/update"
-              element={<OrigamiForm />}
+              element={
+                <ProtectedRoute>
+                  <OrigamiForm />
+                </ProtectedRoute>
+              }
             />
           </Routes>
         </div>

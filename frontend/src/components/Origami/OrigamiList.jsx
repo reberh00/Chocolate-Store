@@ -48,11 +48,11 @@ export function OrigamiList() {
   }
 
   return (
-    <div className="grow flex flex-col w-full h-5/6 justify-between items-center bg-slate-300">
-      <p className="grow py-5 text-4xl text-center font-medium text-rose-900 w-fit">
+    <div className="overflow-auto grow flex flex-col w-full justify-between items-center">
+      <p className="py-5 text-4xl text-center font-medium text-rose-900">
         Origamis
       </p>
-      <div className="flex flex-wrap mx-auto overflow-y-scroll justify-center w-3/4">
+      <div className="flex flex-wrap mx-auto overflow-y-scroll justify-center w-full">
         {origamis.map((item) => (
           <OrigamiCard
             key={item._id}

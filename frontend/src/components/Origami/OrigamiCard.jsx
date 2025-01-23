@@ -11,7 +11,7 @@ export function OrigamiCard({
   return (
     <button
       onClick={onSelectOrigami}
-      className={`flex flex-row items-center overflow-hidden mx-2 mb-3 w-[30rem] max-w-[30rem] min-w-[30rem] rounded-full bg-rose-100 hover:cursor-pointer hover:bg-rose-200 ${isSelected && "bg-slate-200"}`}
+      className={`flex flex-row items-center overflow-hidden mx-2 mb-3 w-[30rem] max-w-[30rem] min-w-[30rem] rounded-full bg-rose-100 hover:cursor-pointer hover:bg-rose-300 ${isSelected && "bg-rose-300"}`}
     >
       <img
         className="w-1/4 block"

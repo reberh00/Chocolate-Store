@@ -1,21 +1,27 @@
 import axios from "axios";
 
 async function getAllOrigamis() {
-  const res = await axios.get("http://localhost:5111/origamis");
+  const res = await axios.get(
+    "https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/origamis",
+  );
   console.log(res.data);
   return res.data;
 }
 
 async function createOrigami(origamiData, token) {
-  const res = await axios.post(`http://localhost:5111/origamis`, origamiData, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await axios.post(
+    `https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/origamis`,
+    origamiData,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   return res.data;
 }
 
 async function updateOrigamiById(origamiId, origamiData, token) {
   const res = await axios.put(
-    `http://localhost:5111/origamis/${origamiId}`,
+    `https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/origamis/${origamiId}`,
     origamiData,
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -25,13 +31,15 @@ async function updateOrigamiById(origamiId, origamiData, token) {
 }
 
 async function getOrigamiById(origamiId) {
-  const res = await axios.get(`http://localhost:5111/origamis/${origamiId}`);
+  const res = await axios.get(
+    `https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/origamis/${origamiId}`,
+  );
   return res.data;
 }
 
 async function deleteOrigamiById(origamiId, token) {
   const res = await axios.delete(
-    `http://localhost:5111/origamis/${origamiId}`,
+    `https://fuzzy-guide-7jgwrqp57pxf44r-5111.app.github.dev/origamis/${origamiId}`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
   return res.data;

@@ -9,23 +9,24 @@ export function useUserSession() {
 
 export default function UserSessionProvider({ children }) {
   const navigate = useNavigate();
-  const setUserSession = (userSession) => {
-    window.localStorage.setItem("token", userSession);
-  };
+  const [userSession, setUserSession] = useState(
+    JSON.parse(window.localStorage.getItem("userSession")),
+  );
 
-  const logOut = () => {
-    window.localStorage.removeItem("token");
+  function login(newUserSession) {
+    window.localStorage.setItem("userSession", JSON.stringify(newUserSession));
+    setUserSession(newUserSession);
+    navigate("/origamis");
+  }
+
+  function logout() {
+    window.localStorage.removeItem("userSession");
+    setUserSession(null);
     navigate("/login");
-  };
-
-  const getUserSession = () => {
-    return window.localStorage.getItem("token");
-  };
+  }
 
   return (
-    <userSessionContext.Provider
-      value={{ getUserSession, setUserSession, logOut }}
-    >
+    <userSessionContext.Provider value={{ userSession, login, logout }}>
       {children}
     </userSessionContext.Provider>
   );

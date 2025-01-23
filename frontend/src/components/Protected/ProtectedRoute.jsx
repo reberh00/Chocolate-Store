@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useUserSession } from "../../hooks/useUserSession";
 
 export const ProtectedRoute = ({ children }) => {
-  const { getUserSession } = useUserSession();
+  const { userSession } = useUserSession();
 
-  if (!getUserSession()) {
+  if (!userSession) {
     return <Navigate to="/login" />;
   }
 
