@@ -11,6 +11,7 @@ export default function UserSessionProvider({ children }) {
   const navigate = useNavigate();
   const setUserSession = (userSession) => {
     window.localStorage.setItem("token", userSession);
+    navigate("/chocolates");
   };
 
   const logOut = () => {

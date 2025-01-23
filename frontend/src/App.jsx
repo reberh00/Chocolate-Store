@@ -7,7 +7,12 @@ import { ManufacturerList } from "./components/Manufacturer/ManufacturerList";
 import { ProtectedRoute } from "./components/Protected/ProtectedRoute";
 import { SignUp } from "./components/SignUp/SignUp";
 import UserSessionProvider from "./hooks/useUserSession";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { ManufacturerForm } from "./components/Manufacturer/ManufacturerForm";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
 
@@ -85,6 +90,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </div>
       </UserSessionProvider>
