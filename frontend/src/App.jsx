@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import { ManufacturerForm } from "./components/Manufacturer/ManufacturerForm";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
+import { ChangePassword } from "./components/ChangePassword/ChangePassword";
 
 function App() {
   return (
@@ -87,6 +88,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ManufacturerForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/changepwd"
+              element={
+                <ProtectedRoute>
+                  <ChangePassword />
                 </ProtectedRoute>
               }
             />

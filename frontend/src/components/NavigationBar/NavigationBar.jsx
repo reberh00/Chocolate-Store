@@ -13,6 +13,10 @@ export function NavigationBar() {
     navigate(`/manufacturers`);
   }
 
+  function handleChangePassword() {
+    navigate(`/users/changepwd`);
+  }
+
   return (
     <div>
       <button
@@ -42,6 +46,13 @@ export function NavigationBar() {
           Currently logged in
         </p>
       )}
+
+<button
+        className={`px-5 py-2 fixed bottom-14 right-3 text-white font-medium rounded-md uppercase bg-amber-500`}
+        onClick={handleChangePassword}
+      >
+        Change password
+      </button>
 
       <button
         className={`px-5 py-2 fixed bottom-3 right-3 text-white font-medium rounded-md uppercase bg-amber-500`}

@@ -18,7 +18,7 @@ async function createUser(
   lastName,
   email,
   password,
-  role,
+  role
 ) {
   const newUser = new User({
     userName,
@@ -39,7 +39,7 @@ async function createJwtToken(userName, role, secret) {
       role,
     },
     secret,
-    { expiresIn: "3h" },
+    { expiresIn: "3h" }
   );
 
   return jwtToken;
@@ -49,10 +49,20 @@ async function getPasswordHash(password, saltRounds) {
   return await bcrypt.hash(password, saltRounds);
 }
 
+async function updateUserPassword(userName, password) {
+  const user = await User.findOneAndUpdate(
+    { userName: userName },
+    {
+      password,
+    }
+  );
+}
+
 export default {
   getAllUsers,
   getUserByUserName,
   createUser,
   createJwtToken,
   getPasswordHash,
+  updateUserPassword,
 };

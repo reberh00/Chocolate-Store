@@ -17,14 +17,14 @@ const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName,
+      userData.userName
     );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
 
     const hashedPassword = await userService.getPasswordHash(
       userData.password,
-      5,
+      5
     );
 
     await userService.createUser(
@@ -33,13 +33,13 @@ const signUpUser = async (request, response) => {
       userData.lastName,
       userData.email,
       hashedPassword,
-      userData.role,
+      userData.role
     );
 
     const jwtToken = await userService.createJwtToken(
       userData.userName,
       "user",
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({ token: jwtToken });
@@ -51,7 +51,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`,
+        `Validation errors in signUpUser: ${validationErrors}`
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -72,7 +72,7 @@ const logInUser = async (request, response) => {
     const jwtToken = await userService.createJwtToken(
       userName,
       existingUserName.role,
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({ token: jwtToken });
@@ -84,7 +84,42 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`,
+        `Validation errors in logInUser: ${validationErrors}`
+      );
+    }
+    return response.json(`Error in logInUser: ` + error.message);
+  }
+};
+
+const changeUserPassword = async (request, response) => {
+  console.log("We're in;)");
+  const userName = request.params.userName;
+  const password = request.body.password;
+  const newPassword = request.body.newPassword;
+
+  try {
+    if (response.locals.user.userName != userName)
+      throw new Error("You are not logged in with this username");
+
+    const existingUser = await userService.getUserByUserName(userName);
+
+    if (!bcrypt.compareSync(password, existingUser.password))
+      throw new Error("Password is wrong");
+
+    const hashedPassword = await userService.getPasswordHash(newPassword, 5);
+
+    await userService.updateUserPassword(userName, hashedPassword);
+
+    return response.json("Successfully changed password!");
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(`Validation errors in logInUser: ${validationErrors}`);
+      return response.json(
+        `Validation errors in logInUser: ${validationErrors}`
       );
     }
     return response.json(`Error in logInUser: ` + error.message);
@@ -95,4 +130,5 @@ export default {
   getAllUsers,
   signUpUser,
   logInUser,
+  changeUserPassword,
 };
