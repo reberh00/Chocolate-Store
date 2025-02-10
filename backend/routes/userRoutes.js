@@ -2,6 +2,7 @@ import express, { response } from "express";
 const userRouter = express.Router();
 import userController from "../controllers/userController.js";
 import validation from "../middlewares/validation.js";
+import checkJwt from "../middlewares/validateJwtToken.js";
 import Joi from "joi";
 
 /**
@@ -12,6 +13,14 @@ import Joi from "joi";
  */
 
 userRouter.get("/", userController.getAllUsers);
+
+userRouter.get(
+  "/:userId",
+  validation.params({
+    userId: Joi.string().hex().length(24).required(),
+  }),
+  userController.getUsersById,
+);
 
 userRouter.post(
   "/signup",
@@ -33,6 +42,22 @@ userRouter.post(
     password: Joi.string().required(),
   }),
   userController.logInUser,
+);
+
+userRouter.put(
+  "/:userId",
+  checkJwt,
+  validation.params({
+    userId: Joi.string().hex().length(24).required(),
+  }),
+  validation.body({
+    userName: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().required(),
+    role: Joi.string().required(),
+  }),
+  userController.updateUserById,
 );
 
 export default userRouter;

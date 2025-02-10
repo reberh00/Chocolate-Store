@@ -15,6 +15,9 @@ import {
 } from "react-router-dom";
 import { ManufacturerForm } from "./components/Manufacturer/ManufacturerForm";
 import { NavigationBar } from "./components/NavigationBar/NavigationBar";
+import { UserList } from "./components/User/UserList";
+import { UserDetails } from "./components/User/UserDetails";
+import { UserForm } from "./components/User/UserForm";
 
 function App() {
   return (
@@ -87,6 +90,31 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ManufacturerForm />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:userId/"
+              element={
+                <ProtectedRoute>
+                  <UserDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:userId/update"
+              element={
+                <ProtectedRoute>
+                  <UserForm />
                 </ProtectedRoute>
               }
             />

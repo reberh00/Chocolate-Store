@@ -13,6 +13,16 @@ const getAllUsers = async (request, response) => {
   }
 };
 
+const getUsersById = async (request, response) => {
+  const userId = request.params.userId;
+  try {
+    const user = await userService.getUsersById(userId);
+    return response.json(user);
+  } catch (error) {
+    return response.json(`Error in getting user with id: ${error}`);
+  }
+};
+
 const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
@@ -91,8 +101,42 @@ const logInUser = async (request, response) => {
   }
 };
 
+const updateUserById = async (request, response) => {
+  const userId = request.params.userId;
+  const userData = request.body;
+  try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
+    const updatedUserById = await userService.updateUserById(
+      userId,
+      userData.userName,
+      userData.firstName,
+      userData.lastName,
+      userData.email,
+      userData.role,
+    );
+    return response.json(updatedUserById);
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(`Validation errors in updateUserById: ${validationErrors}`);
+      return response.json(
+        `Validation errors in updateUserById: ${validationErrors}`,
+      );
+    }
+
+    return response.json(`Error in updating user: ${error}`);
+  }
+};
+
 export default {
   getAllUsers,
+  getUsersById,
   signUpUser,
   logInUser,
+  updateUserById,
 };

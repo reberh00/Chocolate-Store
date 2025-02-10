@@ -7,6 +7,11 @@ async function getAllUsers() {
   return users;
 }
 
+async function getUsersById(userId) {
+  const user = await User.findOne({ _id: userId });
+  return user;
+}
+
 async function getUserByUserName(userName) {
   const user = await User.findOne({ userName });
   return user;
@@ -49,10 +54,34 @@ async function getPasswordHash(password, saltRounds) {
   return await bcrypt.hash(password, saltRounds);
 }
 
+async function updateUserById(
+  userId,
+  userName,
+  firstName,
+  lastName,
+  email,
+  role,
+) {
+  const updatedUserById = await User.findOneAndUpdate(
+    { _id: userId },
+    {
+      userName,
+      firstName,
+      lastName,
+      email,
+      role,
+    },
+    { new: true },
+  );
+  return updatedUserById;
+}
+
 export default {
   getAllUsers,
+  getUsersById,
   getUserByUserName,
   createUser,
   createJwtToken,
   getPasswordHash,
+  updateUserById,
 };
