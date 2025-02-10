@@ -7,6 +7,16 @@ async function getAllUsers() {
   return users;
 }
 
+async function getUsersById(userId) {
+  const user = await User.findOne({ _id: userId });
+  return user;
+}
+
+async function getUsersById(userId) {
+  const user = await User.findOne({ _id: userId });
+  return user;
+}
+
 async function getUserByUsername(username) {
   const user = await User.findOne({ username });
   return user;
@@ -53,6 +63,50 @@ async function comparePasswordAndHash(password, passwordHash) {
   return await bcrypt.hash(password, 5);
 }
 
+async function updateUserById(
+  userId,
+  userName,
+  firstName,
+  lastName,
+  email,
+  role,
+) {
+  const updatedUserById = await User.findOneAndUpdate(
+    { _id: userId },
+    {
+      userName,
+      firstName,
+      lastName,
+      email,
+      role,
+    },
+    { new: true },
+  );
+  return updatedUserById;
+}
+
+async function updateUserById(
+  userId,
+  userName,
+  firstName,
+  lastName,
+  email,
+  role,
+) {
+  const updatedUserById = await User.findOneAndUpdate(
+    { _id: userId },
+    {
+      userName,
+      firstName,
+      lastName,
+      email,
+      role,
+    },
+    { new: true },
+  );
+  return updatedUserById;
+}
+
 export default {
   getAllUsers,
   getUserByUsername,
@@ -60,4 +114,5 @@ export default {
   createJwtToken,
   getPasswordHash,
   comparePasswordAndHash,
+  updateUserById,
 };

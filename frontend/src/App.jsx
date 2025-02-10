@@ -10,6 +10,9 @@ import { ArtistList } from "./components/Artist/ArtistList.jsx";
 import { ArtistDetails } from "./components/Artist/ArtistDetails.jsx";
 import { ArtistForm } from "./components/Artist/ArtistForm.jsx";
 import { Register } from "./components/Register/Register.jsx";
+import { UserList } from "./components/User/UserList";
+import { UserDetails } from "./components/User/UserDetails";
+import { UserForm } from "./components/User/UserForm";
 
 function App() {
   const { userSession } = useUserSession();
@@ -89,6 +92,31 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:userId/"
+              element={
+                <ProtectedRoute>
+                  <UserDetails />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:userId/update"
+              element={
+                <ProtectedRoute>
+                  <UserForm />
+                </ProtectedRoute>
+              }
+            />
         </Routes>
       </div>
     </>
