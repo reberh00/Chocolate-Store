@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { ChocolateCard } from "./ChocolateCard";
 import ChocolateService from "./ChocolateService";
+import ManufacturerService from "../Manufacturer/ManufacturerService";
 import { useUserSession } from "../../hooks/useUserSession";
 import { useNavigate } from "react-router-dom";
 
 export function ChocolateList() {
   const [chocolates, setChocolates] = useState([]);
+  const [manufacturers, setManufacturers] = useState([]);
+  const [filteredChocolates, setFilteredChocolates] = useState([]);
   const [selectedChocolate, setSelectedChocolate] = useState(null);
+  const [selectedManufacturer, setSelectedManufacturer] = useState(null);
   const { getUserSession } = useUserSession();
   const navigate = useNavigate();
 
@@ -22,8 +26,15 @@ export function ChocolateList() {
       );
 
       setChocolates(chocolatesData);
+      setFilteredChocolates(chocolatesData);
+    }
+    async function fetchManufacturers() {
+      let manufacturersData = await ManufacturerService.getAllManufacturers();
+
+      setManufacturers(manufacturersData);
     }
     fetchChocolates();
+    fetchManufacturers();
   }, []);
 
   async function handleDelete() {
@@ -55,9 +66,30 @@ export function ChocolateList() {
     );
   }
 
+  useEffect(() => {
+    console.log(selectedManufacturer);
+    if (selectedManufacturer == "") {
+      setFilteredChocolates(chocolates);
+    } else {
+      const filteredChocolates = chocolates.filter(
+        (chocolates) =>
+          chocolates.manufacturerId.firmName == selectedManufacturer,
+      );
+      setFilteredChocolates(filteredChocolates);
+    }
+  }, [selectedManufacturer]);
+
   return (
     <div className="flex-col max-h-screen overflow-hidden space-y-5">
       <p className="text-3xl uppercase text-center">Chocolate list</p>
+      <select onChange={(e) => setSelectedManufacturer(e.target.value)}>
+        <option value=""></option>
+        {manufacturers.map((manufacturer) => (
+          <option value={manufacturer.firmName} key={manufacturer._id}>
+            {manufacturer.firmName}
+          </option>
+        ))}
+      </select>
 
       <div className="flex flex-row justify-center space-x-10 w-full">
         <button
@@ -88,7 +120,7 @@ export function ChocolateList() {
 
       <div className="w-full max-h-[80vh] overflow-y-scroll">
         <div className="flex flex-wrap mx-auto w-[90vw] justify-center">
-          {chocolates.map((item, index) => (
+          {filteredChocolates.map((item, index) => (
             <ChocolateCard
               key={item._id}
               onSelectChocolate={() => handleSelectChocolate(item)}
