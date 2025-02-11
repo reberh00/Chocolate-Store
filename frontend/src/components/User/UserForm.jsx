@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export function UserForm() {
   const { userId } = useParams();
-  const { getUserSession } = useUserSession();
+  const { userSession } = useUserSession();
   const [manufacturers, setManufacturers] = useState([]);
   const navigate = useNavigate();
   const {
@@ -21,13 +21,13 @@ export function UserForm() {
     const updatedUser = await UserService.updateUserById(
       userId,
       {
-        userName: data.userName,
+        username: data.username,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
         role: data.role,
       },
-      getUserSession(),
+      userSession.token,
     );
     console.log(updatedUser);
     navigate(`/users/${userId}`);
@@ -48,13 +48,13 @@ export function UserForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col">
-          <label className="text-2xl">Username</label>
+          <label className="text-2xl">username</label>
           <input
             className="bg-slate-200 p-2"
-            {...register("userName", { required: true })}
+            {...register("username", { required: true })}
           />
-          {errors.userName && (
-            <span className="text-red-600">Username is required!</span>
+          {errors.username && (
+            <span className="text-red-600">username is required!</span>
           )}
         </div>
 

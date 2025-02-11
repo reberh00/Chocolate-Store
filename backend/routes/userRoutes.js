@@ -44,7 +44,7 @@ userRouter.put(
     userId: Joi.string().hex().length(24).required(),
   }),
   validation.body({
-    userName: Joi.string().required(),
+    username: Joi.string().required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     email: Joi.string().required(),

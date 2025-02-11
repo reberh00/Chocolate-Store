@@ -12,11 +12,6 @@ async function getUsersById(userId) {
   return user;
 }
 
-async function getUsersById(userId) {
-  const user = await User.findOne({ _id: userId });
-  return user;
-}
-
 async function getUserByUsername(username) {
   const user = await User.findOne({ username });
   return user;
@@ -65,7 +60,7 @@ async function comparePasswordAndHash(password, passwordHash) {
 
 async function updateUserById(
   userId,
-  userName,
+  username,
   firstName,
   lastName,
   email,
@@ -74,29 +69,7 @@ async function updateUserById(
   const updatedUserById = await User.findOneAndUpdate(
     { _id: userId },
     {
-      userName,
-      firstName,
-      lastName,
-      email,
-      role,
-    },
-    { new: true },
-  );
-  return updatedUserById;
-}
-
-async function updateUserById(
-  userId,
-  userName,
-  firstName,
-  lastName,
-  email,
-  role,
-) {
-  const updatedUserById = await User.findOneAndUpdate(
-    { _id: userId },
-    {
-      userName,
+      username,
       firstName,
       lastName,
       email,
@@ -115,4 +88,5 @@ export default {
   getPasswordHash,
   comparePasswordAndHash,
   updateUserById,
+  getUsersById,
 };
