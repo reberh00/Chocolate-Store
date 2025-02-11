@@ -2,22 +2,34 @@ import { useEffect, useState } from "react";
 import { OrigamiCard } from "./OrigamiCard";
 import OrigamiService from "./OrigamiService";
 import { useUserSession } from "../../hooks/useUserSession";
+import ArtistService from "../Artist/ArtistService";
 import { useNavigate } from "react-router-dom";
 
 export function OrigamiList() {
   const [origamis, setOrigamis] = useState([]);
   const [selectedOrigami, setSelectedOrigami] = useState(null);
+  const [artist, setArtist] = useState([]);
+  const [filteredOrigami, setFilteredOrigami] = useState([]);
   const { userSession } = useUserSession();
+  const [selectedArtist, setSelectedArtist] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchOrigamis() {
+    async function fetchOrigamis() 
+    {
       const origamisData = await OrigamiService.getAllOrigamis();
+      setFilteredOrigami(origamisData);
       setOrigamis(origamisData);
     }
+    async function fetchArtist() {
+      let artistData = await ArtistService.getAllArtists();
+      setArtist(artistData);
+    }
+    fetchArtist();
     fetchOrigamis();
   }, []);
 
+   
   async function handleDelete() {
     const deleteCount = await OrigamiService.deleteOrigamiById(
       selectedOrigami._id,
@@ -47,13 +59,38 @@ export function OrigamiList() {
     );
   }
 
+  useEffect(() => {
+    console.log(selectedArtist);
+    if (selectedArtist == "") {
+      setFilteredOrigami(origamis);
+    } else {
+      const filteredOrigami = origamis.filter(
+        (origami) =>
+          origami.artist._id == selectedArtist,
+      );
+      console.log(filteredOrigami)
+      setFilteredOrigami(filteredOrigami);
+    }
+  }, [selectedArtist]);
+
+
   return (
     <div className="overflow-auto grow flex flex-col w-full justify-between items-center">
       <p className="py-5 text-4xl text-center font-medium text-rose-900">
         Origamis
       </p>
-      <div className="flex flex-wrap mx-auto overflow-y-scroll justify-center w-full">
-        {origamis.map((item) => (
+      
+      <select onChange={(e) => setSelectedArtist(e.target.value)}>
+        <option value=""></option>
+        {artist.map((a) => (
+          <option value={a._id} key={a._id}>
+            {a.firstName}
+          </option>
+        ))}
+      </select>
+
+      <div className="flex mt-5 flex-wrap mx-auto overflow-y-scroll justify-center w-full">
+        {filteredOrigami.map((item) => (
           <OrigamiCard
             key={item._id}
             onSelectOrigami={() => handleSelectOrigami(item)}
