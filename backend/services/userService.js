@@ -50,7 +50,16 @@ async function getPasswordHash(password) {
 }
 
 async function comparePasswordAndHash(password, passwordHash) {
-  return await bcrypt.hash(password, 5);
+  return await bcrypt.compareSync(password, passwordHash);
+}
+
+async function updateUserPassword(userName, password) {
+  const user = await User.findOneAndUpdate(
+    { username: userName },
+    {
+      password,
+    }
+  );
 }
 
 export default {
@@ -60,4 +69,5 @@ export default {
   createJwtToken,
   getPasswordHash,
   comparePasswordAndHash,
+  updateUserPassword,
 };

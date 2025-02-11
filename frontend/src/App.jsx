@@ -10,6 +10,7 @@ import { ArtistList } from "./components/Artist/ArtistList.jsx";
 import { ArtistDetails } from "./components/Artist/ArtistDetails.jsx";
 import { ArtistForm } from "./components/Artist/ArtistForm.jsx";
 import { Register } from "./components/Register/Register.jsx";
+import { ChangePassword } from "./components/ChangePassword/ChangePassword";
 
 function App() {
   const { userSession } = useUserSession();
@@ -80,6 +81,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+            <Route
+              path="/changepassword"
+              element={
+                <ProtectedRoute>
+                  <ChangePassword />
+                </ProtectedRoute>
+              }
+            />
 
           <Route
             path="/artists/create"

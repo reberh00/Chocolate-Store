@@ -66,8 +66,8 @@ const login = async (request, response) => {
     if (existingUser == undefined)
       throw new Error("User with this username doesn't exists");
 
-    if (!userService.comparePasswordAndHash(password, existingUser.password))
-      throw new Error("Password is incorrect");
+    if (!bcrypt.compareSync(password, existingUser.password))
+      throw new Error("Password is wrong");
 
     const jwtToken = await userService.createJwtToken(
       existingUser.username,
@@ -94,8 +94,39 @@ const login = async (request, response) => {
   }
 };
 
+const changeUserPassword = async (request, response) => {
+  console.log("We're in;)");
+  const userName = request.params.userName;
+  const password = request.body.password;
+  const newPassword = request.body.newPassword;
+  try {
+    if (response.locals.user.username != userName)
+      throw new Error("You are not logged in with this username");
+    const existingUser = await userService.getUserByUsername(userName);
+    if (!bcrypt.compareSync(password, existingUser.password))
+      throw new Error("Password is wrong");
+    const hashedPassword = await userService.getPasswordHash(newPassword);
+    await userService.updateUserPassword(userName, hashedPassword);
+    return response.json("Successfully changed password!");
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let validationErrors = "";
+      for (const field in error.errors) {
+        validationErrors += error.errors[field].message;
+      }
+      console.log(`Validation errors in logInUser: ${validationErrors}`);
+      return response.json(
+        `Validation errors in logInUser: ${validationErrors}`
+      );
+    }
+    return response.json(`Error in logInUser: ` + error.message);
+  }
+};
+
+
 export default {
   getAllUsers,
   register,
   login,
+  changeUserPassword,
 };

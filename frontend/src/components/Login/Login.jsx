@@ -15,12 +15,14 @@ export function Login() {
       password: data.password,
     });
     console.log(response);
+    if (response.data.token) {
     login({
       token: response.data.token,
       username: response.data.username,
       firstName: response.data.firstName,
       role: response.data.role,
     });
+  }
   };
 
   return (
