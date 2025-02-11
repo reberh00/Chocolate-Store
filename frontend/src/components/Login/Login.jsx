@@ -15,7 +15,8 @@ export function Login() {
       password: data.password,
     });
     console.log(response);
-    setUserSession(response.data.token);
+    if (response.data.token) setUserSession(response.data.token);
+    // setUserSession(response.data.token);
   };
 
   return (
