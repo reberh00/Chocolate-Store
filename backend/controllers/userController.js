@@ -4,7 +4,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import userService from "../services/userService.js";
 
-const getAllUsers = async (request, response) => {
+const getAllAdminUsers = async (request, response) => {
+  if (response.locals.user.role != "admin") {
+    return response.json([]); //ovo umjesto error poruke "you are unauthorized" jer inace se vraca niz na frontendu, a sa error msg saljem samo string pa je problem
+  }
   try {
     const users = await userService.getAllUsers();
     return response.json(users);
@@ -27,14 +30,14 @@ const signUpUser = async (request, response) => {
   const userData = request.body;
   try {
     const existingUserName = await userService.getUserByUserName(
-      userData.userName,
+      userData.userName
     );
     if (existingUserName != undefined)
       throw new Error("User with this username already exists");
 
     const hashedPassword = await userService.getPasswordHash(
       userData.password,
-      5,
+      5
     );
 
     await userService.createUser(
@@ -43,13 +46,13 @@ const signUpUser = async (request, response) => {
       userData.lastName,
       userData.email,
       hashedPassword,
-      userData.role,
+      userData.role
     );
 
     const jwtToken = await userService.createJwtToken(
       userData.userName,
       "user",
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({ token: jwtToken });
@@ -61,7 +64,7 @@ const signUpUser = async (request, response) => {
       }
       console.log(`Validation errors in signUpUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in signUpUser: ${validationErrors}`,
+        `Validation errors in signUpUser: ${validationErrors}`
       );
     }
     return response.json(`Error in signUpUser:` + error.message);
@@ -82,7 +85,7 @@ const logInUser = async (request, response) => {
     const jwtToken = await userService.createJwtToken(
       userName,
       existingUserName.role,
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({ token: jwtToken });
@@ -94,7 +97,7 @@ const logInUser = async (request, response) => {
       }
       console.log(`Validation errors in logInUser: ${validationErrors}`);
       return response.json(
-        `Validation errors in logInUser: ${validationErrors}`,
+        `Validation errors in logInUser: ${validationErrors}`
       );
     }
     return response.json(`Error in logInUser: ` + error.message);
@@ -114,7 +117,7 @@ const updateUserById = async (request, response) => {
       userData.firstName,
       userData.lastName,
       userData.email,
-      userData.role,
+      userData.role
     );
     return response.json(updatedUserById);
   } catch (error) {
@@ -125,7 +128,7 @@ const updateUserById = async (request, response) => {
       }
       console.log(`Validation errors in updateUserById: ${validationErrors}`);
       return response.json(
-        `Validation errors in updateUserById: ${validationErrors}`,
+        `Validation errors in updateUserById: ${validationErrors}`
       );
     }
 
@@ -134,7 +137,7 @@ const updateUserById = async (request, response) => {
 };
 
 export default {
-  getAllUsers,
+  getAllAdminUsers,
   getUsersById,
   signUpUser,
   logInUser,

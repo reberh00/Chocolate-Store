@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 async function getAllUsers() {
-  const users = await User.find({});
+  const users = await User.find({ role: "admin" });
   return users;
 }
 
@@ -23,7 +23,7 @@ async function createUser(
   lastName,
   email,
   password,
-  role,
+  role
 ) {
   const newUser = new User({
     userName,
@@ -44,7 +44,7 @@ async function createJwtToken(userName, role, secret) {
       role,
     },
     secret,
-    { expiresIn: "3h" },
+    { expiresIn: "3h" }
   );
 
   return jwtToken;
@@ -60,7 +60,7 @@ async function updateUserById(
   firstName,
   lastName,
   email,
-  role,
+  role
 ) {
   const updatedUserById = await User.findOneAndUpdate(
     { _id: userId },
@@ -71,7 +71,7 @@ async function updateUserById(
       email,
       role,
     },
-    { new: true },
+    { new: true }
   );
   return updatedUserById;
 }

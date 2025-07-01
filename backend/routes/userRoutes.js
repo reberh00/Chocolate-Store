@@ -12,14 +12,14 @@ import Joi from "joi";
  *      description: The User management API
  */
 
-userRouter.get("/", userController.getAllUsers);
+userRouter.get("/", checkJwt, userController.getAllAdminUsers);
 
 userRouter.get(
   "/:userId",
   validation.params({
     userId: Joi.string().hex().length(24).required(),
   }),
-  userController.getUsersById,
+  userController.getUsersById
 );
 
 userRouter.post(
@@ -32,7 +32,7 @@ userRouter.post(
     password: Joi.string().min(8).required(),
     role: Joi.string(),
   }),
-  userController.signUpUser,
+  userController.signUpUser
 );
 
 userRouter.post(
@@ -41,7 +41,7 @@ userRouter.post(
     userName: Joi.string().required(),
     password: Joi.string().required(),
   }),
-  userController.logInUser,
+  userController.logInUser
 );
 
 userRouter.put(
@@ -57,7 +57,7 @@ userRouter.put(
     email: Joi.string().required(),
     role: Joi.string().required(),
   }),
-  userController.updateUserById,
+  userController.updateUserById
 );
 
 export default userRouter;
