@@ -32,7 +32,7 @@ export function OrigamiForm() {
           imageUrl: data.imageUrl,
           artist: data.artist,
         },
-        userSession.token,
+        userSession.token
       );
       console.log(updatedOrigami);
       navigate(`/origamis/${origamiId}`);
@@ -48,7 +48,7 @@ export function OrigamiForm() {
           imageUrl: data.imageUrl,
           artist: data.artist,
         },
-        userSession.token,
+        userSession.token
       );
       console.log(createdOrigami);
       navigate(`/origamis/${createdOrigami._id}`);
@@ -73,29 +73,22 @@ export function OrigamiForm() {
   }, []);
 
   return (
-    <div className="h-full w-full bg-slate-100">
-      <form
-        className="flex flex-col justify-center space-y-5 w-3/5 overflow-hidden m-auto h-full"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Name:</label>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label>Name:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("name", { required: true })}
           />
-          {errors.name && (
-            <span className="text-red-600">Name is required!</span>
-          )}
+          {errors.name && <span>Name is required!</span>}
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">
-            Number of folds:
-          </label>
+          <label>Number of folds:</label>
           <input
             type="number"
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("numberOfFolds", { required: true })}
           />
           {errors.numberOfFolds && (
@@ -104,10 +97,10 @@ export function OrigamiForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Price:</label>
+          <label>Price:</label>
           <input
             type="number"
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("price", { required: true })}
           />
           {errors.price && (
@@ -116,10 +109,10 @@ export function OrigamiForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Origin year:</label>
+          <label>Origin year:</label>
           <input
             type="number"
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("originYear", { required: true })}
           />
           {errors.originYear && (
@@ -128,11 +121,9 @@ export function OrigamiForm() {
         </div>
 
         <div className="flex flex-row items-start space-x-5">
-          <label className="text-2xl uppercase font-medium">
-            Origin story:
-          </label>
+          <label>Origin story:</label>
           <textarea
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("originStory", { required: true })}
           />
           {errors.originStory && (
@@ -141,9 +132,9 @@ export function OrigamiForm() {
         </div>
 
         <div className="flex flex-row items-start space-x-5">
-          <label className="text-2xl uppercase font-medium">Description:</label>
+          <label>Description:</label>
           <textarea
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("description", { required: true })}
           />
           {errors.description && (
@@ -152,9 +143,9 @@ export function OrigamiForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Image url:</label>
+          <label>Image url:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("imageUrl", { required: true })}
           />
           {errors.imageUrl && (
@@ -162,11 +153,11 @@ export function OrigamiForm() {
           )}
         </div>
 
-        <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Artist</label>
+        <div className="border-rose-700 bg-rose-100">
+          <label>Artist</label>
 
           <select
-            className="bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg text-xl"
+            className="border-rose-700 bg-rose-100"
             {...register("artist", { required: true })}
           >
             {artists.map((item) => (
@@ -181,7 +172,7 @@ export function OrigamiForm() {
         </div>
 
         <button
-          className="bg-rose-950 rounded-full uppercase p-2 font-medium text-white upercase"
+          className="bg-rose-950  uppercase p-2 font-medium text-white upercase"
           type="submit"
         >
           Submit

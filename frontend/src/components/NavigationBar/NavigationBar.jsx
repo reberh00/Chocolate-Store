@@ -15,17 +15,17 @@ export function NavigationBar() {
   }
 
   return (
-    <div className="flex flex-row justify-between px-5 py-2 w-full rounded-b-xl bg-slate-300">
+    <div className="flex flex-row justify-between px-5 py-2 w-full rounded-b-xl">
       <div className="flex flex-row justify-start space-x-5">
         <button
-          className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+          className={`px-6 py-3 text-white bg-blue-500  uppercase`}
           onClick={handleOrigamis}
         >
           /Origamis
         </button>
 
         <button
-          className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+          className={`px-6 py-3 text-white bg-blue-500  uppercase`}
           onClick={handleArtists}
         >
           /Artists
@@ -33,19 +33,19 @@ export function NavigationBar() {
       </div>
 
       <div className="flex flex-row justify-end space-x-5">
-        <p className={`px-6 py-3 text-blue-800 font-bold uppercase`}>
+        <p className={`px-6 py-3 text-blue-800  uppercase`}>
           {userSession?.username}
         </p>
         {userSession ? (
           <button
-            className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+            className={`px-6 py-3 text-white bg-blue-500  uppercase`}
             onClick={() => logout()}
           >
             Logout
           </button>
         ) : (
           <button
-            className={`px-6 py-3 text-white bg-blue-500 font-bold rounded-full uppercase`}
+            className={`px-6 py-3 text-white bg-blue-500  rounded-full uppercase`}
             onClick={handleRegister}
           >
             Register

@@ -15,7 +15,7 @@ function App() {
   const { userSession } = useUserSession();
   return (
     <>
-      <div className="w-screen h-screen max-h-screen overflow-hidden flex flex-col bg-rose-200">
+      <div className="w-screen h-screen max-h-screen overflow-hidden flex flex-col">
         <NavigationBar />
         <Routes>
           <Route path="/login" element={<Login />} />
