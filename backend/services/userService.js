@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 async function getAllUsers() {
-  const users = await User.find({});
-  return users;
+  const users = await User.find({role: "user"});
+  return users;
 }
 
 async function getUsersById(userId) {

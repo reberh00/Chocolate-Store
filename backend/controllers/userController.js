@@ -6,6 +6,9 @@ dotenv.config();
 
 const getAllUsers = async (request, response) => {
   try {
+    if (response.locals.user.role != "admin") {
+      throw new Error("You are not authorized for this operation");
+    }
     const users = await userService.getAllUsers();
     return response.json(users);
   } catch (error) {

@@ -5,7 +5,7 @@ import validation from "../middlewares/validation.js";
 import checkJwt from "../middlewares/validateJwtToken.js";
 import Joi from "joi";
 
-userRouter.get("/", userController.getAllUsers);
+userRouter.get("/", checkJwt, userController.getAllUsers);
 
 userRouter.get(
   "/:userId",
