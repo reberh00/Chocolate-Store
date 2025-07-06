@@ -23,6 +23,9 @@ export function ArtistList() {
       userSession.token
     );
     console.log(deleteCount);
+    if (deleteCount.deletedCount != 1) {
+      alert(deleteCount);
+    }
     const artistsData = await ArtistService.getAllArtists();
     setArtists(artistsData);
     console.log(artistsData);
