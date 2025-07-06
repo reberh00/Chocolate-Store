@@ -15,7 +15,7 @@ export function NavigationBar() {
   }
 
   return (
-    <div className="flex flex-row justify-between px-5 py-2 w-full rounded-b-xl">
+    <div className="flex flex-row justify-between px-5 py-2 w-full">
       <div className="flex flex-row justify-start space-x-5">
         <button
           className={`px-6 py-3 text-white bg-blue-500  uppercase`}
@@ -45,7 +45,7 @@ export function NavigationBar() {
           </button>
         ) : (
           <button
-            className={`px-6 py-3 text-white bg-blue-500  rounded-full uppercase`}
+            className={`px-6 py-3 text-white bg-blue-500 uppercase`}
             onClick={handleRegister}
           >
             Register
