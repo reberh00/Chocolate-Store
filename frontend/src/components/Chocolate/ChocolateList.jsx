@@ -18,7 +18,7 @@ export function ChocolateList() {
           ? 1
           : b.manufacturerId.firmName > a.manufacturerId.firmName
             ? -1
-            : 0,
+            : 0
       );
 
       setChocolates(chocolatesData);
@@ -29,7 +29,7 @@ export function ChocolateList() {
   async function handleDelete() {
     const deleteCount = await ChocolateService.deleteChocolateById(
       selectedChocolate._id,
-      getUserSession(),
+      getUserSession()
     );
     console.log(deleteCount);
     const chocolatesData = await ChocolateService.getAllChocolates();
@@ -51,7 +51,7 @@ export function ChocolateList() {
 
   function handleSelectChocolate(chocolate) {
     setSelectedChocolate((prevSelectedChocolate) =>
-      prevSelectedChocolate?._id === chocolate._id ? null : chocolate,
+      prevSelectedChocolate?._id === chocolate._id ? null : chocolate
     );
   }
 
@@ -76,7 +76,7 @@ export function ChocolateList() {
           className="px-5 py-2 text-white font-medium bg-blue-500 rounded-md uppercase"
           onClick={handleCreate}
         >
-          Create
+          Add
         </button>
         <button
           className={`px-5 py-2 text-white font-medium rounded-md uppercase ${selectedChocolate ? "bg-yellow-500" : "bg-yellow-300"}`}
