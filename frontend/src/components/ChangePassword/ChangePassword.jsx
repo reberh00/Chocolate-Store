@@ -22,6 +22,7 @@ export function ChangePassword() {
       },
     );
     if(response.data== "Successfully changed password!") logOut();
+    console.log(response.data);
   };
 
   return (
