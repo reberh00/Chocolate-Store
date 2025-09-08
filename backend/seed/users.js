@@ -17,4 +17,22 @@ export const users = [
     password: "321",
     role: "user",
   },
+    {
+    _id: "64a8e1f243b5a4d52c1d9f32",
+    username: "ante-user",
+    firstName: "Ante",
+    lastName: "Kardun",
+    email: "mijo@example.com",
+    password: "321",
+    role: "user",
+  },
+    {
+    _id: "64a8e1f243b5a4d52c1d9f33",
+    username: "roko-user",
+    firstName: "Mijo",
+    lastName: "Kardun",
+    email: "mijo@example.com",
+    password: "321",
+    role: "admin",
+  },
 ];

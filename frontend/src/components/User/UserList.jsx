@@ -40,7 +40,7 @@ function handleSelectUser(user) {
               onSelectUser={() => handleSelectUser(item)}
               isSelected={selectedUser?._id === item._id}
               id={item.id}
-              userName={item.userName}
+              userName={item.username}
               email={item.email}
               role={item.role}
             />
