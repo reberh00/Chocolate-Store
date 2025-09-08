@@ -26,3 +26,5 @@
   - Chocolate has manufacturerId
     - Change routes accordingly
   - User has role ("admin" or "user")
+
+mijo mijo page
