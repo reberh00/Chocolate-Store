@@ -28,4 +28,4 @@
   - User has role ("admin" or "user")
 
 mijo mijo page
-dujo dujo
+dujo dujo 2
