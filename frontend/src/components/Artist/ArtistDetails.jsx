@@ -17,27 +17,22 @@ export function ArtistDetails() {
   }, []);
 
   return (
-    <div className="flex flex-row justify-center items-center h-full w-full bg-rose-200">
-      <img
-        className="w-1/3 aspect-auto rounded-full block mr-10"
-        src={
-          "https://sugoii-japan.com/wp-content/uploads/2022/05/Takashi-Murakami-Doraemon.jpeg"
-        }
-      />
+    <div className="flex flex-row justify-center items-center h-full w-full">
+      <img className="w-1/3 block mr-10" src={artist?.imageUrl} />
 
       <div className="text-left space-y-2">
-        <p className="text-3xl font-medium text-rose-900">
+        <p className="text-2xl  ">
           {artist?.firstName + " " + artist?.lastName}
         </p>
-        <p className="text-2xl mb-10 font-medium">
+        <p className="text-2xl mb-10 ">
           {artist?.city + ", " + artist?.country}
         </p>
 
-        <p className="text-xl">{artist?.biography}</p>
-        <p className="text-xl">{artist?.originStory}</p>
+        <p className="text-2xl">{artist?.biography}</p>
+        <p className="text-2xl">{artist?.originStory}</p>
 
         <div className="flex mt-5">
-          <p className="text-xl font-medium uppercase mr-2">Net worth:</p>
+          <p className="text-xl  uppercase mr-2">Net worth:</p>
           <p className="text-xl">{artist?.netWorth}$</p>
         </div>
       </div>

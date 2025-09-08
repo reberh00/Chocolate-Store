@@ -31,7 +31,7 @@ export function ArtistForm() {
           netWorth: data.netWorth,
           imageUrl: data.imageUrl,
         },
-        userSession.token,
+        userSession.token
       );
       console.log(updatedArtist);
       navigate(`/artists/${artistId}`);
@@ -46,7 +46,7 @@ export function ArtistForm() {
           netWorth: data.netWorth,
           imageUrl: data.imageUrl,
         },
-        userSession.token,
+        userSession.token
       );
       console.log(createdArtist);
       navigate(`/artists/${createdArtist._id}`);
@@ -70,15 +70,12 @@ export function ArtistForm() {
   }, []);
 
   return (
-    <div className="h-full w-full bg-slate-100">
-      <form
-        className="flex flex-col justify-center space-y-5 w-3/5 overflow-hidden m-auto h-full"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">First name:</label>
+          <label>First name:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("firstName", { required: true })}
           />
           {errors.firstName && (
@@ -87,9 +84,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Last name:</label>
+          <label>Last name:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("lastName", { required: true })}
           />
           {errors.lastName && (
@@ -98,9 +95,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Country:</label>
+          <label>Country:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("country", { required: true })}
           />
           {errors.country && (
@@ -109,9 +106,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">City:</label>
+          <label>City:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("city", { required: true })}
           />
           {errors.city && (
@@ -120,9 +117,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Net worth:</label>
+          <label>Net worth:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("netWorth", { required: true })}
           />
           {errors.city && (
@@ -131,9 +128,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-start space-x-5">
-          <label className="text-2xl uppercase font-medium">Biography:</label>
+          <label>Biography:</label>
           <textarea
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("biography", { required: true })}
           />
           {errors.biography && (
@@ -142,9 +139,9 @@ export function ArtistForm() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Image url:</label>
+          <label>Image url:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("imageUrl", { required: true })}
           />
           {errors.imageUrl && (
@@ -153,7 +150,7 @@ export function ArtistForm() {
         </div>
 
         <button
-          className="bg-rose-950 rounded-full uppercase p-2 font-medium text-white upercase"
+          className="bg-rose-950 uppercase p-2 text-white upercase"
           type="submit"
         >
           Submit

@@ -14,25 +14,28 @@ export function Login() {
       username: data.username,
       password: data.password,
     });
-    console.log(response);
-    login({
-      token: response.data.token,
-      username: response.data.username,
-      firstName: response.data.firstName,
-      role: response.data.role,
-    });
+    if (response.data.token) {
+      login({
+        token: response.data.token,
+        username: response.data.username,
+        firstName: response.data.firstName,
+        role: response.data.role,
+      });
+    } else {
+      alert(response.data);
+    }
   };
 
   return (
-    <div className="h-full w-full bg-slate-100">
+    <div className="h-full w-full ">
       <form
         className="flex flex-col justify-center space-y-5 w-2/5 overflow-hidden m-auto h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Username:</label>
+          <label>Username:</label>
           <input
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("username", { required: true })}
           />
           {errors.username && (
@@ -41,10 +44,10 @@ export function Login() {
         </div>
 
         <div className="flex flex-row items-center space-x-5">
-          <label className="text-2xl uppercase font-medium">Password:</label>
+          <label>Password:</label>
           <input
             type="password"
-            className="text-xl bg-rose-100 p-2 grow border-rose-700 border-4 rounded-lg"
+            className="border-rose-700 bg-rose-100"
             {...register("password", { required: true })}
           />
           {errors.password && (
@@ -53,7 +56,7 @@ export function Login() {
         </div>
 
         <button
-          className="bg-rose-950 rounded-full uppercase p-2 font-medium text-white upercase w-full"
+          className="bg-rose-950  uppercase p-2  text-white  w-full"
           type="submit"
         >
           Login
