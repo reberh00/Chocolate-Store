@@ -2,9 +2,10 @@ import express, { response } from "express";
 const userRouter = express.Router();
 import userController from "../controllers/userController.js";
 import validation from "../middlewares/validation.js";
+import checkJwt from "../middlewares/validateJwtToken.js";
 import Joi from "joi";
 
-userRouter.get("/", userController.getAllUsers);
+userRouter.get("/", checkJwt, userController.getAllUsers);
 
 userRouter.post(
   "/register",
@@ -16,7 +17,7 @@ userRouter.post(
     password: Joi.string().min(8).required(),
     role: Joi.string(),
   }),
-  userController.register,
+  userController.register
 );
 
 userRouter.post(
@@ -25,7 +26,7 @@ userRouter.post(
     username: Joi.string().required(),
     password: Joi.string().required(),
   }),
-  userController.login,
+  userController.login
 );
 
 export default userRouter;

@@ -10,6 +10,7 @@ import { ArtistList } from "./components/Artist/ArtistList.jsx";
 import { ArtistDetails } from "./components/Artist/ArtistDetails.jsx";
 import { ArtistForm } from "./components/Artist/ArtistForm.jsx";
 import { Register } from "./components/Register/Register.jsx";
+import { UserList } from "./components/User/UserList.jsx";
 
 function App() {
   const { userSession } = useUserSession();
@@ -86,6 +87,15 @@ function App() {
             element={
               <ProtectedRoute>
                 {userSession?.role === "admin" && <ArtistForm />}
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <UserList />
               </ProtectedRoute>
             }
           />

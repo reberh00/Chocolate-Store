@@ -5,6 +5,8 @@ import userService from "../services/userService.js";
 dotenv.config();
 
 const getAllUsers = async (request, response) => {
+  if (response.locals.user.role != "admin") return response.json([]);
+
   try {
     const users = await userService.getAllUsers();
     return response.json(users);
@@ -28,13 +30,13 @@ const register = async (request, response) => {
       userData.lastName,
       userData.email,
       hashedPassword,
-      userData.role,
+      userData.role
     );
 
     const jwtToken = await userService.createJwtToken(
       newUser.username,
       newUser.role,
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({
@@ -51,7 +53,7 @@ const register = async (request, response) => {
       }
       console.log(`Validation errors in register: ${validationErrors}`);
       return response.json(
-        `Validation errors in register: ${validationErrors}`,
+        `Validation errors in register: ${validationErrors}`
       );
     }
     return response.json(`Error in register:` + error.message);
@@ -72,7 +74,7 @@ const login = async (request, response) => {
     const jwtToken = await userService.createJwtToken(
       existingUser.username,
       existingUser.role,
-      process.env.secret,
+      process.env.secret
     );
 
     return response.json({
