@@ -28,3 +28,7 @@
   - User has role ("admin" or "user")
 
 mijo mijo page
+
+
+dodati jos jednu stranicu sa listom svih usera
+i tu stranicu moze vidjeti samo admin
