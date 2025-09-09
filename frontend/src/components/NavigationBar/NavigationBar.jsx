@@ -13,6 +13,9 @@ export function NavigationBar() {
   function handleRegister() {
     navigate(`/register`);
   }
+  function handleUsers() {
+    navigate(`/users`);
+  }
 
   return (
     <div className="flex flex-row justify-between px-5 py-2 w-full">
@@ -29,6 +32,13 @@ export function NavigationBar() {
           onClick={handleArtists}
         >
           /Artists
+        </button>
+
+        <button
+          className={`px-6 py-3 text-white bg-blue-500  uppercase`}
+          onClick={handleUsers}
+        >
+          /Users
         </button>
       </div>
 
