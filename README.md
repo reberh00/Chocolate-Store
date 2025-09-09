@@ -26,6 +26,4 @@
   - Chocolate has manufacturerId
     - Change routes accordingly
   - User has role ("admin" or "user")
-
-mijo mijo page
-dujo dujo 23
+- Provjera jeli korisnik admin ti je prva linija u userControlleru na backendu u getAllUsers di iz tokena parsiraš jeli admin
